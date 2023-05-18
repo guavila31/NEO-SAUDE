@@ -1,0 +1,14 @@
+<div class="rodape">
+  <div class="menus">
+
+    <div class="icones" (click)="trocarMenu('receita')" [hidden]="!bMenuReceita"><ion-icon name="medkit"></ion-icon></div>
+    <div class="icones" (click)="trocarMenu('receita')" [hidden]="bMenuReceita"><ion-icon name="medkit-outline"></ion-icon></div>
+
+    <div class="icones" (click)="trocarMenu('home')" [hidden]="!bMenuHome"><ion-icon name="home"></ion-icon></div>
+    <div class="icones" (click)="trocarMenu('home')" [hidden]="bMenuHome"><ion-icon name="home-outline"></ion-icon></div>
+
+    <div class="icones" (click)="trocarMenu('historico')" [hidden]="!bMenuHistorico"><ion-icon name="clipboard"></ion-icon></div>
+    <div class="icones" (click)="trocarMenu('historico')" [hidden]="bMenuHistorico"><ion-icon name="clipboard-outline"></ion-icon></div>
+
+  </div>
+</div>

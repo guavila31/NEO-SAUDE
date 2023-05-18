@@ -1,0 +1,14 @@
+<ion-header>
+  <app-cabecalho></app-cabecalho>
+</ion-header>
+
+
+<ion-content [fullscreen]="true">
+  <app-home [hidden]="!pacieteService.bMenuHome"></app-home>
+  <app-receita [hidden]="!pacieteService.bMenuReceita"></app-receita>
+  <app-historico [hidden]="!pacieteService.bMenuHistorico"></app-historico>
+</ion-content>
+
+<ion-footer class="box-rodape">
+<app-rodape></app-rodape>
+</ion-footer>

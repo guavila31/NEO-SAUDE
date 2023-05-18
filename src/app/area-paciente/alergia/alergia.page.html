@@ -1,0 +1,89 @@
+<div class="cabecalho">
+  <h2 class="animate__animated animate__slideInRight">Lista de alergias</h2>
+  <ion-icon [routerLink]="'../'" name="chevron-back-outline" color="primary" style="height: 100%;"></ion-icon>
+</div>
+
+<ion-content class="ion-padding">
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button>
+      <ion-icon name="add" [routerLink]="'./detalhe-alergia'"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <div class="alergias">
+    <!-- intensidade alta -->
+      <div class="cartao animate__animated animate__backInUp" *ngFor="let lista of aDadosAlergia" (click)="editarAlergia(lista)">
+        <div class="titulo-cartao">
+          <p>{{lista.tipoAlergia}}</p>
+        </div>
+        <div *ngIf="lista.intensidade === 'ALTA'" class="intensidade-cartao-alta">
+          <p>{{lista.intensidade}}</p>
+        </div>
+        <div *ngIf="lista.intensidade === 'MEDIA'" class="intensidade-cartao-media">
+          <p>{{lista.intensidade}}</p>
+        </div>
+        <div *ngIf="lista.intensidade === 'BAIXA'" class="intensidade-cartao-baixa">
+          <p>{{lista.intensidade}}</p>
+        </div>
+        <div class="datas-cartao">
+          <ion-label>
+            <p class="titulo-data">Diagnóstico</p>
+            <h3 class="data">{{formatarData(lista.dataDiagnostico)}}</h3>
+          </ion-label>
+          <ion-label>
+            <p class="titulo-data">Última reação</p>
+            <h3 class="data">{{formatarData(lista.dataUltimaReacao)}}</h3>
+          </ion-label>
+        </div>
+        <div class="rodape-cartao">
+          <p>{{lista.descricao ? lista.descricao : 'Outros'}}</p>
+        </div>
+      </div>
+
+    <!-- Intensidade média -->
+    <!-- <div class="cartao animate__animated animate__backInUp">
+      <div class="titulo-cartao">
+        <p>Tipo de alergia</p>
+      </div>
+      <div class="intensidade-cartao-media">
+        <p>média</p>
+      </div>
+      <div class="datas-cartao">
+        <ion-label>
+          <p class="titulo-data">Diagnóstico</p>
+          <h3 class="data">01/03/2023</h3>
+        </ion-label>
+        <ion-label>
+          <p class="titulo-data">Última reação</p>
+          <h3 class="data">01/03/2023</h3>
+        </ion-label>
+      </div>
+      <div class="rodape-cartao">
+        <p>Nome da alergia</p>
+      </div>
+    </div>
+
+    <!-- Intensidade baixa -->
+    <!-- <div class="cartao animate__animated animate__backInUp">
+      <div class="titulo-cartao">
+        <p>Tipo de alergia</p>
+      </div>
+      <div class="intensidade-cartao-baixa">
+        <p>Baixa</p>
+      </div>
+      <div class="datas-cartao">
+        <ion-label>
+          <p class="titulo-data">Diagnóstico</p>
+          <h3 class="data">01/03/2023</h3>
+        </ion-label>
+        <ion-label>
+          <p class="titulo-data">Última reação</p>
+          <h3 class="data">01/03/2023</h3>
+        </ion-label>
+      </div>
+      <div class="rodape-cartao">
+        <p>Nome da alergia</p>
+      </div>
+    </div> -->
+  </div>
+</ion-content>

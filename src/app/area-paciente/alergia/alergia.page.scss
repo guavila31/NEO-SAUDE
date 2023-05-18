@@ -1,0 +1,110 @@
+.cabecalho {
+  background-color: #fff;
+  height: 60px;
+  font-size: 45px;
+  color: #0a346b;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+h2 {
+  font-weight: 500;
+  text-align: center;
+  font-size: 28px;
+  margin-left: 10px;
+}
+
+.cartao {
+  border: 1px solid #1e1e1e6e;
+  border-radius: 10px;
+  margin: 40px 15px;
+  padding: 10px;
+  height: 150px;
+  box-shadow: 2px 3px 3px rgba(0, 0, 0, 0.75);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  // background-image: linear-gradient(#a0fff6, #a0fff6 20px, transparent 20px, transparent calc(100% - 20px), #a0fff6 calc(100% - 20px));
+  background: linear-gradient(
+    #0a346b 30px,
+    transparent 30px,
+    transparent calc(100% - 30px),
+    #0a346b calc(100% - 30px)
+  );
+  color: #fff;
+  .titulo-cartao {
+    position: relative;
+    bottom: 5px;
+    font-weight: 400;
+  }
+  .intensidade-cartao-alta {
+    box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.75);
+    background-color: #A83B3B;
+    width: 100px;
+    height: 30px;
+    border-radius: 50px;
+    border: 1px solid #1e1e1e94;
+    p {
+      color: #1e1e1e;
+      padding: 5px;
+      text-align: center;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+  }
+  .intensidade-cartao-media {
+    box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.75);
+    background-color: #ebc917;
+    width: 100px;
+    height: 30px;
+    border-radius: 50px;
+    border: 1px solid #1e1e1e94;
+    p {
+      color: #1e1e1e;
+      padding: 5px;
+      text-align: center;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+  }
+  .intensidade-cartao-baixa {
+    box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.75);
+    background-color: #8D8D8D;
+    width: 100px;
+    height: 30px;
+    border-radius: 50px;
+    border: 1px solid #1e1e1e94;
+    p {
+      color: #1e1e1e;
+      padding: 5px;
+      text-align: center;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+  }
+  .datas-cartao {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    ion-label {
+      .data {
+        color: #1e1e1e;
+        font-size: 20px;
+        font-weight: 600;
+        text-decoration: underline;
+      }
+      .titulo-data {
+        color: #1e1e1e;
+        font-weight: 500;
+      }
+    }
+  }
+  .rodape-cartao {
+    position: relative;
+    top: 5px;
+    font-weight: 400;
+  }
+}

@@ -1,0 +1,166 @@
+<div class="cabecalho">
+  <h2 class="animate__animated animate__slideInRight">Alergia</h2>
+  <ion-icon [routerLink]="'../'" name="chevron-back-outline" color="primary" style="height: 100%;"></ion-icon>
+</div>
+
+<ion-content class="ion-padding">
+
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end" >
+    <ion-fab-button>
+      <ion-icon name="caret-up-circle-outline"></ion-icon>
+    </ion-fab-button>
+
+    <ion-fab-list side="top">
+      <ion-fab-button color="dark" (click)="criarAlergia()">
+        <ion-icon name="clipboard-outline" color="success"></ion-icon>
+      </ion-fab-button>
+
+      <ion-fab-button color="dark">
+        <ion-icon name="trash-outline" color="danger"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
+
+  <div class="titulo">
+    <ion-label>Selecione a intensidade:</ion-label>
+  </div>
+  <div class="lista-intensidade">
+
+    <div class="customCheckBoxHolder">
+      <input (click)="selecionarIntensidade('A')" type="checkbox" id="bIntensidadeAlta" [(ngModel)]="bIntensidadeAlta"
+        class="customCheckBoxInput">
+      <label for="bIntensidadeAlta" class="customCheckBoxWrapper">
+        <div class="customCheckBox alta">
+          <div class="inner">ALTA</div>
+        </div>
+      </label>
+    </div>
+
+    <div class="customCheckBoxHolder">
+      <input (click)="selecionarIntensidade('M')" type="checkbox" id="bIntensidadeMedia" [(ngModel)]="bIntensidadeMedia"
+        class="customCheckBoxInput">
+      <label for="bIntensidadeMedia" class="customCheckBoxWrapper">
+        <div class="customCheckBox media">
+          <div class="inner">MÉDIA</div>
+        </div>
+      </label>
+    </div>
+
+    <div class="customCheckBoxHolder">
+      <input (click)="selecionarIntensidade('B')" type="checkbox" id="bIntensidadeBaixa" [(ngModel)]="bIntensidadeBaixa"
+        class="customCheckBoxInput">
+      <label for="bIntensidadeBaixa" class="customCheckBoxWrapper">
+        <div class="customCheckBox baixa">
+          <div class="inner">BAIXA</div>
+        </div>
+      </label>
+    </div>
+  </div>
+
+  <div class="titulo">
+    <ion-label>Tipo da alergia:</ion-label>
+  </div>
+
+  <div class="lista-tipo-alergia">
+    <div class="customCheckBoxHolder">
+      <input (click)="selecionarIntensidade('AM')" type="checkbox" id="bAlergiaMedicamento"
+        [(ngModel)]="bAlergiaMedicamento" class="customCheckBoxInput">
+      <label for="bAlergiaMedicamento" class="customCheckBoxWrapper">
+        <div class="customCheckBox tipo">
+          <div class="inner">MEDICAMENTO</div>
+        </div>
+      </label>
+    </div>
+
+    <div class="customCheckBoxHolder">
+      <input (click)="selecionarIntensidade('AP')" type="checkbox" id="bAlergiaPele" [(ngModel)]="bAlergiaPele"
+        class="customCheckBoxInput">
+      <label for="bAlergiaPele" class="customCheckBoxWrapper">
+        <div class="customCheckBox tipo">
+          <div class="inner">PELE</div>
+        </div>
+      </label>
+    </div>
+
+    <div class="customCheckBoxHolder">
+      <input (click)="selecionarIntensidade('AA')" type="checkbox" id="bAlergiaAlimento" [(ngModel)]="bAlergiaAlimento"
+        class="customCheckBoxInput">
+      <label for="bAlergiaAlimento" class="customCheckBoxWrapper">
+        <div class="customCheckBox tipo">
+          <div class="inner">ALIMENTO</div>
+        </div>
+      </label>
+    </div>
+
+    <div class="customCheckBoxHolder">
+      <input (click)="selecionarIntensidade('AR')" type="checkbox" id="bAlergiaRespiratorio"
+        [(ngModel)]="bAlergiaRespiratorio" class="customCheckBoxInput">
+      <label for="bAlergiaRespiratorio" class="customCheckBoxWrapper">
+        <div class="customCheckBox tipo">
+          <div class="inner">RESPIRATÓRIO</div>
+        </div>
+      </label>
+    </div>
+
+    <div class="customCheckBoxHolder">
+      <input (click)="selecionarIntensidade('AO')" type="checkbox" id="bAlergiaOculares" [(ngModel)]="bAlergiaOculares"
+        class="customCheckBoxInput">
+      <label for="bAlergiaOculares" class="customCheckBoxWrapper">
+        <div class="customCheckBox tipo">
+          <div class="inner">OCULAR</div>
+        </div>
+      </label>
+    </div>
+
+    <div class="customCheckBoxHolder">
+      <input (click)="selecionarIntensidade('AU')" type="checkbox" id="bAlergiaOutros" [(ngModel)]="bAlergiaOutros"
+        class="customCheckBoxInput">
+      <label for="bAlergiaOutros" class="customCheckBoxWrapper">
+        <div class="customCheckBox tipo">
+          <div class="inner">OUTRO</div>
+        </div>
+      </label>
+    </div>
+  </div>
+
+  <div class="linha"></div>
+
+  <div class="data">
+    <div class="diagnostico">
+      <ion-label class="titulo-date">Diagnóstico</ion-label>
+      <ion-datetime-button datetime="datadiagnostico"></ion-datetime-button>
+      <ion-modal [keepContentsMounted]="true">
+        <ng-template>
+          <ion-datetime presentation="date" id="datadiagnostico" mode="ios"
+            (ionChange)="confirmar($event, 'D')" [(ngModel)]="sDataDiagnostico"></ion-datetime>
+        </ng-template>
+      </ion-modal>
+    </div>
+
+    <div class="ultima-reacao">
+      <ion-label class="titulo-date">Última reação</ion-label>
+      <ion-datetime-button datetime="dataultimareacao"></ion-datetime-button>
+      <ion-modal [keepContentsMounted]="true">
+        <ng-template>
+          <ion-datetime presentation="date" id="dataultimareacao" mode="ios"
+            (ionChange)="confirmar($event, 'U')"  [(ngModel)]="sDataReacao"></ion-datetime>
+        </ng-template>
+      </ion-modal>
+    </div>
+  </div>
+
+  <div class="linha">
+    <p style="margin-top: 15px;">Descrição da alergia:</p>
+  </div>
+  <div class="descricao">
+    <ion-textarea rows="7" cols="20" placeholder="Digite aqui..." [(ngModel)]="sTextoDescricao"></ion-textarea>
+  </div>
+
+  <div class="linha">
+    <p style="margin-top: 15px;">tratamento:</p>
+  </div>
+  <div class="descricao">
+    <ion-textarea rows="7" cols="20" placeholder="Digite aqui..." [(ngModel)]="sTextoTratamento"></ion-textarea>
+  </div>
+
+</ion-content>

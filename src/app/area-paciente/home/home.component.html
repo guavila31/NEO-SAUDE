@@ -1,0 +1,67 @@
+<ion-content>
+
+  <!-- Próximo alarme -->
+  <!-- <div class="cartao">
+    <div class="icone">
+      <ion-icon name="alarm"></ion-icon>
+      <div class="horas">
+        <p>18</p>
+        <p>00</p>
+      </div>
+    </div>
+    <div class="titulo-alarme">
+      <p class="titulo">Próximo alarme</p>
+      <p class="nome">Nome do alarme</p>
+      <p class="hora-medicamento">12|12 Horas por 10 dias</p>
+    </div>
+    <div class="botao-lateral">
+      Ver Todos
+    </div>
+  </div> -->
+
+  <!-- Relatório de alergias -->
+  <div class="cartao">
+    <div class="icone">
+      <ion-icon name="hand-left-outline"></ion-icon>
+      <div class="intensidade">
+        <div class="alta">
+          <span>{{sContagemAlta}}</span>
+          <span>Alta</span>
+        </div>
+        <div class="media">
+          <span>{{sContagemMedia}}</span>
+          <span>Média</span>
+        </div>
+        <div class="baixa">
+          <span>{{sContagemBaixa}}</span>
+          <span>Baixa</span>
+        </div>
+      </div>
+    </div>
+    <div class="titulo-alergia">
+      <p class="titulo">Última reação</p>
+      <p class="nome">Nome da reação</p>
+      <p class="hora-medicamento">21/07/2023</p>
+    </div>
+    <div [routerLink]="'./alergia'" class="botao-lateral">
+      Ver Todos
+    </div>
+  </div>
+
+  <!-- Receitas ativas -->
+  <div class="cartao">
+    <div class="icone">
+      <ion-icon name="reader-outline"></ion-icon>
+      <div class="qtd-receitas">
+        <p>3</p>
+      </div>
+    </div>
+    <div class="titulo-receitas">
+      <p class="titulo">Receitas ativas</p>
+    </div>
+    <div class="botao-lateral">
+      Ver Todos
+    </div>
+  </div>
+
+</ion-content>
