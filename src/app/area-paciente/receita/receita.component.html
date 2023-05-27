@@ -1,3 +1,21 @@
-<p>
-  receita works!
-</p>
+<div class="cabecalho">
+  <h2 class="animate__animated animate__slideInRight">Receitas ativas</h2>
+  <ion-icon [routerLink]="'../'" name="chevron-back-outline" color="primary" style="height: 100%;"></ion-icon>
+</div>
+
+<div class="receitas">
+  <div class="back animate__animated animate__backInUp">
+    <div class="back-content">
+      <div class="cartao">
+        <!-- <div class="cartao animate__animated animate__backInUp" *ngFor="let lista of aDadosReceitas" (click)="verReceita(lista)"> -->
+        <div class="titulo-cartao">
+          <p>Clinico Geral</p>
+          <p>DR. RENATO DE AVILA KFOURI</p>
+        </div>
+        <img src="../../../assets/img/fundo-remedio.jpg" alt="">
+        <div class="rodape-cartao">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

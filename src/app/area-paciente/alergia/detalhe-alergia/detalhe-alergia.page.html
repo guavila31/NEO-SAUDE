@@ -11,11 +11,15 @@
     </ion-fab-button>
 
     <ion-fab-list side="top">
-      <ion-fab-button color="dark" (click)="criarAlergia()">
+      <ion-fab-button color="medium" (click)="criarAlergia()" *ngIf="bVaiCriar">
         <ion-icon name="clipboard-outline" color="success"></ion-icon>
       </ion-fab-button>
 
-      <ion-fab-button color="dark">
+      <ion-fab-button color="medium" (click)="alterarAlergia()" *ngIf="!bVaiCriar">
+        <ion-icon name="create-outline" color="success"></ion-icon>
+      </ion-fab-button>
+
+      <ion-fab-button color="medium" (click)="deletarAlergia()" *ngIf="sIdAlergia">
         <ion-icon name="trash-outline" color="danger"></ion-icon>
       </ion-fab-button>
     </ion-fab-list>
@@ -27,7 +31,7 @@
   <div class="lista-intensidade">
 
     <div class="customCheckBoxHolder">
-      <input (click)="selecionarIntensidade('A')" type="checkbox" id="bIntensidadeAlta" [(ngModel)]="bIntensidadeAlta"
+      <input (click)="selecionarIntensidadeMedicamento('A', '1')" type="checkbox" id="bIntensidadeAlta" [(ngModel)]="bIntensidadeAlta"
         class="customCheckBoxInput">
       <label for="bIntensidadeAlta" class="customCheckBoxWrapper">
         <div class="customCheckBox alta">
@@ -37,7 +41,7 @@
     </div>
 
     <div class="customCheckBoxHolder">
-      <input (click)="selecionarIntensidade('M')" type="checkbox" id="bIntensidadeMedia" [(ngModel)]="bIntensidadeMedia"
+      <input (click)="selecionarIntensidadeMedicamento('M', '1')" type="checkbox" id="bIntensidadeMedia" [(ngModel)]="bIntensidadeMedia"
         class="customCheckBoxInput">
       <label for="bIntensidadeMedia" class="customCheckBoxWrapper">
         <div class="customCheckBox media">
@@ -47,7 +51,7 @@
     </div>
 
     <div class="customCheckBoxHolder">
-      <input (click)="selecionarIntensidade('B')" type="checkbox" id="bIntensidadeBaixa" [(ngModel)]="bIntensidadeBaixa"
+      <input (click)="selecionarIntensidadeMedicamento('B', '1')" type="checkbox" id="bIntensidadeBaixa" [(ngModel)]="bIntensidadeBaixa"
         class="customCheckBoxInput">
       <label for="bIntensidadeBaixa" class="customCheckBoxWrapper">
         <div class="customCheckBox baixa">
@@ -63,7 +67,7 @@
 
   <div class="lista-tipo-alergia">
     <div class="customCheckBoxHolder">
-      <input (click)="selecionarIntensidade('AM')" type="checkbox" id="bAlergiaMedicamento"
+      <input (click)="selecionarIntensidadeMedicamento('AM', '1')" type="checkbox" id="bAlergiaMedicamento"
         [(ngModel)]="bAlergiaMedicamento" class="customCheckBoxInput">
       <label for="bAlergiaMedicamento" class="customCheckBoxWrapper">
         <div class="customCheckBox tipo">
@@ -73,7 +77,7 @@
     </div>
 
     <div class="customCheckBoxHolder">
-      <input (click)="selecionarIntensidade('AP')" type="checkbox" id="bAlergiaPele" [(ngModel)]="bAlergiaPele"
+      <input (click)="selecionarIntensidadeMedicamento('AP', '1')" type="checkbox" id="bAlergiaPele" [(ngModel)]="bAlergiaPele"
         class="customCheckBoxInput">
       <label for="bAlergiaPele" class="customCheckBoxWrapper">
         <div class="customCheckBox tipo">
@@ -83,7 +87,7 @@
     </div>
 
     <div class="customCheckBoxHolder">
-      <input (click)="selecionarIntensidade('AA')" type="checkbox" id="bAlergiaAlimento" [(ngModel)]="bAlergiaAlimento"
+      <input (click)="selecionarIntensidadeMedicamento('AA', '1')" type="checkbox" id="bAlergiaAlimento" [(ngModel)]="bAlergiaAlimento"
         class="customCheckBoxInput">
       <label for="bAlergiaAlimento" class="customCheckBoxWrapper">
         <div class="customCheckBox tipo">
@@ -93,7 +97,7 @@
     </div>
 
     <div class="customCheckBoxHolder">
-      <input (click)="selecionarIntensidade('AR')" type="checkbox" id="bAlergiaRespiratorio"
+      <input (click)="selecionarIntensidadeMedicamento('AR', '1')" type="checkbox" id="bAlergiaRespiratorio"
         [(ngModel)]="bAlergiaRespiratorio" class="customCheckBoxInput">
       <label for="bAlergiaRespiratorio" class="customCheckBoxWrapper">
         <div class="customCheckBox tipo">
@@ -103,7 +107,7 @@
     </div>
 
     <div class="customCheckBoxHolder">
-      <input (click)="selecionarIntensidade('AO')" type="checkbox" id="bAlergiaOculares" [(ngModel)]="bAlergiaOculares"
+      <input (click)="selecionarIntensidadeMedicamento('AO', '1')" type="checkbox" id="bAlergiaOculares" [(ngModel)]="bAlergiaOculares"
         class="customCheckBoxInput">
       <label for="bAlergiaOculares" class="customCheckBoxWrapper">
         <div class="customCheckBox tipo">
@@ -113,7 +117,7 @@
     </div>
 
     <div class="customCheckBoxHolder">
-      <input (click)="selecionarIntensidade('AU')" type="checkbox" id="bAlergiaOutros" [(ngModel)]="bAlergiaOutros"
+      <input (click)="selecionarIntensidadeMedicamento('AU', '1')" type="checkbox" id="bAlergiaOutros" [(ngModel)]="bAlergiaOutros"
         class="customCheckBoxInput">
       <label for="bAlergiaOutros" class="customCheckBoxWrapper">
         <div class="customCheckBox tipo">

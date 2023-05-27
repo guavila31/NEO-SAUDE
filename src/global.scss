@@ -30,10 +30,77 @@
   src: url('assets/fonts/MontserratAlt1-Regular.ttf');
 }
 
+
+:root{
+  font-family: 'Montserrat', sans-serif, cursive !important;
+
+  --ion-background-color: #dbdbdb;
+	--ion-background-color-rgb: 219,219,219;
+
+	--ion-text-color: #002770;
+	--ion-text-color-rgb: 0,39,112;
+
+	--ion-color-step-50: #d0d2d6;
+	--ion-color-step-100: #c5c9d0;
+	--ion-color-step-150: #bac0cb;
+	--ion-color-step-200: #afb7c6;
+	--ion-color-step-250: #a4aec0;
+	--ion-color-step-300: #99a5bb;
+	--ion-color-step-350: #8e9cb6;
+	--ion-color-step-400: #8393b0;
+	--ion-color-step-450: #788aab;
+	--ion-color-step-500: #6e81a6;
+	--ion-color-step-550: #6378a0;
+	--ion-color-step-600: #586f9b;
+	--ion-color-step-650: #4d6695;
+	--ion-color-step-700: #425d90;
+	--ion-color-step-750: #37548b;
+	--ion-color-step-800: #2c4b85;
+	--ion-color-step-850: #214280;
+	--ion-color-step-900: #16397b;
+	--ion-color-step-950: #0b3075;
+
+  --ion-color-royal: #387DFF;
+	--ion-color-royal-rgb: 56,125,255;
+	--ion-color-royal-contrast: #bcd2fa;
+	--ion-color-royal-contrast-rgb: 188, 210, 250;
+	--ion-color-royal-shade: #316ee0;
+	--ion-color-royal-tint: #4c8aff;
+}
+
+.ion-color-royal {
+  --ion-color-base: var(--ion-color-royal);
+  --ion-color-base-rgb: var(--ion-color-royal-rgb);
+  --ion-color-contrast: var(--ion-color-royal-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-royal-contrast-rgb);
+  --ion-color-shade: var(--ion-color-royal-shade);
+  --ion-color-tint: var(--ion-color-royal-tint);
+}
+
+
+ion-datetime {
+  --background: #bcd2fa;
+  --background-rgb: 188, 210, 250;
+
+  border-radius: 16px;
+  box-shadow: rgba(var(--ion-color-royal-rgb), 0.3) 0px 10px 15px -3px;
+  .calendar-days-of-week{
+    color: #316ee0!important;
+  }
+  .datetime-buttons{
+    border-top: 0.55px solid #316ee0!important;
+  }
+}
+
+:host .calendar-days-of-week{
+  color: #316ee0!important;
+}
+
 body {
-  background-color: #FAFAFA;
-  h1, h2, h3, h4, h5, p, span, button, ion-button,label,ion-label{
-    font-family: 'Montserrat', sans-serif, cursive;
+  background-color: #dbdbdb;
+  font-family: 'Montserrat', sans-serif, cursive !important;
+  h1, h2, h3, h4, h5, p, span, button, ion-button,label,
+  ion-label, label, div, ion-list, ion-item, ion-select, ion-select-option, ion-modal, ion-datetime, ion-datetime-button{
     margin: 0;
     padding: 0;
   }
@@ -45,3 +112,12 @@ body {
 ion-fab-button::part(native) {
   box-shadow: 3px 3px 3px 3px rgba(0, 0, 0, 0.4), 0px 1px 3px 1px rgba(0, 0, 0, 0.60);
 }
+
+.modal-filtro-receitas{
+  background: #222;
+}
+
+
+
+
+

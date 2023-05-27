@@ -40,8 +40,8 @@
     </div>
     <div class="titulo-alergia">
       <p class="titulo">Última reação</p>
-      <p class="nome">Nome da reação</p>
-      <p class="hora-medicamento">21/07/2023</p>
+      <p class="nome">{{sTipoAlergia ? sTipoAlergia : "Sem alergia"}}</p>
+      <p class="hora-medicamento">{{sDataUltimaReacao ? formatarData(sDataUltimaReacao) : ""}}</p>
     </div>
     <div [routerLink]="'./alergia'" class="botao-lateral">
       Ver Todos
@@ -53,11 +53,12 @@
     <div class="icone">
       <ion-icon name="reader-outline"></ion-icon>
       <div class="qtd-receitas">
-        <p>3</p>
+        <p>{{sReceitasAtivas}}</p>
       </div>
     </div>
     <div class="titulo-receitas">
-      <p class="titulo">Receitas ativas</p>
+      <p class="titulo">{{(sReceitasAtivas === "0" || sReceitasAtivas === "1") ? "Receita ativa" : "Receitas ativas" }}
+      </p>
     </div>
     <div class="botao-lateral">
       Ver Todos

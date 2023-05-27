@@ -5,5 +5,6 @@ export interface AlergiaInterface {
   dataDiagnostico?: string,
   dataUltimaReacao?: string,
   descricao?: string,
-  tratamento?: string
+  tratamento?: string,
+  id?: string
 }

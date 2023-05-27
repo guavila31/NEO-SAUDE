@@ -1,0 +1,39 @@
+ion-toolbar{
+  height: 60px;
+  display: flex;
+  align-items: center;
+}
+.titulo{
+  font-size: 25px;
+  font-weight: 500;
+}
+
+.cabecalho{
+  font-size: 30px;
+  font-weight: 500;
+  color: #0a346b;
+  text-transform: uppercase;
+}
+
+.data {
+  display: flex;
+  justify-content: space-between;
+  margin: 75px 20px 20px 20px;
+
+  .inicio {
+    .titulo-date {
+      font-size: 18px;
+      font-weight: 600;
+      display: block;
+      text-align: center;
+    }
+  }
+  .final {
+    .titulo-date {
+      font-size: 18px;
+      font-weight: 600;
+      display: block;
+      text-align: center;
+    }
+  }
+}

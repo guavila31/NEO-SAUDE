@@ -1,0 +1,56 @@
+<ion-content>
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>
+        <p class="cabecalho">
+          Filtros
+        </p>
+      </ion-title>
+      <ion-button (click)="voltar()" fill="clear">
+        <ion-icon slot="icon-only" name="chevron-back"></ion-icon>
+      </ion-button>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-list style="margin-top: 30px;">
+    <ion-item>
+      <ion-label class="titulo">Especialidade</ion-label>
+      <ion-select [(ngModel)]="especialidades" okText="Selecionar" cancelText="Cancelar" interface="action-sheet"
+        mode="ios" placeholder="Selecione" (ionChange)="especialidadeSelecionada()">
+        <ion-select-option value="geral">Clinico Geral</ion-select-option>
+        <ion-select-option value="oftalmo">Oftalmologista</ion-select-option>
+        <ion-select-option value="cardio">Cardiologista</ion-select-option>
+        <ion-select-option value="neuro">Neurologista</ion-select-option>
+        <ion-select-option value="pediatra">Pediatra</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+
+  <div class="data">
+
+    <div class="inicio">
+      <ion-label class="titulo-date">Data inicio:</ion-label>
+      <ion-datetime-button datetime="dataInicio"></ion-datetime-button>
+      <ion-modal [keepContentsMounted]="true">
+        <ng-template>
+          <ion-datetime [showDefaultButtons]="true" color="royal" presentation="date" id="dataInicio" mode="ios"
+            (ionChange)="confirmar($event, 'I')" [(ngModel)]="sDataInicio"></ion-datetime>
+        </ng-template>
+      </ion-modal>
+    </div>
+
+    <div class="final">
+      <ion-label class="titulo-date">Data final:</ion-label>
+      <ion-datetime-button datetime="dataFinal" mode="ios"></ion-datetime-button>
+      <ion-modal [keepContentsMounted]="true">
+        <ng-template>
+          <ion-datetime [showDefaultButtons]="true" color="royal" presentation="date" id="dataFinal" mode="ios"
+            (ionChange)="confirmar($event, 'F')" [(ngModel)]="sDataFinal" style="border-radius: 15px;"></ion-datetime>
+        </ng-template>
+      </ion-modal>
+    </div>
+  </div>
+
+
+
+</ion-content>

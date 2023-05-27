@@ -12,6 +12,7 @@ import { RodapeComponent } from '../components/rodape/rodape.component';
 import { HomeComponent } from './home/home.component';
 import { ReceitaComponent } from './receita/receita.component';
 import { HistoricoComponent } from './historico/historico.component';
+import { ModalFiltroReceitasComponent } from '../modals/modal-filtro-receitas/modal-filtro-receitas.component';
 
 @NgModule({
   imports: [
@@ -26,7 +27,8 @@ import { HistoricoComponent } from './historico/historico.component';
     RodapeComponent,
     HomeComponent,
     ReceitaComponent,
-    HistoricoComponent
+    HistoricoComponent,
+    ModalFiltroReceitasComponent
   ]
 })
 export class AreaPacientePageModule {}

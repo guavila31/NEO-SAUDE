@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { AlertController, IonModal, LoadingController, NavController, NavParams } from '@ionic/angular';
 import { ApiService } from 'src/app/services/api-service.service';
 import { AlergiaInterface } from '../../../interface/alergia-interface'
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-detalhe-alergia',
@@ -37,32 +37,38 @@ export class DetalheAlergiaPage implements OnInit {
   public aCadastroAlergia: AlergiaInterface = {}
   public bEstaValido: boolean = false
 
-  public sTipoAcao: string = 'A'
+  public bVaiCriar: boolean = true
+  public sIdAlergia: string = ''
   constructor(
     private api: ApiService,
     private alertCtrl: AlertController,
     private loadingCtrl: LoadingController,
     private navCtrl: NavController,
-    private activatedRoute: ActivatedRoute,
-    private navParams: NavParams
+    private router: Router
   ) {
   }
 
-  ionViewDidEnter() {
-    console.log(this.activatedRoute.snapshot)
-    const objetoRecebido = 'this.activatedRoute.snapshot.state.objeto';
-    // const objetoRecebido = this.activatedRoute.snapshot.state.objeto;
-    // Faça o que você precisa com o objeto recebido
-    console.log(objetoRecebido)
-    if (objetoRecebido)
-      this.sTipoAcao = 'E'
-    else
-      this.sTipoAcao = 'A'
-  }
-
-  ngOnInit() {
+  async ngOnInit() {
     this.sDataDiagnostico = this.formatarDataHoje()
     this.sDataReacao = this.formatarDataHoje()
+
+    let aDetalheAlergia = this.router.getCurrentNavigation()?.extras.state;
+    console.log('Alergia Selecionada: ', aDetalheAlergia);
+    if (aDetalheAlergia) {
+      this.bVaiCriar = false
+      this.sDataDiagnostico = aDetalheAlergia['dataDiagnostico'] + 'T00:00:00'
+      this.sDataReacao = aDetalheAlergia['dataUltimaReacao'] + 'T00:00:00'
+      this.sTextoDescricao = aDetalheAlergia['descricao']
+      this.sTextoTratamento = aDetalheAlergia['tratamento']
+      this.selecionarIntensidadeMedicamento(aDetalheAlergia['intensidade'], '2')
+      this.selecionarIntensidadeMedicamento(aDetalheAlergia['tipoAlergia'], '2')
+      this.sIdAlergia = aDetalheAlergia['id']
+      console.log('>>>: ', this.sIntensidadeSelecionada)
+      console.log('>>>: ', this.sTipoSelecionado)
+    } else {
+      this.resetarDados()
+      this.bVaiCriar = true
+    }
   }
 
   resetarDados() {
@@ -100,56 +106,107 @@ export class DetalheAlergiaPage implements OnInit {
     this.sTipoSelecionado = ''
   }
 
-  selecionarIntensidade(tipo: string) {
-    switch (tipo) {
-      //Selecao de intensidade
-      case 'A':
-        this.resetarIntensidade()
-        this.bIntensidadeAlta = true
-        this.sIntensidadeSelecionada = 'ALTA'
-        break;
-      case 'M':
-        this.resetarIntensidade()
-        this.bIntensidadeMedia = true
-        this.sIntensidadeSelecionada = 'MEDIA'
-        break;
-      case 'B':
-        this.resetarIntensidade()
-        this.bIntensidadeBaixa = true
-        this.sIntensidadeSelecionada = 'BAIXA'
-        break;
+  /**
+   *
+   * @param tipo Ver qual é o item selecionado
+   * @param funcao Seleciona da funcal de alterar intensidade ou setar intensidade
+   */
+  selecionarIntensidadeMedicamento(tipo: string, funcao: string) {
+    //Alterar intensidade ou tipo
+    if (funcao === '1') {
+      switch (tipo) {
+        //Selecao de intensidade
+        case 'A':
+          this.resetarIntensidade()
+          this.bIntensidadeAlta = true
+          this.sIntensidadeSelecionada = 'ALTA'
+          break;
+        case 'M':
+          this.resetarIntensidade()
+          this.bIntensidadeMedia = true
+          this.sIntensidadeSelecionada = 'MEDIA'
+          break;
+        case 'B':
+          this.resetarIntensidade()
+          this.bIntensidadeBaixa = true
+          this.sIntensidadeSelecionada = 'BAIXA'
+          break;
 
-      // Selecao de tipo de alergia
-      case 'AM':
-        this.resetarTipoAlergia()
-        this.bAlergiaMedicamento = true
-        this.sTipoSelecionado = 'Medicamento'
-        break;
-      case 'AA':
-        this.resetarTipoAlergia()
-        this.bAlergiaAlimento = true
-        this.sTipoSelecionado = 'Alimento'
-        break;
-      case 'AO':
-        this.resetarTipoAlergia()
-        this.bAlergiaOculares = true
-        this.sTipoSelecionado = 'Ocular'
-        break;
-      case 'AU':
-        this.resetarTipoAlergia()
-        this.bAlergiaOutros = true
-        this.sTipoSelecionado = 'Outro'
-        break;
-      case 'AP':
-        this.resetarTipoAlergia()
-        this.bAlergiaPele = true
-        this.sTipoSelecionado = 'Pele'
-        break;
-      case 'AR':
-        this.resetarTipoAlergia()
-        this.bAlergiaRespiratorio = true
-        this.sTipoSelecionado = 'Respiratório'
-        break;
+        // Selecao de tipo de alergia
+        case 'AM':
+          this.resetarTipoAlergia()
+          this.bAlergiaMedicamento = true
+          this.sTipoSelecionado = 'Medicamento'
+          break;
+        case 'AA':
+          this.resetarTipoAlergia()
+          this.bAlergiaAlimento = true
+          this.sTipoSelecionado = 'Alimento'
+          break;
+        case 'AO':
+          this.resetarTipoAlergia()
+          this.bAlergiaOculares = true
+          this.sTipoSelecionado = 'Ocular'
+          break;
+        case 'AU':
+          this.resetarTipoAlergia()
+          this.bAlergiaOutros = true
+          this.sTipoSelecionado = 'Outro'
+          break;
+        case 'AP':
+          this.resetarTipoAlergia()
+          this.bAlergiaPele = true
+          this.sTipoSelecionado = 'Pele'
+          break;
+        case 'AR':
+          this.resetarTipoAlergia()
+          this.bAlergiaRespiratorio = true
+          this.sTipoSelecionado = 'Respiratório'
+          break;
+      }
+    } else if (funcao === '2') { // Setar intensidade ou tipo
+      switch (tipo) {
+        // Intensidade
+        case 'ALTA':
+          this.resetarIntensidade()
+          this.bIntensidadeAlta = true
+          break;
+        case 'MEDIA':
+          this.resetarIntensidade()
+          this.bIntensidadeMedia = true
+          break;
+        case 'BAIXA':
+          this.resetarIntensidade()
+          this.bIntensidadeBaixa = true
+          break;
+
+        // Tipo da alergia
+        case 'Medicamento':
+          this.resetarTipoAlergia()
+          this.bAlergiaMedicamento = true
+          break;
+        case 'Alimento':
+          this.resetarTipoAlergia()
+          this.bAlergiaAlimento = true
+          break;
+        case 'Ocular':
+          this.resetarTipoAlergia()
+          this.bAlergiaOculares = true
+          break;
+        case 'Outro':
+          this.resetarTipoAlergia()
+          this.bAlergiaOutros = true
+          break;
+        case 'Pele':
+          this.resetarTipoAlergia()
+          this.bAlergiaPele = true
+          break;
+        case 'Respiratório':
+          this.resetarTipoAlergia()
+          this.bAlergiaRespiratorio = true
+          break;
+
+      }
     }
     // console.log('Medicamento: ',this.bAlergiaMedicamento)
     // console.log('Alimento: ',this.bAlergiaAlimento)
@@ -160,7 +217,10 @@ export class DetalheAlergiaPage implements OnInit {
 
     // console.log('Alta: ',this.bIntensidadeAlta)
     // console.log('Media: ',this.bIntensidadeMedia)
-    // console.log('Baixa: ',this.bIntensidadeBaixa)
+    // console.log('Media: ',this.bIntensidadeMedia)
+
+    console.log('Intensidade: ', this.sIntensidadeSelecionada)
+    console.log('Tipo alergia: ', this.sTipoSelecionado)
 
   }
 
@@ -168,7 +228,6 @@ export class DetalheAlergiaPage implements OnInit {
     this.aDataSelecionada = event.detail.value;
     this.aDataSelecionada = this.aDataSelecionada.split("T")[0];
     console.log(this.aDataSelecionada)
-
     switch (tipo) {
       case 'D':
         this.sDataDiagnostico = this.aDataSelecionada
@@ -184,16 +243,36 @@ export class DetalheAlergiaPage implements OnInit {
   async criarAlergia() {
     this.criarObjetoAlergia()
     if (this.aCadastroAlergia) {
-      const LOADING = await this.loadingCtrl.create({
-        message: "Aguarde...",
-        mode: 'ios'
-      });
+      const LOADING = await this.loadingCtrl.create({ message: "Aguarde...", mode: 'ios' });
       LOADING.present();
       try {
-        await this.api.postReq('alergia', this.aCadastroAlergia)
-          .then((data: any) => {
+        await this.api.req('alergia', [], 'post', this.aCadastroAlergia, true, false, false)
+          .then(data => {
+            console.log('>>>>>>>: ', data)
             this.resetarDados()
             this.alertPadrao('Sucesso', 'Alergia adicionada com sucesso')
+            this.navCtrl.back()
+            LOADING.dismiss()
+          });
+      } catch (err) {
+        LOADING.dismiss()
+        console.log(err)
+        throw err;
+      }
+    }
+  }
+
+  async alterarAlergia() {
+    this.criarObjetoAlergia()
+    if (this.aCadastroAlergia) {
+      const LOADING = await this.loadingCtrl.create({ message: "Aguarde...", mode: 'ios' });
+      LOADING.present();
+      try {
+        await this.api.req('alergia', [], 'put', this.aCadastroAlergia, true, false, false)
+          .then(data => {
+            console.log('>>>>>>>: ', data)
+            this.resetarDados()
+            this.alertPadrao('Sucesso', 'Alergia alterada com sucesso')
             this.navCtrl.back()
             LOADING.dismiss()
           });
@@ -231,7 +310,8 @@ export class DetalheAlergiaPage implements OnInit {
         tratamento: this.sTextoTratamento,
         intensidade: this.sIntensidadeSelecionada,
         tipoAlergia: this.sTipoSelecionado,
-        idPacienteDiagnosticado: 1
+        idPacienteDiagnosticado: 1,
+        id: this.sIdAlergia
       }
       console.log(this.aCadastroAlergia)
       return true
@@ -246,5 +326,24 @@ export class DetalheAlergiaPage implements OnInit {
       buttons: ['OK']
     });
     alert.present();
+  }
+
+  async deletarAlergia() {
+    const LOADING = await this.loadingCtrl.create({ message: "Aguarde...", mode: 'ios' });
+    LOADING.present();
+    try {
+      await this.api.req('alergia/'+ this.sIdAlergia, [], 'delete', {}, true, false, false)
+          .then(data => {
+            console.log('>>>>>>>: ', data)
+            this.resetarDados()
+            this.alertPadrao('Sucesso', 'Alergia deletada com sucesso')
+            this.navCtrl.back()
+            LOADING.dismiss()
+          });
+    } catch (err) {
+      LOADING.dismiss()
+      console.log(err)
+      throw err;
+    }
   }
 }

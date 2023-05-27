@@ -1,3 +1,32 @@
-<p>
-  historico works!
-</p>
+<div class="cabecalho">
+  <h2 class="animate__animated animate__slideInRight">Histórico</h2>
+  <ion-button (click)="filtrar()">
+    <ion-icon slot="icon-only" name="filter"></ion-icon>
+  </ion-button>
+</div>
+
+<!-- <div class="box-botao">
+  <ion-button (click)="filtrar()">
+    <ion-icon slot="icon-only" name="filter"></ion-icon>
+  </ion-button>
+</div> -->
+
+<div class="receitas">
+  <div class="back animate__animated animate__backInUp">
+    <div class="back-content">
+      <div class="cartao">
+        <!-- <div class="cartao animate__animated animate__backInUp" *ngFor="let lista of aDadosReceitas" (click)="verReceita(lista)"> -->
+        <div class="titulo-cartao">
+          <p>Clinico Geral</p>
+          <p>DR. RENATO DE AVILA KFOURI</p>
+        </div>
+        <img src="../../../assets/img/fundo-remedio.jpg" alt="">
+        <div class="rodape-cartao">
+          <p>
+            Emitido em: 01/06/2023
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
