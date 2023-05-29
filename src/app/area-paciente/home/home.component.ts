@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/services/api-service.service';
+import { AreaPacienteService } from '../area-paciente.service';
 
 @Component({
   selector: 'app-home',
@@ -17,12 +18,31 @@ export class HomeComponent implements OnInit {
 
   public sReceitasAtivas: string = ''
 
-  constructor(private api: ApiService) { }
+  get bMenuReceita(): boolean {
+    return this.pacieteService.bMenuReceita;
+  }
+
+  constructor(
+    private api: ApiService,
+    private pacieteService: AreaPacienteService) { }
 
   ngOnInit() {
     this.getContagemAlergia()
     this.getUltimaAlergia()
     this.getContarReceitasAtivas()
+  }
+
+
+  resetar() {
+    this.pacieteService.bMenuHome = false
+    this.pacieteService.bMenuReceita = false
+    this.pacieteService.bMenuHistorico = false
+  }
+
+  trocarMenu() {
+    this.resetar()
+    this.pacieteService.bMenuReceita = true
+    console.log("Receita>", this.bMenuReceita)
   }
 
   async getContagemAlergia() {

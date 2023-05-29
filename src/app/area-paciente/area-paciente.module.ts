@@ -13,6 +13,7 @@ import { HomeComponent } from './home/home.component';
 import { ReceitaComponent } from './receita/receita.component';
 import { HistoricoComponent } from './historico/historico.component';
 import { ModalFiltroReceitasComponent } from '../modals/modal-filtro-receitas/modal-filtro-receitas.component';
+import { ModalDetalheReceitaComponent } from '../modals/modal-detalhe-receita/modal-detalhe-receita.component';
 
 @NgModule({
   imports: [
@@ -28,7 +29,8 @@ import { ModalFiltroReceitasComponent } from '../modals/modal-filtro-receitas/mo
     HomeComponent,
     ReceitaComponent,
     HistoricoComponent,
-    ModalFiltroReceitasComponent
+    ModalFiltroReceitasComponent,
+    ModalDetalheReceitaComponent
   ]
 })
 export class AreaPacientePageModule {}

@@ -1,0 +1,166 @@
+:root {
+  padding-bottom: 70px;
+}
+
+ion-toolbar {
+  height: 60px;
+  display: flex;
+  align-items: center;
+}
+
+.cabecalho {
+  font-size: 30px;
+  font-weight: 500;
+  color: #0a346b;
+  text-transform: uppercase;
+}
+
+.preescricao {
+  margin: 25px auto;
+  padding: 15px;
+  width: 90%;
+  height: 720px;
+  border: 1px solid #1e1e1e73;
+  border-radius: 5px;
+  box-shadow: 3px 3px 5px rgba(30, 30, 30, 0.5);
+  background-color: #d7f5ffa1;
+  .fundo {
+    position: absolute;
+    opacity: 0.5;
+    width: 82%;
+    height: 700px;
+    display: flex;
+    z-index: -1;
+  }
+  .detalhe-medico {
+    text-align: center;
+    font-size: 1.25rem;
+    padding-bottom: 25px;
+    border-bottom: 1px solid #1e1e1e73;
+    .clinica {
+      color: #1e1e1e;
+      font-weight: 600;
+      font-size: 1.5rem;
+      margin-bottom: 7.5px;
+    }
+    .medico,
+    .especialidade {
+      color: #1e1e1e;
+      font-weight: 700;
+      font-size: 1rem;
+      margin-bottom: 3.5px;
+      text-transform: uppercase;
+    }
+    .especialidade {
+      font-weight: 400;
+      margin: 0;
+    }
+  }
+  .conteudo {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 515px;
+    .competencia {
+      text-align: center;
+      margin: 15px 0;
+      font-size: 1rem;
+      font-weight: 800;
+      color: #fefefe;
+      background-color: #1e1e1e;
+      padding: 2px;
+      border-radius: 75px;
+    }
+    .medicacao {
+      margin-top: 30px;
+      min-height: 50%;
+      max-height: 100%;
+      overflow: scroll;
+      .detalhe-medicacao {
+        margin: 10px 0px 15px 0;
+        .box-medicacao {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          color: #1e1e1e;
+          .nome-remedio {
+            font-size: 1rem;
+            text-transform: uppercase;
+            font-weight: 800;
+          }
+          .tempo {
+            background-color: #0a346b;
+            color: #fefefe;
+            text-transform: uppercase;
+            padding: 4px 20px;
+            font-size: 0.9rem;
+            font-weight: 800;
+            border-radius: 50px;
+            box-shadow: 3px 3px 5px rgba(30, 30, 30, 0.5);
+          }
+        }
+        .frequencia-remedio {
+          color: #1e1e1e;
+          font-weight: 500;
+          font-size: 0.95rem;
+          position: relative;
+          bottom: 2.5px;
+        }
+      }
+    }
+    .observacao {
+      p {
+        text-transform: uppercase;
+        color: #1e1e1e;
+        font-weight: 600;
+        font-size: 1.2rem;
+        margin: 10px 0 10px 0px;
+      }
+      textarea {
+        width: 100%;
+        min-height: 200px;
+        max-height: 200px;
+        background-color: #fefefe;
+        border: 1px solid #1e1e1e73;
+        border-radius: 10px;
+        box-shadow: 3px 3px 5px rgba(30, 30, 30, 0.5);
+        padding: 9px;
+        color: #1e1e1e;
+        font-size: 1rem;
+        font-weight: 600;
+      }
+    }
+    .assinatura {
+      position: relative;
+      top: 35px;
+      border-bottom: 1px solid #1e1e1e7d;
+      margin: 0 10%;
+      p {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #1e1e1e;
+      }
+    }
+  }
+}
+
+.rodape {
+  position: fixed;
+  bottom: 0;
+  height: 70px;
+  width: 100%;
+  background-color: #0a346b;
+  .menus {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 15px;
+    height: 100%;
+    align-items: center;
+    ion-button {
+      color: #fefefe;
+      font-size: 1.8rem;
+      position: absolute;
+      left: -10px;
+    }
+  }
+}

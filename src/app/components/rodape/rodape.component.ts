@@ -8,14 +8,9 @@ import { AreaPacienteService } from 'src/app/area-paciente/area-paciente.service
 })
 export class RodapeComponent implements OnInit {
 
-  // public bMenuHome: boolean = false
-  // public bMenuReceita: boolean = false
-  // public bMenuHistorico: boolean = false
   constructor(
     private pacieteService: AreaPacienteService
-  ) {
-
-   }
+  ) {}
 
   ngOnInit() {
     // this.bMenuHome = true

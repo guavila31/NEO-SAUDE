@@ -3,16 +3,17 @@ ion-toolbar{
   display: flex;
   align-items: center;
 }
-.titulo{
-  font-size: 25px;
-  font-weight: 500;
-}
 
 .cabecalho{
   font-size: 30px;
   font-weight: 500;
   color: #0a346b;
   text-transform: uppercase;
+}
+
+.titulo{
+  font-size: 25px;
+  font-weight: 500;
 }
 
 .data {
