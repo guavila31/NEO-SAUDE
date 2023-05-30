@@ -1,5 +1,7 @@
 {
   "name": "Neo-Saude",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
