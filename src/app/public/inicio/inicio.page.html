@@ -40,7 +40,7 @@
           <label for="name">Senha</label>
         </div>
 
-        <button>Entrar</button>
+        <button (click)="entrar()" [routerLink]="'../area-paciente'">Entrar</button>
       </form>
     </div>
 
@@ -49,7 +49,9 @@
         <div class="registrar">
           <ion-img src="../../assets/img/Logo-fundo-claro.svg"></ion-img>
         </div>
-        <label for="chk" aria-hidden="true" class="titulo-registro">Registrar</label>
+        <div class="titulo-registro-box">
+          <label for="chk" aria-hidden="true" class="titulo-registro">Registrar</label>
+        </div>
 
         <div class="inputRegistro">
           <input type="text" required="" autocomplete="off">
@@ -71,7 +73,7 @@
           <input type="password" required="" autocomplete="off">
           <label for="password">Confirmar Senha</label>
         </div>
-        <button style="margin-bottom: 100%;">Registrar</button>
+        <button style="margin-bottom: 100%;" (click)="registrar()" [routerLink]="'../area-paciente'">Registrar</button>
       </form>
     </div>
   </div>

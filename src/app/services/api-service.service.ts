@@ -33,9 +33,9 @@ export class ApiService {
 
   private async config(res: string, params: ReqParams[], headers: boolean, other: boolean, content: boolean): Promise<string> {
     if (this.prod.production)
-      this.url = `http://${this.prod.iplocal + res}`;
+      this.url = `https://${this.prod.iplocal + res}`;
     else
-      this.url = `http://${this.prod.iplocal + res}`;
+      this.url = `https://${this.prod.iplocal + res}`;
 
     params.forEach((p) => {
       this.url = this.url + p.value + '/';

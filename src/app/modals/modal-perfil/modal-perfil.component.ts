@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-modal-perfil',
@@ -12,6 +13,7 @@ export class ModalPerfilComponent  implements OnInit {
   public sEmail: any = ''
   constructor(
     private fb: FormBuilder,
+    private modalController: ModalController
   ) {
     this.fbDadosPerfil = this.fb.group({
       NOME: [, Validators.required],
@@ -26,4 +28,8 @@ export class ModalPerfilComponent  implements OnInit {
   ngOnInit() {}
 
   salvarPerfil(){}
+
+  sair(){
+    this.modalController.dismiss()
+  }
 }

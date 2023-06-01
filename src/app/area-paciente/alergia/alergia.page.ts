@@ -21,17 +21,17 @@ export class AlergiaPage implements OnInit {
     // this.getListaAlergia()
   }
 
-  ionViewDidEnter(){
+  ionViewDidEnter() {
     this.getListaAlergia()
     console.log('aqui')
   }
 
-  ionViewCanEnter(){
+  ionViewCanEnter() {
     this.getListaAlergia()
     console.log('aqui')
   }
 
-  ionViewWillEnter(){
+  ionViewWillEnter() {
     this.getListaAlergia()
     console.log('aqui')
   }
@@ -50,10 +50,10 @@ export class AlergiaPage implements OnInit {
   async getListaAlergia() {
     try {
       await this.api.req('alergia/paciente/1', [], 'get', {}, false, false, false)
-      .then(data => {
-        console.log('>>>>>>>: ', data)
-        this.aDadosAlergia = data
-      });
+        .then(data => {
+          console.log('>>>>>>>: ', data)
+          this.aDadosAlergia = data
+        });
     } catch (err) {
       console.log(err)
       throw err;
@@ -65,9 +65,9 @@ export class AlergiaPage implements OnInit {
     this.navCtrl.navigateForward(['/area-paciente/alergia/detalhe-alergia'], { state: detalheAlarme });
   }
 
-  async testarRequisicao(){
+  async getAlergia() {
     try {
-      await this.api.req('alergia/contar/paciente/1', [], 'get', {}, false, false, false)
+      await this.api.req('alergia/contar/paciente/1', [], 'get', {}, true, false, false)
         .then(data => {
           console.log('>>>>>>>: ', data)
         })
@@ -77,18 +77,6 @@ export class AlergiaPage implements OnInit {
         })
     } catch (err) {
       console.error("mensagem de erro: ", err)
-      throw err;
-    }
-  }
-
-  async getAlergia(){
-    try {
-      await this.api.getReq('alergia/contar/paciente/1')
-        .then((data: any) => {
-          console.log(data)
-        });
-    } catch (err) {
-      console.log(err)
       throw err;
     }
   }

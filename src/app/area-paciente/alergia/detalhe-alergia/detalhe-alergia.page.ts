@@ -310,8 +310,7 @@ export class DetalheAlergiaPage implements OnInit {
         tratamento: this.sTextoTratamento,
         intensidade: this.sIntensidadeSelecionada,
         tipoAlergia: this.sTipoSelecionado,
-        idPacienteDiagnosticado: 1,
-        id: this.sIdAlergia
+        idPacienteDiagnosticado: 1
       }
       console.log(this.aCadastroAlergia)
       return true

@@ -8,39 +8,29 @@
   </div>
 
   <div class="formulario">
-    <!-- <form action="" [formGroup]="fbDadosPerfil" (ngSubmit)="salvarPerfil()">
-      <ion-item>
-        <ion-label position="floating">E-Mail <ion-text color="danger">*</ion-text></ion-label>
-        <ion-input required formControlName="email" type="text"></ion-input>
-      </ion-item>
-      <ion-item *ngIf="fbDadosPerfil.get('EMAIL')?.invalid && fbDadosPerfil.get('EMAIL')?.touched" lines="none">
-        <ion-text color="danger" class="form-error">
-          Insira um endereço de email válido
-        </ion-text>
-      </ion-item>
-      <ion-button block color="primary" type="submit" [disabled]="fbDadosPerfil.invalid">
-        Salvar
-      </ion-button>
-    </form>-->
-
-
-      <div class="container">
-        <form class="form">
-            <div class="form_front">
-                <input type="text" class="input" placeholder="NOME COMPLETO">
-                <input type="text" class="input" placeholder="CPF">
-                <input type="text" class="input" placeholder="CRM">
-                <input type="text" class="input" placeholder="CELULAR">
-                <input type="text" class="input" placeholder="EMAIL">
-                <input type="text" class="input" placeholder="DATA DE NASCIMENTO">
-                <div class="botoes">
-                  <button class="btn salvar">Salvar</button>
-                  <button class="btn excluir">Excluir conta</button>
-                </div>
-            </div>
-        </form>
+    <div class="container">
+      <form class="form">
+        <div class="form_front">
+          <input type="text" class="input" placeholder="NOME COMPLETO">
+          <input type="text" class="input" placeholder="CPF">
+          <input type="text" class="input" placeholder="CRM">
+          <input type="text" class="input" placeholder="CELULAR">
+          <input type="text" class="input" placeholder="EMAIL">
+          <input type="text" class="input" placeholder="DATA DE NASCIMENTO">
+          <div class="botoes">
+            <button class="btn salvar">Salvar</button>
+            <button class="btn excluir">Excluir conta</button>
+          </div>
+        </div>
+      </form>
     </div>
+  </div>
 
+  <div class="sair">
+    <ion-button (click)="sair()" expand="block" color="danger" fill="clear" mode="ios" strong [routerLink]="'../'">
+      <ion-icon slot="start" name="exit-outline"></ion-icon>
+      Desconectar
+    </ion-button>
   </div>
 </div>
 
