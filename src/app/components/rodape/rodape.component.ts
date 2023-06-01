@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 import { AreaPacienteService } from 'src/app/area-paciente/area-paciente.service';
 
 @Component({
@@ -7,9 +8,11 @@ import { AreaPacienteService } from 'src/app/area-paciente/area-paciente.service
   styleUrls: ['./rodape.component.scss'],
 })
 export class RodapeComponent implements OnInit {
+  @Input() bExisteModal: boolean = false;
 
   constructor(
-    private pacieteService: AreaPacienteService
+    private pacieteService: AreaPacienteService,
+    private modalController: ModalController
   ) {}
 
   ngOnInit() {
@@ -34,6 +37,8 @@ export class RodapeComponent implements OnInit {
   }
 
   trocarMenu(menu: string) {
+    if(this.bExisteModal)
+      this.modalController.dismiss()
     switch (menu) {
       case 'receita':
         this.resetar()

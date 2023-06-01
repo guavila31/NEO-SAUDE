@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
@@ -14,13 +14,16 @@ import { ReceitaComponent } from './receita/receita.component';
 import { HistoricoComponent } from './historico/historico.component';
 import { ModalFiltroReceitasComponent } from '../modals/modal-filtro-receitas/modal-filtro-receitas.component';
 import { ModalDetalheReceitaComponent } from '../modals/modal-detalhe-receita/modal-detalhe-receita.component';
+import { ModalPerfilComponent } from '../modals/modal-perfil/modal-perfil.component';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    AreaPacientePageRoutingModule
+    AreaPacientePageRoutingModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   declarations: [
     AreaPacientePage,
@@ -30,7 +33,8 @@ import { ModalDetalheReceitaComponent } from '../modals/modal-detalhe-receita/mo
     ReceitaComponent,
     HistoricoComponent,
     ModalFiltroReceitasComponent,
-    ModalDetalheReceitaComponent
+    ModalDetalheReceitaComponent,
+    ModalPerfilComponent,
   ]
 })
 export class AreaPacientePageModule {}

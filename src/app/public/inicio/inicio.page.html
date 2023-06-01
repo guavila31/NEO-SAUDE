@@ -1,9 +1,7 @@
-<ion-content>
+<!-- <ion-content>
   <div class="imagem">
     <ion-img src="../../assets/img/Logo-fundo-escuro.svg"></ion-img>
   </div>
-
-
   <ion-footer>
     <div class="box">
       <h1 class="titulo">BEM-VINDO</h1>
@@ -17,4 +15,64 @@
       </div>
     </div>
   </ion-footer>
+</ion-content> -->
+
+<ion-content>
+
+
+  <div class="main">
+    <input type="checkbox" id="chk" aria-hidden="true">
+    <div class="imagem">
+      <ion-img src="../../assets/img/Logo-fundo-escuro.svg"></ion-img>
+    </div>
+
+    <div class="login">
+      <form class="form">
+        <label class="titulo-login" for="chk" aria-hidden="true">Entrar</label>
+
+        <div class="inputRegistro inputLogin">
+          <input type="text" required="" autocomplete="off">
+          <label for="name">CPF</label>
+        </div>
+
+        <div class="inputRegistro inputLogin">
+          <input type="password" required="" autocomplete="off">
+          <label for="name">Senha</label>
+        </div>
+
+        <button>Entrar</button>
+      </form>
+    </div>
+
+    <div class="register">
+      <form class="form">
+        <div class="registrar">
+          <ion-img src="../../assets/img/Logo-fundo-claro.svg"></ion-img>
+        </div>
+        <label for="chk" aria-hidden="true" class="titulo-registro">Registrar</label>
+
+        <div class="inputRegistro">
+          <input type="text" required="" autocomplete="off">
+          <label for="name">Nome Completo</label>
+        </div>
+        <div class="inputRegistro">
+          <input type="text" required="" autocomplete="off">
+          <label for="name">CPF</label>
+        </div>
+        <div class="inputRegistro">
+          <input type="text" required="" autocomplete="off">
+          <label for="name">Celular</label>
+        </div>
+        <div class="inputRegistro">
+          <input type="password" required="" autocomplete="off">
+          <label for="password">Senha</label>
+        </div>
+        <div class="inputRegistro">
+          <input type="password" required="" autocomplete="off">
+          <label for="password">Confirmar Senha</label>
+        </div>
+        <button style="margin-bottom: 100%;">Registrar</button>
+      </form>
+    </div>
+  </div>
 </ion-content>

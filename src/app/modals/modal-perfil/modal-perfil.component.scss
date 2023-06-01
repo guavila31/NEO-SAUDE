@@ -1,0 +1,142 @@
+.box-rodape {
+  display: flex;
+  flex-direction: column-reverse;
+  color: #f6f6f6;
+}
+app-cabecalho {
+  color: #f6f6f6;
+}
+
+.conteudo {
+  width: 100%;
+  height: 100%;
+  overflow: scroll;
+  .foto-perfil{
+    border: 1px solid #0a346b45;
+    margin: 15px auto;
+    border-radius: 100px;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #f6f6f6;
+    box-shadow: 8px 8px 23px 9px rgba(24, 24, 24, 0.1);
+    p{
+      font-size: 50px;
+    }
+  }
+  .formulario{
+    width: 90%;
+    margin: auto;
+    margin-bottom: 20px;
+
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .form {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transform-style: preserve-3d;
+      transition: all 1s ease;
+      width: 100%;
+    }
+
+    .form .form_front {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      backface-visibility: hidden;
+      padding: 30px 20px;
+      border-radius: 15px;
+      box-shadow: inset 2px 2px 10px rgba(0,0,0,1),
+      inset -1px -1px 5px rgba(255, 255, 255, 0.6);
+      width: 100%;
+    }
+
+    .input {
+      width: 100%;
+      min-height: 45px;
+      color: #F6F6F6;
+      outline: none;
+      transition: 0.35s;
+      padding: 0px 7px;
+      background-color: #072245;
+      border-radius: 6px;
+      border: 1px solid #0a346b;
+      box-shadow: 6px 6px 10px rgba(0,0,0,1),
+      1px 1px 10px rgba(255, 255, 255, 0.6);
+    }
+
+    .input::placeholder {
+      color: #e9f2f571;
+    }
+
+    .input:focus.input::placeholder {
+      transition: 0.3s;
+      opacity: 0;
+    }
+
+    .input:focus {
+      transform: scale(1.05);
+      box-shadow: 6px 6px 10px rgba(0,0,0,1),
+      1px 1px 10px rgba(255, 255, 255, 0.6),
+      inset 2px 2px 10px rgba(0,0,0,1),
+      inset -1px -1px 5px rgba(255, 255, 255, 0.6);
+    }
+
+    .botoes{
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+    }
+    .btn {
+      padding: 10px 35px;
+      cursor: pointer;
+      background-color: #072245;
+      border-radius: 6px;
+      border: 1px solid #0a346b;
+      box-shadow: 6px 6px 10px rgba(0,0,0,1),
+      1px 1px 10px rgba(255, 255, 255, 0.6);
+      color: #F6F6F6;
+      font-size: 15px;
+      font-weight: bold;
+      transition: 0.35s;
+    }
+
+    .salvar{
+      background-color: #479833;
+      border: 1px solid #32ff00b5;
+      color: #F6F6F6;
+    }
+    .excluir{
+      background-color: #A83B3B;
+      border: 1px solid #ff000082;
+      color: #F6F6F6;
+    }
+
+    .btn:focus {
+      transform: scale(1.05);
+      box-shadow: 6px 6px 10px rgba(0,0,0,1),
+      1px 1px 10px rgba(255, 255, 255, 0.6),
+      inset 2px 2px 10px rgba(0,0,0,1),
+      inset -1px -1px 5px rgba(255, 255, 255, 0.6);
+    }
+
+    .form .switch {
+      font-size: 13px;
+    }
+
+    .form .switch .signup_tog {
+      font-weight: 700;
+      cursor: pointer;
+    }
+  }
+}
+
