@@ -1,5 +1,13 @@
 <ion-content>
-
+    <ion-refresher slot="fixed" (ionRefresh)="recarregar($event)">
+      <ion-refresher-content
+        pullingIcon="chevron-down-circle-outline"
+        pullingText="Puxe para atualizar"
+        refreshingSpinner="circles"
+        refreshingText="Atualizando..."
+      >
+      </ion-refresher-content>
+    </ion-refresher>
   <!-- Próximo alarme -->
   <!-- <div class="cartao">
     <div class="icone">

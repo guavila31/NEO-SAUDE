@@ -9,10 +9,6 @@ import { ReqParams } from '../helpers/reqparams.helper';
 export class ApiService {
 
   private prod = environment;
-  // private headers: HttpHeaders = new HttpHeaders({
-  //   'Content-Type': 'application/json',
-  //   'Authorization': `Bearer ${this.prod.appToken}`, // Adiciona o token JWT ao cabeçalho da requisição
-  // });
 
   private headers: HttpHeaders = new HttpHeaders()
   .set('content-type', 'application/json')
@@ -23,9 +19,7 @@ export class ApiService {
 
   constructor(
     private http: HttpClient
-  ) {
-    // console.log(this.headers)
-  }
+  ) {  }
 
   public get getEnv(): boolean {
     return this.prod.production;
@@ -76,13 +70,10 @@ export class ApiService {
       let serverData: HttpResponse<any> | undefined;
       if (type === 'post' || type === 'put' || type === 'patch') {
         if (content) {
-          console.log('[1]')
           serverData = await this.http[type](url, body, { observe: 'response', headers: this.headers, responseType: 'blob' }).toPromise();
         } else
-          console.log('[1]')
         serverData = await this.http[type](url, body, { observe: 'response', headers: this.headers }).toPromise();
       } else if (type === 'delete') {
-        console.log('[1]')
         serverData = await this.http.delete(url, { observe: 'response', headers: this.headers }).toPromise();
       } else {
 
@@ -91,7 +82,6 @@ export class ApiService {
         } else {
           // console.log(this.headers)
           serverData = await this.http.get(url, { observe: 'response', headers: this.headers }).toPromise();
-          console.log('Serverdata :', serverData)
 
         }
       }
@@ -105,35 +95,4 @@ export class ApiService {
       throw (error);
     }
   }
-
-    public async getReq(url: string) {
-      // const headers: HttpHeaders = new HttpHeaders({
-      //   'Content-Type': 'application/json',
-      //   'Authorization': `Bearer ${this.prod.appToken}`, // Adiciona o token JWT ao cabeçalho da requisição
-      // });
-      let resposta
-      const headers: HttpHeaders = await new HttpHeaders()
-      .set('Authorization', `Bearer ${this.prod.appToken}`);
-      setTimeout(async () => {
-        console.log('headers: ', headers)
-        console.log('passou')
-        resposta = await this.http.get('http://localhost:8080/api/' + url, { headers }).toPromise();
-      }, 3000);
-      return resposta
-    }
-
-  // public async postReq(url: string, body: any) {
-  //   let resposta = await this.http.post('http://localhost:8080/api/' + url, body).toPromise();
-  //   return resposta
-  // }
-
-  // public async putReq(url: string, body: any) {
-  //   let resposta = await this.http.post('http://localhost:8080/api/' + url, body).toPromise();
-  //   return resposta
-  // }
-
-  // public async deleteReq(url: string) {
-  //   let resposta = await this.http.delete('http://localhost:8080/api/' + url).toPromise();
-  //   return resposta
-  // }
 }

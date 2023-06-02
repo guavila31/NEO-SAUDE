@@ -9,7 +9,7 @@ import { ApiService } from 'src/app/services/api-service.service';
   templateUrl: './alergia.page.html',
   styleUrls: ['./alergia.page.scss'],
 })
-export class AlergiaPage implements OnInit {
+export class AlergiaPage {
 
   public aDadosAlergia: any[] = []
   constructor(
@@ -17,24 +17,10 @@ export class AlergiaPage implements OnInit {
     private navCtrl: NavController
   ) { }
 
-  ngOnInit() {
-    // this.getListaAlergia()
-  }
-
-  ionViewDidEnter() {
-    this.getListaAlergia()
-    console.log('aqui')
-  }
-
-  ionViewCanEnter() {
-    this.getListaAlergia()
-    console.log('aqui')
-  }
-
   ionViewWillEnter() {
     this.getListaAlergia()
-    console.log('aqui')
   }
+
 
   formatarData(data: any): string | null {
     // const dateObj = new Date(data);

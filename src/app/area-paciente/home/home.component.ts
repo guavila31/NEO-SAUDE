@@ -27,11 +27,26 @@ export class HomeComponent implements OnInit {
     private pacieteService: AreaPacienteService) { }
 
   ngOnInit() {
+    this.sincronizar()
+  }
+
+  async sincronizar(evento?: any) {
+    if (evento)
+      evento.target?.complete();
     this.getContagemAlergia()
     this.getUltimaAlergia()
     this.getContarReceitasAtivas()
   }
 
+  async recarregar(event: any) {
+    setTimeout(() => {
+      try {
+        this.sincronizar(event)
+      } catch (error) {
+        console.log('Erro: ', error)
+      }
+    }, 1000);
+  }
 
   resetar() {
     this.pacieteService.bMenuHome = false
@@ -88,10 +103,7 @@ export class HomeComponent implements OnInit {
       await this.api.req(
         'receita/ativas/contar/1', [], 'get', {}, false, false, false)
         .then(data => {
-          console.log(data)
           this.sReceitasAtivas = data.toString()
-          console.log('data: ', this.sReceitasAtivas)
-
         })
         .catch(err => {
           console.log(err)

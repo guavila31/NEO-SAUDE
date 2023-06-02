@@ -23,7 +23,8 @@ import { ModalPerfilComponent } from '../modals/modal-perfil/modal-perfil.compon
     IonicModule,
     AreaPacientePageRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+
   ],
   declarations: [
     AreaPacientePage,

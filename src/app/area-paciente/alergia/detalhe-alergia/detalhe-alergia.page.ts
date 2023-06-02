@@ -1,3 +1,4 @@
+import { HttpResponse } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AlertController, IonModal, LoadingController, NavController, NavParams } from '@ionic/angular';
 import { ApiService } from 'src/app/services/api-service.service';
@@ -256,6 +257,7 @@ export class DetalheAlergiaPage implements OnInit {
           });
       } catch (err) {
         LOADING.dismiss()
+        this.alertPadrao('Erro!', `Mensagem: ${err}`)
         console.log(err)
         throw err;
       }
@@ -278,6 +280,7 @@ export class DetalheAlergiaPage implements OnInit {
           });
       } catch (err) {
         LOADING.dismiss()
+        this.alertPadrao('Erro!', `Mensagem: ${err}`)
         console.log(err)
         throw err;
       }
@@ -310,7 +313,8 @@ export class DetalheAlergiaPage implements OnInit {
         tratamento: this.sTextoTratamento,
         intensidade: this.sIntensidadeSelecionada,
         tipoAlergia: this.sTipoSelecionado,
-        idPacienteDiagnosticado: 1
+        idPacienteDiagnosticado: 1,
+        id: this.sIdAlergia
       }
       console.log(this.aCadastroAlergia)
       return true
@@ -331,18 +335,28 @@ export class DetalheAlergiaPage implements OnInit {
     const LOADING = await this.loadingCtrl.create({ message: "Aguarde...", mode: 'ios' });
     LOADING.present();
     try {
-      await this.api.req('alergia/'+ this.sIdAlergia, [], 'delete', {}, true, false, false)
-          .then(data => {
-            console.log('>>>>>>>: ', data)
-            this.resetarDados()
-            this.alertPadrao('Sucesso', 'Alergia deletada com sucesso')
-            this.navCtrl.back()
-            LOADING.dismiss()
-          });
+      await this.api.req('alergia/' + this.sIdAlergia, [], 'delete', {}, false, false, false)
+        .then(data => {
+          console.log('>>>>>>>: ', data)
+          this.resetarDados()
+          this.alertPadrao('Sucesso', 'Alergia deletada com sucesso')
+          this.navCtrl.back()
+          LOADING.dismiss()
+        });
     } catch (err) {
       LOADING.dismiss()
       console.log(err)
       throw err;
     }
+    //   this.alergiaService.excluirAlergia(this.sIdAlergia).subscribe(data =>{
+    //     console.log(data)
+    //     LOADING.dismiss()
+    //   }, error => {
+    //     console.log(error)
+    //     LOADING.dismiss()
+    //     this.alertPadrao('Erro!', 'Error!!!')
+    //   })
+    //   LOADING.dismiss()
+    // }
   }
 }

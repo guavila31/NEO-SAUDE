@@ -4,23 +4,33 @@
     <ion-icon slot="icon-only" name="filter"></ion-icon>
   </ion-button>
 </div>
-
-<div class="receitas">
-  <div class="back animate__animated animate__backInUp"  (click)="abrirDetalhes()">
-    <div class="back-content">
-      <div class="cartao">
-        <!-- <div class="cartao animate__animated animate__backInUp" *ngFor="let lista of aDadosReceitas" (click)="verReceita(lista)"> -->
-        <div class="titulo-cartao">
-          <p>Clinico Geral</p>
-          <p>DR. RENATO DE AVILA KFOURI</p>
-        </div>
-        <img src="../../../assets/img/fundo-remedio.jpg" alt="">
-        <div class="rodape-cartao">
-          <p>
-            Emitido em: 01/06/2023
-          </p>
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="recarregar($event)">
+    <ion-refresher-content
+      pullingIcon="chevron-down-circle-outline"
+      pullingText="Puxe para atualizar"
+      refreshingSpinner="circles"
+      refreshingText="Atualizando..."
+    >
+    </ion-refresher-content>
+  </ion-refresher>
+  <div class="receitas">
+    <div class="back animate__animated animate__backInUp"  (click)="abrirDetalhes()" *ngFor="let historico of aListaHistorico">
+      <div class="back-content">
+        <div class="cartao">
+          <!-- <div class="cartao animate__animated animate__backInUp" *ngFor="let lista of aDadosReceitas" (click)="verReceita(lista)"> -->
+          <div class="titulo-cartao">
+            <p>Clinico Geral - {{historico.id}}</p>
+            <p>DR. RENATO DE AVILA KFOURI</p>
+          </div>
+          <img src="../../../assets/img/fundo-remedio.jpg" alt="">
+          <div class="rodape-cartao">
+            <p>
+              Emitido em: {{historico.dataExpedicao}}
+            </p>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
+</ion-content>

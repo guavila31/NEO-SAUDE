@@ -15,7 +15,6 @@ export class AreaPacientePage implements OnInit {
     public pacieteService: AreaPacienteService
   ) {
     this.bPaginaHome = this.pacieteService.bMenuHome
-    console.log("****", this.bPaginaHome)
   }
 
   ngOnInit() {
