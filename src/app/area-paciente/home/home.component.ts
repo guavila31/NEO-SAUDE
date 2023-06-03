@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/services/api-service.service';
 import { AreaPacienteService } from '../area-paciente.service';
+import { FormatadorDeDadosService } from 'src/app/services/formatador-de-dados.service';
 
 @Component({
   selector: 'app-home',
@@ -24,7 +25,8 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private api: ApiService,
-    private pacieteService: AreaPacienteService) { }
+    private pacieteService: AreaPacienteService,
+    public formatadorDeData: FormatadorDeDadosService) { }
 
   ngOnInit() {
     this.sincronizar()
@@ -114,14 +116,4 @@ export class HomeComponent implements OnInit {
       throw err;
     }
   }
-
-  formatarData(data: any): string | null {
-    const partes = data.split('-');
-    const ANO = partes[0];
-    const MES = partes[1];
-    const DIA = partes[2];
-    const dataFormatada = `${DIA}/${MES}/${ANO}`;
-    return dataFormatada;
-  }
-
 }

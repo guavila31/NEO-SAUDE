@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { ListaPrescricaoInterface, ListaReceitaInterface } from 'src/app/interface/receita-interface';
 import { ModalDetalheReceitaComponent } from 'src/app/modals/modal-detalhe-receita/modal-detalhe-receita.component';
 import { ApiService } from 'src/app/services/api-service.service';
 
@@ -11,7 +12,11 @@ import { ApiService } from 'src/app/services/api-service.service';
 export class ReceitaComponent  implements OnInit {
 
   public sIdPaciente: string = '1'
-  public aListaReceita: any[]=[]
+
+  public aListaPrescricao: ListaPrescricaoInterface[] = []
+  public aListaReceita: ListaReceitaInterface[] = []
+
+
   constructor(
     private modalController: ModalController,
     private api: ApiService
@@ -30,12 +35,13 @@ export class ReceitaComponent  implements OnInit {
   }
 
   ngOnInit() {}
-  async abrirDetalhes(){
+  async abrirDetalhes(idReceita: number){
     const modal = await this.modalController.create({
       component: ModalDetalheReceitaComponent,
       cssClass: 'modal-filtro-receitas',
       componentProps: {
-        'bTemCompetencia': false
+        'bTemCompetencia': false,
+        'nIdReceita': idReceita,
       }
     });
     return await modal.present();

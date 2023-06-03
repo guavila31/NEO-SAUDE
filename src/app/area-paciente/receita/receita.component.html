@@ -12,7 +12,7 @@
   </ion-refresher>
 
   <div class="receitas">
-    <div class="back animate__animated animate__backInUp" (click)="abrirDetalhes()"
+    <div class="back animate__animated animate__backInUp" (click)="abrirDetalhes(receitas.id)"
       *ngFor="let receitas of aListaReceita">
       <div class="back-content">
         <div class="cartao">

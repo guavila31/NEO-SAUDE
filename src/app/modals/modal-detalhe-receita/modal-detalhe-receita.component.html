@@ -8,18 +8,27 @@
       <img src="assets/img/Logo-fundo-claro.svg" alt="">
     </div>
     <div class="detalhe-medico">
-      <p class="clinica">Clínica Médica</p>
-      <p class="medico">dr. RENATO DE AVILA KFOURI</p>
-      <p class="especialidade">PEDIATRIA | 59492</p>
+      <p class="clinica">{{aDadosMedico?.clinica}}</p>
+      <p class="medico">{{!bGenero ? 'DR.' : 'DRA.'}} {{aDadosMedico?.nome}}</p>
+      <p class="especialidade">{{aDadosMedico?.especialidade}} | {{aDadosMedico?.crm}}</p>
     </div>
     <div class="conteudo">
 
       <div class="competencia" *ngIf="bTemCompetencia">
-        <p>01/04/2023</p>
+        <p>{{aDetalheReceita?.dataExpedicao ? formatadorDeData.formatarData(aDetalheReceita?.dataExpedicao) : ''}}</p>
       </div>
 
-      <div class="medicacao">
-        <div class="detalhe-medicacao">
+      <div class="medicacao" >
+        <div class="detalhe-medicacao" *ngFor="let prescricao of aDetalhePrescricao">
+          <div class="box-medicacao">
+            <p class="nome-remedio">{{prescricao?.dadosMedicamento?.nome}}</p>
+            <p class="tempo">{{prescricao?.quantidadeDias}} Dias</p>
+          </div>
+          <p class="frequencia-remedio">
+            {{prescricao?.frequencia}}
+          </p>
+        </div>
+        <!-- <div class="detalhe-medicacao">
           <div class="box-medicacao">
             <p class="nome-remedio">Canesten</p>
             <p class="tempo">5 DIAS</p>
@@ -27,58 +36,13 @@
           <p class="frequencia-remedio">
             Tomar a cada 8 horas
           </p>
-        </div>
-        <div class="detalhe-medicacao">
-          <div class="box-medicacao">
-            <p class="nome-remedio">Canesten</p>
-            <p class="tempo">5 DIAS</p>
-          </div>
-          <p class="frequencia-remedio">
-            Tomar a cada 8 horas
-          </p>
-        </div>
-        <div class="detalhe-medicacao">
-          <div class="box-medicacao">
-            <p class="nome-remedio">Canesten</p>
-            <p class="tempo">5 DIAS</p>
-          </div>
-          <p class="frequencia-remedio">
-            Tomar a cada 8 horas
-          </p>
-        </div>
-        <div class="detalhe-medicacao">
-          <div class="box-medicacao">
-            <p class="nome-remedio">Canesten</p>
-            <p class="tempo">5 DIAS</p>
-          </div>
-          <p class="frequencia-remedio">
-            Tomar a cada 8 horas
-          </p>
-        </div>
-        <div class="detalhe-medicacao">
-          <div class="box-medicacao">
-            <p class="nome-remedio">Canesten</p>
-            <p class="tempo">5 DIAS</p>
-          </div>
-          <p class="frequencia-remedio">
-            Tomar a cada 8 horas
-          </p>
-        </div>
-        <div class="detalhe-medicacao">
-          <div class="box-medicacao">
-            <p class="nome-remedio">Canesten</p>
-            <p class="tempo">5 DIAS</p>
-          </div>
-          <p class="frequencia-remedio">
-            Tomar a cada 8 horas
-          </p>
-        </div>
+        </div> -->
       </div>
 
       <div class="observacao">
-        <p>observacao</p>
+        <p>observação</p>
         <div class="texto">
-          <textarea></textarea>
+          <textarea [value]="aDetalheReceita?.observacao" disabled></textarea>
         </div>
       </div>
 

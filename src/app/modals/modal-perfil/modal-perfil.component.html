@@ -11,12 +11,12 @@
     <div class="container">
       <form class="form">
         <div class="form_front">
-          <input type="text" class="input" placeholder="NOME COMPLETO">
-          <input type="text" class="input" placeholder="CPF">
-          <input type="text" class="input" placeholder="CRM">
-          <input type="text" class="input" placeholder="CELULAR">
-          <input type="text" class="input" placeholder="EMAIL">
-          <input type="text" class="input" placeholder="DATA DE NASCIMENTO">
+          <input type="text" class="input" placeholder="NOME COMPLETO" value="{{iDadosPaciente.nome}}">
+          <input type="text" class="input" placeholder="CPF" value="{{iDadosPaciente.cpf}}">
+          <!-- <input type="text" class="input" placeholder="CRM"> -->
+          <input type="text" class="input" placeholder="CELULAR" value="{{iDadosPaciente.celular}}">
+          <input type="text" class="input" placeholder="EMAIL" value="{{iDadosPaciente.email}}">
+          <input type="text" class="input" placeholder="DATA DE NASCIMENTO" value="{{formatador.formatarData(iDadosPaciente.dataNascimento)}}">
           <div class="botoes">
             <button class="btn salvar">Salvar</button>
             <button class="btn excluir">Excluir conta</button>

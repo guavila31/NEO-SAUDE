@@ -3,6 +3,7 @@ import { ModalController } from '@ionic/angular';
 import { ModalDetalheReceitaComponent } from 'src/app/modals/modal-detalhe-receita/modal-detalhe-receita.component';
 import { ModalFiltroReceitasComponent } from 'src/app/modals/modal-filtro-receitas/modal-filtro-receitas.component';
 import { ApiService } from 'src/app/services/api-service.service';
+import { FormatadorDeDadosService } from 'src/app/services/formatador-de-dados.service';
 
 @Component({
   selector: 'app-historico',
@@ -13,7 +14,10 @@ export class HistoricoComponent implements OnInit {
 
   public sIdPaciente: string = '1'
   public aListaHistorico: any[] = []
-  constructor(public modalController: ModalController, private api: ApiService) {
+  constructor(
+    public modalController: ModalController,
+    private api: ApiService,
+    public formatadorDeData: FormatadorDeDadosService) {
     this.getListaHistorico()
   }
 
@@ -37,12 +41,13 @@ export class HistoricoComponent implements OnInit {
     return await modal.present();
   }
 
-  async abrirDetalhes() {
+  async abrirDetalhes(idReceita: number) {
     const modal = await this.modalController.create({
       component: ModalDetalheReceitaComponent,
       cssClass: 'modal-filtro-receitas',
       componentProps: {
         'bTemCompetencia': true,
+        'nIdReceita': idReceita
       }
     });
     return await modal.present();

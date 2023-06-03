@@ -15,7 +15,7 @@
     </ion-refresher-content>
   </ion-refresher>
   <div class="receitas">
-    <div class="back animate__animated animate__backInUp"  (click)="abrirDetalhes()" *ngFor="let historico of aListaHistorico">
+    <div class="back animate__animated animate__backInUp" *ngFor="let historico of aListaHistorico" (click)="abrirDetalhes(historico.id)">
       <div class="back-content">
         <div class="cartao">
           <!-- <div class="cartao animate__animated animate__backInUp" *ngFor="let lista of aDadosReceitas" (click)="verReceita(lista)"> -->
@@ -26,7 +26,7 @@
           <img src="../../../assets/img/fundo-remedio.jpg" alt="">
           <div class="rodape-cartao">
             <p>
-              Emitido em: {{historico.dataExpedicao}}
+              Emitido em: {{formatadorDeData.formatarData(historico.dataExpedicao)}}
             </p>
           </div>
         </div>

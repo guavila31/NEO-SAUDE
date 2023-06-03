@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ModalController } from '@ionic/angular';
+import { ModalController, NavParams } from '@ionic/angular';
+import { PacienteInterface } from 'src/app/interface/paciente-interface';
+import { ApiService } from 'src/app/services/api-service.service';
+import { FormatadorDeDadosService } from 'src/app/services/formatador-de-dados.service';
 
 @Component({
   selector: 'app-modal-perfil',
@@ -9,23 +12,21 @@ import { ModalController } from '@ionic/angular';
 })
 export class ModalPerfilComponent  implements OnInit {
 
-  public fbDadosPerfil: FormGroup
   public sEmail: any = ''
+
+  private sIdPaciente: string = '1'
+  public iDadosPaciente: PacienteInterface
   constructor(
-    private fb: FormBuilder,
-    private modalController: ModalController
+    private modalController: ModalController,
+    private navParams: NavParams,
+    public formatador: FormatadorDeDadosService
   ) {
-    this.fbDadosPerfil = this.fb.group({
-      NOME: [, Validators.required],
-      CPF: [],
-      CRM: [],
-      CELULAR: [, Validators.required],
-      EMAIL: [, Validators.required, Validators.email],
-      DATANASCIMENTO: [, Validators.required]
-    })
+    this.iDadosPaciente = this.navParams.get('iDadosPaciente');
+    console.log('Paciente: ', this.iDadosPaciente)
    }
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
   salvarPerfil(){}
 
