@@ -8,6 +8,21 @@
   }
 }
 
+.fundo-padrao {
+  img{
+    width: 100%;
+    height: 100%;
+    opacity: 0.7;
+  }
+  p{
+    text-align: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: #0a346ba6;
+  }
+}
+
+
 .box-botao {
   margin: 10px;
 }

@@ -4,6 +4,7 @@ import { AlertController, LoadingController, ModalController, NavController, Nav
 import { PacienteInterface } from 'src/app/interface/paciente-interface';
 import { ApiService } from 'src/app/services/api-service.service';
 import { FormatadorDeDadosService } from 'src/app/services/formatador-de-dados.service';
+import { LocalStorageService } from 'src/app/services/localstorage.service';
 
 @Component({
   selector: 'app-modal-perfil',
@@ -30,7 +31,8 @@ export class ModalPerfilComponent implements OnInit {
     private api: ApiService,
     private alertController: AlertController,
     private loadingCtrl: LoadingController,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    private localStorageService: LocalStorageService
   ) {
     this.iDadosPaciente = this.navParams.get('iDadosPaciente');
     this.sNome = this.iDadosPaciente.nome
@@ -92,8 +94,8 @@ export class ModalPerfilComponent implements OnInit {
   /**
    * @param sModo 'F' só fecha | 'A' abre um alert pra confirmacao
    */
-  async sair(sModo: string) {
-    if (sModo === 'A') {
+  async desconectar(sModo: string) {
+    if (sModo === 'F') {
       this.modalController.dismiss()
     } else {
       const alert = await this.alertController.create({
@@ -101,7 +103,7 @@ export class ModalPerfilComponent implements OnInit {
         subHeader: 'Deseja realmente sair?',
         mode: 'ios',
         buttons: [
-          { text: 'Ok', handler: () => { this.navCtrl.navigateRoot('/'), this.modalController.dismiss() } },
+          { text: 'Ok', handler: () => { this.navCtrl.navigateRoot('/'), this.modalController.dismiss(), this.localStorageService.logout() } },
           { text: 'Cancelar', role: 'cancel' },
         ]
       });
@@ -127,7 +129,7 @@ export class ModalPerfilComponent implements OnInit {
       header: titulo,
       subHeader: mensagem,
       mode: 'ios',
-      buttons: [{ text: 'Ok', handler: () => { this.sair('F'); } }]
+      buttons: [{ text: 'Ok', handler: () => { this.desconectar('F'); } }]
     });
     alert.present();
   }

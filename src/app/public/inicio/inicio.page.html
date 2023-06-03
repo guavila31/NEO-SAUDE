@@ -31,16 +31,16 @@
         <label class="titulo-login" for="chk" aria-hidden="true" (click)="alterarTipoEntrada()">Entrar</label>
 
         <div class="inputRegistro inputLogin">
-          <input type="text" required="" autocomplete="off">
+          <input type="text" required="" autocomplete="off" name="sLogin" [(ngModel)]="sLogin">
           <label for="name">CPF</label>
         </div>
 
         <div class="inputRegistro inputLogin">
-          <input type="password" required="" autocomplete="off">
+          <input type="password" required="" autocomplete="off" name="sSenha" [(ngModel)]="sSenha">
           <label for="name">Senha</label>
         </div>
 
-        <button (click)="entrar()" [routerLink]="'../area-paciente'">Entrar</button>
+        <button (click)="entrar()">Entrar</button>
       </form>
     </div>
 

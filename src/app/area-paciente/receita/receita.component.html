@@ -12,6 +12,11 @@
   </ion-refresher>
 
   <div class="receitas">
+    <div class="fundo-padrao" *ngIf="!(aListaReceita.length>0)">
+      <img src="assets/img/sem_dados_receita.svg" alt="">
+      <p>SEM RECEITAS ATIVAS</p>
+    </div>
+
     <div class="back animate__animated animate__backInUp" (click)="abrirDetalhes(receitas.id)"
       *ngFor="let receitas of aListaReceita">
       <div class="back-content">

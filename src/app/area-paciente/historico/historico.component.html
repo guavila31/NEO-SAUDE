@@ -15,6 +15,11 @@
     </ion-refresher-content>
   </ion-refresher>
   <div class="receitas">
+    <div class="fundo-padrao" *ngIf="!(aListaHistorico.length>0)">
+      <img src="assets/img/sem_dados_historico.svg" alt="">
+      <p>NÃO HÁ HISTÓRICO</p>
+    </div>
+
     <div class="back animate__animated animate__backInUp" *ngFor="let historico of aListaHistorico" (click)="abrirDetalhes(historico.id)">
       <div class="back-content">
         <div class="cartao">

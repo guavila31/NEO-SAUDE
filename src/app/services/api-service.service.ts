@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { ReqParams } from '../helpers/reqparams.helper';
+import { LocalStorageService } from './localstorage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,15 +12,26 @@ export class ApiService {
   private prod = environment;
 
   private headers: HttpHeaders = new HttpHeaders()
-  .set('content-type', 'application/json')
-  .set('Access-Control-Allow-Origin', '*')
-  .set('Authorization', `Bearer ${this.prod.appToken}`);
+    .set('content-type', 'application/json')
+    .set('Access-Control-Allow-Origin', '*')
+    .set('Authorization', `Bearer ${this.localStorageService.obterDadosAutenticacao()}`);
+  // .set('Authorization', `Bearer ${this.prod.appToken}`);
 
   private url: string = '';
 
   constructor(
-    private http: HttpClient
-  ) {  }
+    private http: HttpClient,
+    private localStorageService: LocalStorageService
+  ) { }
+
+  public setarHeaders(){
+    this.headers = this.headers = new HttpHeaders()
+      .set('content-type', 'application/json')
+      .set('Access-Control-Allow-Origin', '*')
+      .set('Authorization', `Bearer ${this.localStorageService.obterDadosAutenticacao()}`);
+      console.log('Cabecalho', this.headers);
+  }
+
 
   public get getEnv(): boolean {
     return this.prod.production;
@@ -72,7 +84,7 @@ export class ApiService {
         if (content) {
           serverData = await this.http[type](url, body, { observe: 'response', headers: this.headers, responseType: 'blob' }).toPromise();
         } else
-        serverData = await this.http[type](url, body, { observe: 'response', headers: this.headers }).toPromise();
+          serverData = await this.http[type](url, body, { observe: 'response', headers: this.headers }).toPromise();
       } else if (type === 'delete') {
         serverData = await this.http.delete(url, { observe: 'response', headers: this.headers }).toPromise();
       } else {
