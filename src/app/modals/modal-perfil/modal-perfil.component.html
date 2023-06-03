@@ -11,15 +11,24 @@
     <div class="container">
       <form class="form">
         <div class="form_front">
-          <input type="text" class="input" placeholder="NOME COMPLETO" value="{{iDadosPaciente.nome}}">
-          <input type="text" class="input" placeholder="CPF" value="{{iDadosPaciente.cpf}}">
           <!-- <input type="text" class="input" placeholder="CRM"> -->
-          <input type="text" class="input" placeholder="CELULAR" value="{{iDadosPaciente.celular}}">
-          <input type="text" class="input" placeholder="EMAIL" value="{{iDadosPaciente.email}}">
-          <input type="text" class="input" placeholder="DATA DE NASCIMENTO" value="{{formatador.formatarData(iDadosPaciente.dataNascimento)}}">
+          <input type="text" name="sNome" class="input" placeholder="NOME COMPLETO" [(ngModel)]="sNome">
+          <input type="text" name="sCpf" class="input" placeholder="CPF" disabled [(ngModel)]="sCpf">
+          <input type="text" name="sCelular" class="input" placeholder="CELULAR" disabled [(ngModel)]="sCelular">
+          <input type="text" name="sEmail" class="input" placeholder="EMAIL" [(ngModel)]="sEmail">
+          <input
+            type="text"
+            class="input"
+            name="sDataNasc"
+            placeholder="DATA DE NASCIMENTO"
+            value="{{formatador.formatarData(iDadosPaciente.dataNascimento)}}"
+            [(ngModel)]="sDataNasc"
+            (input)="formatarData($event)"
+            maxlength="10"
+          >
           <div class="botoes">
-            <button class="btn salvar">Salvar</button>
-            <button class="btn excluir">Excluir conta</button>
+            <button class="btn salvar" (click)="salvarPerfil()">Salvar</button>
+            <button class="btn excluir" (click)="excluirConta()">Excluir conta</button>
           </div>
         </div>
       </form>
@@ -27,7 +36,7 @@
   </div>
 
   <div class="sair">
-    <ion-button (click)="sair()" expand="block" color="danger" fill="clear" mode="ios" strong [routerLink]="'../'">
+    <ion-button (click)="sair('D')" expand="block" color="danger" fill="clear" mode="ios" strong>
       <ion-icon slot="start" name="exit-outline"></ion-icon>
       Desconectar
     </ion-button>

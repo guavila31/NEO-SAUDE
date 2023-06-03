@@ -28,7 +28,7 @@
 
     <div class="login">
       <form class="form">
-        <label class="titulo-login" for="chk" aria-hidden="true">Entrar</label>
+        <label class="titulo-login" for="chk" aria-hidden="true" (click)="alterarTipoEntrada()">Entrar</label>
 
         <div class="inputRegistro inputLogin">
           <input type="text" required="" autocomplete="off">
@@ -47,31 +47,45 @@
     <div class="register">
       <form class="form">
         <div class="registrar">
-          <ion-img src="../../assets/img/Logo-fundo-claro.svg"></ion-img>
+          <ion-img src="../../assets/img/Logo-fundo-claro.svg" style="position: relative;top: 50px;"></ion-img>
+          <div class="alterar-usuario">
+            <p class="tipo-usuario">Sou {{sTipoUsuario}}?</p>
+            <label class="switch">
+              <input type="checkbox" class="input__check" [(ngModel)]="bEMedico" (click)="alterarTipoUsuario()">
+              <span class="slider"></span>
+            </label>
+          </div>
         </div>
         <div class="titulo-registro-box">
-          <label for="chk" aria-hidden="true" class="titulo-registro">Registrar</label>
+          <label for="chk" aria-hidden="true" class="titulo-registro" (click)="alterarTipoEntrada()">Registrar
+            {{!bELogin ? (bEMedico ? 'Médico' : 'paciente') : ''}}</label>
         </div>
 
-        <div class="inputRegistro">
-          <input type="text" required="" autocomplete="off">
-          <label for="name">Nome Completo</label>
-        </div>
-        <div class="inputRegistro">
-          <input type="text" required="" autocomplete="off">
-          <label for="name">CPF</label>
-        </div>
-        <div class="inputRegistro">
-          <input type="text" required="" autocomplete="off">
-          <label for="name">Celular</label>
-        </div>
-        <div class="inputRegistro">
-          <input type="password" required="" autocomplete="off">
-          <label for="password">Senha</label>
-        </div>
-        <div class="inputRegistro">
-          <input type="password" required="" autocomplete="off">
-          <label for="password">Confirmar Senha</label>
+        <div class="formulario-registro">
+          <div class="inputRegistro">
+            <input type="text" required="" autocomplete="off">
+            <label for="name">Nome Completo</label>
+          </div>
+          <div class="inputRegistro" *ngIf="!bEMedico">
+            <input type="text" required="" autocomplete="off">
+            <label for="name">CPF</label>
+          </div>
+          <div class="inputRegistro" *ngIf="bEMedico">
+            <input type="text" required="" autocomplete="off">
+            <label for="name">CRM</label>
+          </div>
+          <div class="inputRegistro">
+            <input type="text" required="" autocomplete="off">
+            <label for="name">Celular</label>
+          </div>
+          <div class="inputRegistro">
+            <input type="password" required="" autocomplete="off">
+            <label for="password">Senha</label>
+          </div>
+          <div class="inputRegistro">
+            <input type="password" required="" autocomplete="off">
+            <label for="password">Confirmar Senha</label>
+          </div>
         </div>
         <button style="margin-bottom: 100%;" (click)="registrar()" [routerLink]="'../area-paciente'">Registrar</button>
       </form>
