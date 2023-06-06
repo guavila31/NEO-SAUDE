@@ -1,0 +1,352 @@
+.cabecalho {
+  background-color: #0a346b;
+  height: 150px;
+  border-radius: 0px 0px 30px 30px;
+
+  .conteudo {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+    .bloco-imagem {
+      display: flex;
+      justify-content: space-between;
+      margin: 5px 10px;
+
+      ion-img {
+        width: 195px;
+        margin: 5px 0px 0px 10px;
+      }
+
+      .perfil {
+        width: 50px;
+        height: 50px;
+        background-color: aliceblue;
+        border-radius: 50px;
+        border: 1px solid;
+        align-self: center;
+
+        p {
+          padding: 0;
+          color: #0a346b;
+          justify-content: center;
+          align-items: center;
+        }
+      }
+    }
+
+    p {
+      margin: 0;
+      display: flex;
+      height: 100%;
+      flex-direction: column-reverse;
+      padding: 15px 20px;
+      font-size: 25px;
+    }
+  }
+}
+
+.cartao {
+  border: 1px solid #a0fff6;
+  border-radius: 10px;
+  margin: 20px 15px;
+  padding: 10px;
+  height: 130px;
+  box-shadow: 2px 3px 3px rgba(0, 0, 0, 0.75);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #E9F2F5;
+
+  .icone {
+    display: flex;
+    align-items: center;
+    height: 100%;
+
+    ion-icon {
+      font-size: 85px;
+      color: #0a346b;
+    }
+  }
+
+  .horas {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 45px;
+    color: #1664c6;
+    font-weight: 900;
+    line-height: 0px;
+    width: 75px;
+
+    p {
+      margin: 20px;
+      padding: 0px;
+      font-family: "Noto Sans", sans-serif !important;
+    }
+  }
+
+  .titulo-alarme {
+    font-size: 13px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-between;
+
+    p {
+      margin: 0;
+      padding: 0px;
+      text-transform: uppercase;
+    }
+
+    .titulo {
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+  }
+
+  .botao-lateral {
+    height: 130px;
+    position: relative;
+    left: 11px;
+    border-radius: 0px 10px 10px 0px;
+    writing-mode: vertical-lr;
+    background-color: #0a346b;
+    color: #ccc;
+    text-align: center;
+    font-size: 15px;
+  }
+
+  .titulo-alergia {
+    font-size: 13px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: center;
+
+    p {
+      margin: 0;
+      padding: 0px;
+      text-transform: uppercase;
+    }
+
+    .titulo {
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+  }
+
+  .qtd-receitas {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 45px;
+    color: #1e1e1e;
+    font-weight: 900;
+    line-height: 0px;
+    width: 75px;
+
+    p {
+      font-size: 60px;
+      font-weight: 600;
+      padding: 0px 0px 0px 5px;
+    }
+  }
+
+  .titulo-receitas {
+    font-size: 13px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-between;
+
+    p {
+      margin: 0;
+      padding: 0px;
+      text-transform: uppercase;
+    }
+
+    .titulo {
+      padding: 0px;
+      text-transform: uppercase;
+      font-weight: 700;
+      font-size: 24px;
+      text-align: center;
+      margin: auto;
+    }
+  }
+}
+
+.box-rodape {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.rodape {
+  height: 70px;
+  background-color: #0a346b;
+
+  .menus {
+    display: flex;
+    justify-content: center;
+    padding: 5px 15px;
+    height: 100%;
+    align-items: center;
+
+    .icones {
+      width: 40px;
+      height: 40px;
+      font-size: 40px;
+      text-align: center;
+    }
+  }
+}
+
+:root {
+  padding-bottom: 70px;
+}
+
+ion-toolbar {
+  height: 60px;
+  display: flex;
+  align-items: center;
+}
+
+.cabecalho {
+  font-size: 30px;
+  font-weight: 500;
+  color: #0a346b;
+  text-transform: uppercase;
+}
+
+.preescricao {
+  margin: 25px auto;
+  padding: 15px;
+  width: 90%;
+  height: 720px;
+  border: 1px solid #1e1e1e73;
+  border-radius: 5px;
+  box-shadow: 3px 3px 5px rgba(30, 30, 30, 0.5);
+  background-color: #d7f5ffa1;
+  .fundo {
+    position: absolute;
+    opacity: 0.5;
+    width: 82%;
+    height: 700px;
+    display: flex;
+    z-index: -1;
+  }
+  .detalhe-medico {
+    text-align: center;
+    font-size: 1.25rem;
+    padding-bottom: 25px;
+    border-bottom: 1px solid #1e1e1e73;
+    .clinica {
+      color: #1e1e1e;
+      font-weight: 600;
+      font-size: 1.5rem;
+      margin-bottom: 7.5px;
+    }
+    .medico,
+    .especialidade {
+      color: #1e1e1e;
+      font-weight: 700;
+      font-size: 1rem;
+      margin-bottom: 3.5px;
+      text-transform: uppercase;
+    }
+    .especialidade {
+      font-weight: 400;
+      margin: 0;
+    }
+  }
+  .conteudo {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 515px;
+    .competencia {
+      text-align: center;
+      margin: 15px 0;
+      font-size: 1rem;
+      font-weight: 800;
+      color: #fefefe;
+      background-color: #1e1e1e;
+      padding: 2px;
+      border-radius: 75px;
+    }
+    .medicacao {
+      margin-top: 30px;
+      min-height: 50%;
+      max-height: 100%;
+      overflow: scroll;
+      .detalhe-medicacao {
+        margin: 10px 0px 15px 0;
+        .box-medicacao {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          color: #1e1e1e;
+          .nome-remedio {
+            font-size: 1rem;
+            text-transform: uppercase;
+            font-weight: 800;
+          }
+          .tempo {
+            background-color: #0a346b;
+            color: #fefefe;
+            text-transform: uppercase;
+            padding: 4px 20px;
+            font-size: 0.9rem;
+            font-weight: 800;
+            border-radius: 50px;
+            box-shadow: 3px 3px 5px rgba(30, 30, 30, 0.5);
+          }
+        }
+        .frequencia-remedio {
+          color: #1e1e1e;
+          font-weight: 500;
+          font-size: 0.95rem;
+          position: relative;
+          bottom: 2.5px;
+        }
+      }
+    }
+    .observacao {
+      p {
+        text-transform: uppercase;
+        color: #1e1e1e;
+        font-weight: 600;
+        font-size: 1.2rem;
+        margin: 10px 0 10px 0px;
+      }
+      textarea {
+        width: 100%;
+        min-height: 150px;
+        max-height: 150px;
+        background-color: #fefefe;
+        border: 1px solid #1e1e1e73;
+        border-radius: 10px;
+        box-shadow: 3px 3px 5px rgba(30, 30, 30, 0.5);
+        padding: 9px;
+        color: #1e1e1e;
+        font-size: 1rem;
+        font-weight: 600;
+      }
+    }
+    .assinatura {
+      position: relative;
+      top: 35px;
+      border-bottom: 1px solid #1e1e1e7d;
+      margin: 0 10%;
+      p {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #1e1e1e;
+      }
+    }
+  }
+}
+

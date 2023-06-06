@@ -11,7 +11,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [
+    AppComponent,],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),

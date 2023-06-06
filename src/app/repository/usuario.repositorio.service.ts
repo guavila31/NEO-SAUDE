@@ -18,7 +18,7 @@ export class UsuarioRepositorioService {
     }
 
     autenticar(usuario: any){
-        return this.http.post(`${environment.API_URL}login`, usuario);
+        return this.http.post(`${environment.API_URL}api/login`, usuario);
     }
 
     recuperarSenha(usuario: any){

@@ -14,7 +14,11 @@ const routes: Routes = [
   {
     path: 'area-paciente',
     loadChildren: () => import('./area-paciente/area-paciente.module').then( m => m.AreaPacientePageModule)
+  },  {
+    path: 'area-medico',
+    loadChildren: () => import('./area-medico/area-medico.module').then( m => m.AreaMedicoPageModule)
   },
+
 ];
 
 @NgModule({

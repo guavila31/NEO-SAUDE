@@ -1,0 +1,101 @@
+<ion-header>
+  <!-- <app-cabecalho></app-cabecalho> -->
+  <div class="cabecalho">
+    <div class="conteudo">
+      <div class="bloco-imagem">
+        <ion-img [src]="'./assets/img/Logo-fundo-escuro-linha.svg'"></ion-img>
+        <div class="perfil">
+        <!-- <div class="perfil" (click)="abrirPerfil()"> -->
+          <p>GA</p>
+        </div>
+      </div>
+      <p>{{sTituloCabecalho}}</p>
+    </div>
+  </div>
+  
+</ion-header>
+
+
+<ion-content [fullscreen]="true">
+  <!-- <app-home [hidden]="!pacieteService.bMenuHome"></app-home> -->
+     <!-- Receitas ativas -->
+     <div [hidden]="!bMenuPrincipal">
+       <div class="cartao">
+         <div class="icone animate__animated animate__pulse animate__infinite" (click)="trocarTela()">
+           <ion-icon name="add-circle-outline"></ion-icon>
+         </div>
+         <div class="titulo-receitas">
+           <p class="titulo"> Adicionar receita </p>
+         </div>
+       </div>
+     </div>
+
+  <div class="preescricao" [hidden]="bMenuPrincipal">
+    <div class="fundo">
+      <img src="assets/img/Logo-fundo-claro.svg" alt="">
+    </div>
+    <div class="detalhe-medico">
+      <p class="clinica">Nome Clinica</p>
+      <p class="medico">Nome medico</p>
+      <!-- <p class="medico">{{!bGenero ? 'DR.' : 'DRA.'}} {{aDadosMedico?.nome}}</p> -->
+      <p class="especialidade">Especialidade | crm</p>
+      <!-- <p class="especialidade">{{aDadosMedico?.especialidade}} | {{aDadosMedico?.crm}}</p> -->
+    </div>
+    <div class="conteudo">
+
+      <div class="competencia">
+        <p>Competencia</p>
+        <!-- <p>{{aDetalheReceita?.dataExpedicao ? formatadorDeData.formatarData(aDetalheReceita?.dataExpedicao) : ''}}</p> -->
+      </div>
+
+      <div class="medicacao" >
+        <div class="detalhe-medicacao">
+        <!-- <div class="detalhe-medicacao" *ngFor="let prescricao of aDetalhePrescricao"> -->
+          <div class="box-medicacao">
+            <p class="nome-remedio">Nome remedio</p>
+            <p class="tempo">99 Dias</p>
+            <!-- <p class="nome-remedio">{{prescricao?.dadosMedicamento?.nome}}</p>
+            <p class="tempo">{{prescricao?.quantidadeDias}} Dias</p> -->
+          </div>
+          <p class="frequencia-remedio">
+            1x por dia
+            <!-- {{prescricao?.frequencia}} -->
+          </p>
+        </div>
+        <!-- <div class="detalhe-medicacao">
+          <div class="box-medicacao">
+            <p class="nome-remedio">Canesten</p>
+            <p class="tempo">5 DIAS</p>
+          </div>
+          <p class="frequencia-remedio">
+            Tomar a cada 8 horas
+          </p>
+        </div> -->
+      </div>
+
+      <div class="observacao">
+        <p>observação</p>
+        <div class="texto">
+          <textarea disabled></textarea>
+          <!-- <textarea [value]="aDetalheReceita?.observacao" disabled></textarea> -->
+        </div>
+      </div>
+
+      <div class="assinatura">
+        <p>Ass:</p>
+      </div>
+
+    </div>
+  </div>
+  <!-- <app-receita [hidden]="!pacieteService.bMenuReceita"></app-receita>  -->
+  <!-- <app-historico [hidden]="!pacieteService.bMenuHistorico"></app-historico> -->
+</ion-content>
+
+<ion-footer class="box-rodape">
+  <div class="rodape">
+    <div class="menus">
+      <div class="icones"><ion-icon name="home"></ion-icon></div>
+    </div>
+  </div>
+  
+</ion-footer>

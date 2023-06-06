@@ -46,20 +46,20 @@
 
     <div class="register">
       <form class="form">
-        <div class="registrar">
-          <ion-img src="../../assets/img/Logo-fundo-claro.svg" style="position: relative;top: 50px;"></ion-img>
-          <div class="alterar-usuario">
-            <p class="tipo-usuario">Sou {{sTipoUsuario}}?</p>
-            <label class="switch">
-              <input type="checkbox" class="input__check" [(ngModel)]="bEMedico" (click)="alterarTipoUsuario()">
-              <span class="slider"></span>
-            </label>
-          </div>
-        </div>
         <div class="titulo-registro-box">
           <label for="chk" aria-hidden="true" class="titulo-registro" (click)="alterarTipoEntrada()">Registrar
-            {{!bELogin ? (bEMedico ? 'Médico' : 'paciente') : ''}}</label>
-        </div>
+            {{!bELogin ? (bEMedico ? 'Médico' : 'Paciente') : ''}}</label>
+          </div>
+          <div class="registrar">
+            <ion-img src="../../assets/img/Logo-fundo-claro.svg"></ion-img>
+            <div class="alterar-usuario">
+              <p class="tipo-usuario">Sou {{sTipoUsuario}}?</p>
+              <label class="switch">
+                <input type="checkbox" class="input__check" [(ngModel)]="bEMedico" (click)="alterarTipoUsuario()">
+                <span class="slider"></span>
+              </label>
+            </div>
+          </div>
 
         <div class="formulario-registro">
           <div class="inputRegistro">
@@ -79,15 +79,21 @@
             <label for="name">Celular</label>
           </div>
           <div class="inputRegistro">
-            <input type="password" required="" autocomplete="off">
+            <input type="password" required="" autocomplete="off" [(ngModel)]="password" (input)="checkPasswordStrength('S')">
             <label for="password">Senha</label>
+            <div *ngIf="password" [ngStyle]="nivelSenhaEstilo" class="nivel-senha">
+              <p>{{ passwordStrength}}</p>
+            </div>
           </div>
           <div class="inputRegistro">
-            <input type="password" required="" autocomplete="off">
+            <input type="password" required="" autocomplete="off" [(ngModel)]="confirmPassword" (blur)="validaSenhas()" (input)="checkPasswordStrength('C')">
             <label for="password">Confirmar Senha</label>
+            <div [hidden]="estaIgual" class="confirmar-senha">
+              <p>Senha de confirmação está diferente !</p>
+            </div>
           </div>
         </div>
-        <button style="margin-bottom: 100%;" (click)="registrar()" [routerLink]="'../area-paciente'">Registrar</button>
+        <button style="margin-bottom: 100%;" (click)="registrar()" [routerLink]="'../area-medico'">Registrar</button>
       </form>
     </div>
   </div>

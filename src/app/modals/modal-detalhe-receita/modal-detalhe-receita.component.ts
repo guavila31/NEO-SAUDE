@@ -65,14 +65,14 @@ export class ModalDetalheReceitaComponent implements OnInit {
   }
 
   checarGenero() {
-    if(this.sNomeMedico !== ''){
+    if (this.sNomeMedico !== '') {
       this.identGenero.getGender(this.sNomeMedico)
         .then(gender => {
           console.log('Genero: ', gender)
           this.bGenero = (gender === 'female' ? true : false);
         });
     }
-    }
+  }
 }
 
 

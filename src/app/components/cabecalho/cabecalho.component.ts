@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { PacienteInterface } from 'src/app/interface/paciente-interface';
-import { ModalDetalheReceitaComponent } from 'src/app/modals/modal-detalhe-receita/modal-detalhe-receita.component';
 import { ModalPerfilComponent } from 'src/app/modals/modal-perfil/modal-perfil.component';
 import { ApiService } from 'src/app/services/api-service.service';
 import { FormatadorDeDadosService } from 'src/app/services/formatador-de-dados.service';
