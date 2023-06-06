@@ -64,7 +64,6 @@ export class ModalPerfilComponent implements OnInit {
 
   construirBody() {
     this.iDadosPaciente = {
-      id: this.iDadosPaciente.id,
       celular: this.sCelular,
       cpf: this.sCpf,
       dataNascimento: this.sDataNasc,

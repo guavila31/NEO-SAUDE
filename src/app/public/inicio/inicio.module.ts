@@ -1,10 +1,12 @@
-import { NgModule } from '@angular/core';
+
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
-import { FormsModule } from '@angular/forms';
 
 import { HomePageRoutingModule } from './inicio-routing.module';
 import { InicioPage } from './inicio.page';
+import { NgxMaskModule } from 'ngx-mask';
+import { FormsModule } from '@angular/forms';
+import { NgModule } from '@angular/core';
 
 
 @NgModule({
@@ -12,7 +14,8 @@ import { InicioPage } from './inicio.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    HomePageRoutingModule
+    HomePageRoutingModule,
+    NgxMaskModule.forRoot()
   ],
   declarations: [InicioPage]
 })

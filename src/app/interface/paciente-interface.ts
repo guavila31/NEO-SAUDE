@@ -1,8 +1,8 @@
 export interface PacienteInterface {
-  id?: number;
   cpf?: string;
   nome?: string;
-  dataNascimento?: string;
   email?: string;
+  dataNascimento?: string;
   celular?: string;
+  senha?: string;
 }

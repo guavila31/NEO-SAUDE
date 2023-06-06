@@ -14,7 +14,6 @@ export class UsuarioService {
 
   autenticar(usuario: any) {
     if (this.localStorageService.setarAutenticacaoLocalStorage(usuario)) {
-      // this.localStorageService.setarIdCliente(usuario.usuario.idCliente);
       this.usuarioAutenticado.emit(true);
       return true;
     }

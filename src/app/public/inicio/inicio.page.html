@@ -20,19 +20,19 @@
 <ion-content>
 
 
-  <div class="main">
+  <div class="main" [ngStyle]="main">
     <input type="checkbox" id="chk" aria-hidden="true">
     <div class="imagem">
       <ion-img src="../../assets/img/Logo-fundo-escuro.svg"></ion-img>
     </div>
 
-    <div class="login">
+    <div class="login" [ngStyle]="form">
       <form class="form">
         <label class="titulo-login" for="chk" aria-hidden="true" (click)="alterarTipoEntrada()">Entrar</label>
 
         <div class="inputRegistro inputLogin">
-          <input type="text" required="" autocomplete="off" name="sLogin" [(ngModel)]="sLogin">
-          <label for="name">CPF</label>
+          <input type="text" required="" autocomplete="off" name="sLogin" [(ngModel)]="sLogin" mask="000-000 || 000.000.000-00">
+          <label for="name">CPF ou CRM</label>
         </div>
 
         <div class="inputRegistro inputLogin">
@@ -63,23 +63,23 @@
 
         <div class="formulario-registro">
           <div class="inputRegistro">
-            <input type="text" required="" autocomplete="off">
+            <input type="text" required="" autocomplete="off" name="sNomeCompleto" [(ngModel)]="sNomeCompleto">
             <label for="name">Nome Completo</label>
           </div>
           <div class="inputRegistro" *ngIf="!bEMedico">
-            <input type="text" required="" autocomplete="off">
+            <input type="text" required="" autocomplete="off" mask="000.000.000-00" name="sCpf" [(ngModel)]="sCpf">
             <label for="name">CPF</label>
           </div>
           <div class="inputRegistro" *ngIf="bEMedico">
-            <input type="text" required="" autocomplete="off">
+            <input type="text" required="" autocomplete="off" mask="000-000" name="sCrm" [(ngModel)]="sCrm">
             <label for="name">CRM</label>
           </div>
           <div class="inputRegistro">
-            <input type="text" required="" autocomplete="off">
-            <label for="name">Celular</label>
+            <input type="text" required="" autocomplete="off" mask="(00) 00000-0000 || (00) 0000-0000" name="sCelular" [(ngModel)]="sCelular">
+            <label for="name">Celular</label> 
           </div>
           <div class="inputRegistro">
-            <input type="password" required="" autocomplete="off" [(ngModel)]="password" (input)="checkPasswordStrength('S')">
+            <input type="password" required="" autocomplete="off" [(ngModel)]="password" (input)="checkPasswordStrength('S')" name="sSenhaCadastro" [(ngModel)]="sSenhaCadastro">
             <label for="password">Senha</label>
             <div *ngIf="password" [ngStyle]="nivelSenhaEstilo" class="nivel-senha">
               <p>{{ passwordStrength}}</p>
@@ -93,7 +93,7 @@
             </div>
           </div>
         </div>
-        <button style="margin-bottom: 100%;" (click)="registrar()" [routerLink]="'../area-medico'">Registrar</button>
+        <button (click)="registrar()">Registrar</button>
       </form>
     </div>
   </div>

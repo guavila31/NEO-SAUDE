@@ -6,4 +6,5 @@ export interface MedicoInterface {
     dataNascimento?: string;
     email?: string;
     celular: string;
+    senha?: string;
 }

@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { AlertController, LoadingController, NavController } from '@ionic/angular';
+import { MedicoInterface } from 'src/app/interface/medico-interface';
+import { PacienteInterface } from 'src/app/interface/paciente-interface';
 import { UsuarioRepositorioService } from 'src/app/repository/usuario.repositorio.service';
 import { ApiService } from 'src/app/services/api-service.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
@@ -15,13 +17,27 @@ export class InicioPage {
   public bEMedico: boolean = false
   public bELogin: boolean = true
 
-  public sLogin: string = 'luis.barros@neosaude.com.br'
+  public sLogin: string = ''
   public sSenha: string = ''
+
+  public sNomeCompleto: string = '';
+  public sCpf: string = '';
+  public sCrm: string = '';
+  public sCelular: string = '';
+  public sSenhaCadastro: string = '';
 
   public password: string = '';
   public confirmPassword: string = '';
   public passwordStrength: string = '';
   public nivelSenhaEstilo: any;
+  public main: any = { "overflow": "hidden" }
+  // public form: any = { "background": "#dbdbdb" }
+  public form: any = { "background": "none" }
+
+  public iDadosPaciente: PacienteInterface | undefined
+  public iDadosMedico: MedicoInterface | undefined
+
+  public bEstaValidado: boolean = false
 
   public estaIgual: boolean = true;
 
@@ -32,21 +48,22 @@ export class InicioPage {
     private alertCtrl: AlertController,
     private loadingCtrl: LoadingController,
     private navCtrl: NavController,
+    private alertController: AlertController
   ) { }
 
-  
+
   /**
    * @param modo "S" === "Senha" | "C"=== "Confirmar Senha" 
-   */ 
+   */
   checkPasswordStrength(modo: string) {
-    if(modo === "S"){
+    if (modo === "S") {
       if (!this.password) {
         this.passwordStrength = '';
         return;
       }
       const strongRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*\W+).+$/;
       const mediumRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d.]{6,}$/;
-  
+
       if (strongRegex.test(this.password)) {
         this.passwordStrength = 'Forte';
         this.nivelSenhaEstilo = { 'color': '#479833', 'border-top': '3px solid #479833', 'width': '90%', '-webkit-text-stroke-width': '0px' };
@@ -57,7 +74,7 @@ export class InicioPage {
         this.passwordStrength = 'Fraca';
         this.nivelSenhaEstilo = { 'color': '#A83B3B', 'border-top': '3px solid #A83B3B', 'width': '25%', '-webkit-text-stroke-width': '0px' };
       }
-    }else{
+    } else {
       console.log('Passou check');
       if (this.password === this.confirmPassword) {
         console.log('Entrou check');
@@ -87,7 +104,91 @@ export class InicioPage {
     alert.present();
   }
 
-  registrar() { }
+  validarFormulario() {
+    if ((!this.bEMedico) && this.sNomeCompleto && this.sCpf && this.sCelular && this.sSenhaCadastro) {
+      console.log('Validado');
+      this.bEstaValidado = true
+    } else if (this.bEMedico && this.sNomeCompleto && this.sCrm && this.sCelular && this.sSenhaCadastro) {
+      console.log('Validado');
+      this.bEstaValidado = true
+    } else {
+      console.log('Não Validado');
+      this.bEstaValidado = false
+    }
+  }
+
+  async registrar() {
+    const LOADING = await this.loadingCtrl.create({ message: "Aguarde...", mode: 'ios' });
+    LOADING.present();
+    this.validarFormulario()
+    if (this.bEstaValidado) {
+      if (this.bEMedico) { // Médico
+        this.iDadosMedico = {
+          celular: this.sCelular,
+          especialidade: 'Clínico Geral',
+          crm: this.sCrm,
+          nome: this.sNomeCompleto,
+          senha: this.sSenhaCadastro
+        }
+        this.usuarioRepositorioService.cadastrarMedico(this.iDadosMedico).subscribe(data => {
+          console.log('Data: ', data);
+          let login = this.iDadosMedico?.crm
+          let senha = this.iDadosMedico?.senha
+
+          console.log('Login M: ', login);
+          console.log('Senha M: ', senha);
+          LOADING.dismiss();
+          this.alertaConfirmacao('Médico', { login: login, senha: senha })
+        }, error => {
+          console.log('Erro login', error);
+          this.alertPadrao('Erro!', 'Houve algum erro.');
+          LOADING.dismiss();
+        })
+      } else { // Paciente
+        this.iDadosPaciente = {
+          celular: this.sCelular,
+          cpf: this.sCpf,
+          nome: this.sNomeCompleto,
+          senha: this.sSenhaCadastro
+        }
+        this.usuarioRepositorioService.cadastrarPaciente(this.iDadosPaciente).subscribe(data => {
+          console.log('Data: ', data);
+          let login = this.iDadosPaciente?.cpf
+          let senha = this.iDadosPaciente?.senha
+
+          console.log('Login P: ', login);
+          console.log('Senha P: ', senha);
+          this.navCtrl.navigateForward('/area-paciente')
+          this.alertaConfirmacao('Paciente', { login: login, senha: senha })
+          LOADING.dismiss();
+        }, error => {
+          console.log('Erro login', error);
+          this.alertPadrao('Erro', 'Houve algum erro!');
+          LOADING.dismiss();
+        })
+      }
+    } else {
+      this.alertPadrao('Atenção!', 'Preencha corretamente os campos.')
+      LOADING.dismiss()
+    }
+  }
+
+  async alertaConfirmacao(tipoUsuario: string, dadosLogin: any) {
+    const alert = await this.alertController.create({
+      header: 'Sucesso!',
+      message: tipoUsuario + ' cadastrado com sucesso!',
+      mode: 'ios',
+      buttons: [{
+        text: 'Ok',
+        handler: () => {
+          this.usuarioRepositorioService.autenticar(dadosLogin);
+        }
+      }
+      ]
+    });
+
+    await alert.present();
+  }
 
   async entrar() {
     console.log('Login: ', this.sLogin);
@@ -120,6 +221,16 @@ export class InicioPage {
 
   alterarTipoEntrada() {
     this.bELogin = !this.bELogin
+    if (this.bELogin) {
+      this.main = { "overflow": "hidden" }
+      this.form = { "background": "none" }
+      // this.form = { "background-image": "linear-gradient(to bottom, transparent 50%, #dbdbdb 50%)"}
+    } else {
+      this.main = { "overflow": "visible" }
+      this.form = { "background": "#dbdbdb", "transition": "2.5s ease-in-out"}
+
+    }
+
     console.log('login: ', this.bELogin);
   }
 }
