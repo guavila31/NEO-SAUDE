@@ -22,6 +22,8 @@ export class ModalPerfilComponent implements OnInit {
   public sCelular: string | undefined
   public sEmail: string | undefined
 
+  public sIniciaisNome: string = ''
+
   public iDadosPacienteAtualizar: PacienteInterface = {}
   constructor(
     private modalController: ModalController,
@@ -37,9 +39,10 @@ export class ModalPerfilComponent implements OnInit {
     this.iDadosPaciente = this.navParams.get('iDadosPaciente');
     this.sNome = this.iDadosPaciente.nome
     this.sCpf = this.iDadosPaciente.cpf
-    this.sDataNasc = this.iDadosPaciente.dataNascimento
+    this.sDataNasc = this.iDadosPaciente.dataNascimento ? this.iDadosPaciente.dataNascimento : ''
     this.sCelular = this.iDadosPaciente.celular
-    this.sEmail = this.iDadosPaciente.email
+    this.sEmail = this.iDadosPaciente.email ? this.iDadosPaciente.email : ''
+    this.sIniciaisNome = formatador.obterIniciais(this.sNome)
     console.log('Paciente: ', this.iDadosPaciente)
   }
 

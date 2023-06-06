@@ -4,6 +4,8 @@ import { MedicoInterface } from 'src/app/interface/medico-interface';
 import { PacienteInterface } from 'src/app/interface/paciente-interface';
 import { UsuarioRepositorioService } from 'src/app/repository/usuario.repositorio.service';
 import { ApiService } from 'src/app/services/api-service.service';
+import { FormatadorDeDadosService } from 'src/app/services/formatador-de-dados.service';
+import { LocalStorageService } from 'src/app/services/localstorage.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
@@ -48,7 +50,9 @@ export class InicioPage {
     private alertCtrl: AlertController,
     private loadingCtrl: LoadingController,
     private navCtrl: NavController,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private localStorageService: LocalStorageService,
+    private formatador: FormatadorDeDadosService
   ) { }
 
 
@@ -137,8 +141,11 @@ export class InicioPage {
 
           console.log('Login M: ', login);
           console.log('Senha M: ', senha);
+          this.navCtrl.navigateForward('/area-medico')
           LOADING.dismiss();
+          this.localStorageService.setarIdentificadorUsuario(this.sLogin)
           this.alertaConfirmacao('Médico', { login: login, senha: senha })
+          
         }, error => {
           console.log('Erro login', error);
           this.alertPadrao('Erro!', 'Houve algum erro.');
@@ -147,7 +154,7 @@ export class InicioPage {
       } else { // Paciente
         this.iDadosPaciente = {
           celular: this.sCelular,
-          cpf: this.sCpf,
+          cpf: this.formatador.formatarCPF(this.sCpf),
           nome: this.sNomeCompleto,
           senha: this.sSenhaCadastro
         }
@@ -158,6 +165,7 @@ export class InicioPage {
 
           console.log('Login P: ', login);
           console.log('Senha P: ', senha);
+          this.localStorageService.setarIdentificadorUsuario(this.sLogin)
           this.navCtrl.navigateForward('/area-paciente')
           this.alertaConfirmacao('Paciente', { login: login, senha: senha })
           LOADING.dismiss();
@@ -200,7 +208,13 @@ export class InicioPage {
       // this.usuarioService.autenticar(data);
       this.usuarioService.autenticar(data);
       this.api.setarHeaders()
-      this.navCtrl.navigateForward('/area-paciente')
+      if(this.sLogin.length>6){
+        this.navCtrl.navigateForward('/area-paciente')
+        this.localStorageService.setarIdentificadorUsuario(this.sLogin)
+      } else{
+        this.navCtrl.navigateForward('/area-medico')
+        this.localStorageService.setarIdentificadorUsuario(this.sLogin)
+      }
       LOADING.dismiss();
     }, error => {
       console.log('Erro login', error);

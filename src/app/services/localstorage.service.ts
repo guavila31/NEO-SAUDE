@@ -29,12 +29,17 @@ export class LocalStorageService {
     localStorage.setItem("token", token);
   }
   
-  setarIdCliente(idCliente: any){
-    localStorage.setItem("idClienteTrippin", idCliente);
+  /**
+   * 
+   * @param idUsuario CPF ou CNPJ do usuario
+   */
+  setarIdentificadorUsuario(idUsuario: any){
+    console.log('ID: ', idUsuario);
+    localStorage.setItem("idUsuario", idUsuario);
   }
 
-  obterIdCliente(){
-    return localStorage.getItem('idClienteTrippin');
+  obterIdUsuario(){
+    return localStorage.getItem('idUsuario');
   }
 
   obterDadosUsuarioLogado() {

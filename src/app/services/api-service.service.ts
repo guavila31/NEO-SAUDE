@@ -14,8 +14,8 @@ export class ApiService {
   private headers: HttpHeaders = new HttpHeaders()
     .set('content-type', 'application/json')
     .set('Access-Control-Allow-Origin', '*')
-    // .set('Authorization', `Bearer ${this.localStorageService.obterDadosAutenticacao()}`);
-  .set('Authorization', `Bearer ${this.prod.appToken}`);
+    .set('Authorization', `Bearer ${this.localStorageService.obterDadosAutenticacao()}`);
+  // .set('Authorization', `Bearer ${this.prod.appToken}`);
 
   private url: string = '';
 
@@ -28,8 +28,8 @@ export class ApiService {
     this.headers = this.headers = new HttpHeaders()
       .set('content-type', 'application/json')
       .set('Access-Control-Allow-Origin', '*')
-      // .set('Authorization', `Bearer ${this.localStorageService.obterDadosAutenticacao()}`);
-      .set('Authorization', `Bearer ${this.prod.appToken}`);
+      .set('Authorization', `Bearer ${this.localStorageService.obterDadosAutenticacao()}`);
+      // .set('Authorization', `Bearer ${this.prod.appToken}`);
       console.log('Cabecalho', this.headers);
   }
 

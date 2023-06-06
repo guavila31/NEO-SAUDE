@@ -4,7 +4,7 @@
 
 <div class="conteudo">
   <div class="foto-perfil">
-    <p>GA</p>
+    <p>{{sIniciaisNome}}</p>
   </div>
 
   <div class="formulario">
@@ -16,16 +16,7 @@
           <input type="text" name="sCpf" class="input" placeholder="CPF" disabled [(ngModel)]="sCpf">
           <input type="text" name="sCelular" class="input" placeholder="CELULAR" disabled [(ngModel)]="sCelular">
           <input type="text" name="sEmail" class="input" placeholder="EMAIL" [(ngModel)]="sEmail">
-          <input
-            type="text"
-            class="input"
-            name="sDataNasc"
-            placeholder="DATA DE NASCIMENTO"
-            value="{{formatador.formatarData(iDadosPaciente.dataNascimento)}}"
-            [(ngModel)]="sDataNasc"
-            (input)="formatarData($event)"
-            maxlength="10"
-          >
+          <input type="tel" class="input" name="sDataNasc" placeholder="DATA DE NASCIMENTO" [(ngModel)]="sDataNasc"  mask="00/00/0000">
           <div class="botoes">
             <button class="btn salvar" (click)="salvarPerfil()">Salvar</button>
             <button class="btn excluir" (click)="excluirConta()">Excluir conta</button>

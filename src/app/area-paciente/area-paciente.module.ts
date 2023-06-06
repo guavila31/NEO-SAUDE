@@ -15,6 +15,7 @@ import { HistoricoComponent } from './historico/historico.component';
 import { ModalFiltroReceitasComponent } from '../modals/modal-filtro-receitas/modal-filtro-receitas.component';
 import { ModalDetalheReceitaComponent } from '../modals/modal-detalhe-receita/modal-detalhe-receita.component';
 import { ModalPerfilComponent } from '../modals/modal-perfil/modal-perfil.component';
+import { NgxMaskModule } from 'ngx-mask';
 
 @NgModule({
   imports: [
@@ -24,7 +25,7 @@ import { ModalPerfilComponent } from '../modals/modal-perfil/modal-perfil.compon
     AreaPacientePageRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-
+    NgxMaskModule.forRoot()
   ],
   declarations: [
     AreaPacientePage,

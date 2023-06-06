@@ -10,6 +10,7 @@ import { DatePipe } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
+import { NgxMaskModule } from 'ngx-mask';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { RouteReuseStrategy } from '@angular/router';
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
-    HttpClientModule],
+    HttpClientModule,
+    NgxMaskModule.forRoot()],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, ApiService, DatePipe],
   bootstrap: [AppComponent],
 })

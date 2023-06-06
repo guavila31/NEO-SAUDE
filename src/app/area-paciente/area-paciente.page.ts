@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AreaPacienteService } from './area-paciente.service';
 import { ApiService } from '../services/api-service.service';
 import { PacienteInterface } from '../interface/paciente-interface';
+import { LocalStorageService } from '../services/localstorage.service';
+import { FormatadorDeDadosService } from '../services/formatador-de-dados.service';
 
 @Component({
   selector: 'app-area-paciente',
@@ -14,29 +16,53 @@ export class AreaPacientePage implements OnInit {
   public bPaginaReceita: boolean = false
   public bPaginaHistorico: boolean = false
 
-  private sIdPaciente: string = '1'
+  private sIdPaciente: string = ''
 
-  public iDadosPaciente: PacienteInterface[]=[]
+  public iDadosPaciente: PacienteInterface[] = []
 
   constructor(
     public pacieteService: AreaPacienteService,
-    private api: ApiService
+    private api: ApiService,
+    private localStorageService: LocalStorageService,
+    private formatador: FormatadorDeDadosService
   ) {
     this.bPaginaHome = this.pacieteService.bMenuHome
-
+    // this.getIdUsuario()
+    this.getDadosPaciente()
   }
 
   ngOnInit() {
+  }
+
+  async getIdUsuario() {
+    try {
+      await this.api.req('paciente/cpf/' + this.formatador.formatarCPF(this.localStorageService.obterIdUsuario()), [], 'get', {}, false, false, false)
+        .then(data => {
+          console.log('Retorno: ', data);
+          this.sIdPaciente = data.id
+          this.iDadosPaciente = data
+        });
+    } catch (err) {
+      console.log(err)
+      throw err;
+    }
   }
 
   async getDadosPaciente(event?: any) {
     if (event)
       event.target?.complete();
     try {
-      await this.api.req('paciente/' + this.sIdPaciente, [], 'get', {}, false, false, false)
-        .then(data => {
-          this.iDadosPaciente = data
-        });
+      // await this.api.req('paciente/' + this.sIdPaciente, [], 'get', {}, false, false, false)
+      //   .then(data => {
+      //     this.iDadosPaciente = data
+      //   });
+      await this.api.req('paciente/cpf/' + this.formatador.formatarCPF(this.localStorageService.obterIdUsuario()), [], 'get', {}, false, false, false)
+      .then(data => {
+        console.log('Retorno: ', data);
+        console.log('Retorno: ', data.id);
+        this.sIdPaciente = data.id
+        this.iDadosPaciente = data
+      });
     } catch (err) {
       console.log(err)
       throw err;
