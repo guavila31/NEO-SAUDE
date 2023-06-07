@@ -16,7 +16,7 @@ export class AreaPacientePage implements OnInit {
   public bPaginaReceita: boolean = false
   public bPaginaHistorico: boolean = false
 
-  private sIdPaciente: string = ''
+  private sIdPaciente: string | null
 
   public iDadosPaciente: PacienteInterface[] = []
 
@@ -27,46 +27,27 @@ export class AreaPacientePage implements OnInit {
     private formatador: FormatadorDeDadosService
   ) {
     this.bPaginaHome = this.pacieteService.bMenuHome
-    // this.getIdUsuario()
-    this.getDadosPaciente()
+    this.sIdPaciente = this.localStorageService.obteIdUsuario()
+    // this.getDadosPaciente()
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
-  async getIdUsuario() {
-    try {
-      await this.api.req('paciente/cpf/' + this.formatador.formatarCPF(this.localStorageService.obterIdUsuario()), [], 'get', {}, false, false, false)
-        .then(data => {
-          console.log('Retorno: ', data);
-          this.sIdPaciente = data.id
-          this.iDadosPaciente = data
-        });
-    } catch (err) {
-      console.log(err)
-      throw err;
-    }
-  }
-
-  async getDadosPaciente(event?: any) {
-    if (event)
-      event.target?.complete();
-    try {
-      // await this.api.req('paciente/' + this.sIdPaciente, [], 'get', {}, false, false, false)
-      //   .then(data => {
-      //     this.iDadosPaciente = data
-      //   });
-      await this.api.req('paciente/cpf/' + this.formatador.formatarCPF(this.localStorageService.obterIdUsuario()), [], 'get', {}, false, false, false)
-      .then(data => {
-        console.log('Retorno: ', data);
-        console.log('Retorno: ', data.id);
-        this.sIdPaciente = data.id
-        this.iDadosPaciente = data
-      });
-    } catch (err) {
-      console.log(err)
-      throw err;
-    }
-  }
+  // async getDadosPaciente(event?: any) {
+  //   if (event)
+  //     event.target?.complete();
+  //   try {
+  //     await this.api.req('paciente/cpf/' + this.formatador.formatarCPF(this.sIdPaciente), [], 'get', {}, false, false, false)
+  //     .then(data => {
+  //       console.log('Retorno: ', data);
+  //       console.log('Retorno: ', data.id);
+  //       this.sIdPaciente = data.id
+  //       this.iDadosPaciente = data
+  //     });
+  //   } catch (err) {
+  //     console.log(err)
+  //     throw err;
+  //   }
+  // }
 
 }

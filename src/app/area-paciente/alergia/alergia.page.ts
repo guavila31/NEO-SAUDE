@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { ApiService } from 'src/app/services/api-service.service';
+import { LocalStorageService } from 'src/app/services/localstorage.service';
 
 @Component({
   selector: 'app-alergia',
@@ -12,10 +13,14 @@ import { ApiService } from 'src/app/services/api-service.service';
 export class AlergiaPage {
 
   public aDadosAlergia: any[] = []
+  private sIdPaciente: string | null
   constructor(
     private api: ApiService,
-    private navCtrl: NavController
-  ) { }
+    private navCtrl: NavController,
+    private localStorageService: LocalStorageService
+  ) { 
+    this.sIdPaciente = this.localStorageService.obteIdUsuario()
+  }
 
   ionViewWillEnter() {
     this.getListaAlergia()
@@ -35,7 +40,7 @@ export class AlergiaPage {
 
   async getListaAlergia() {
     try {
-      await this.api.req('alergia/paciente/1', [], 'get', {}, false, false, false)
+      await this.api.req('alergia/paciente/'+ this.sIdPaciente, [], 'get', {}, false, false, false)
         .then(data => {
           console.log('>>>>>>>: ', data)
           this.aDadosAlergia = data
@@ -53,7 +58,7 @@ export class AlergiaPage {
 
   async getAlergia() {
     try {
-      await this.api.req('alergia/contar/paciente/1', [], 'get', {}, true, false, false)
+      await this.api.req('alergia/contar/paciente/'+ this.sIdPaciente, [], 'get', {}, true, false, false)
         .then(data => {
           console.log('>>>>>>>: ', data)
         })

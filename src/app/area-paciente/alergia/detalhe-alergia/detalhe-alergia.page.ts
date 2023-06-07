@@ -4,6 +4,7 @@ import { AlertController, IonModal, LoadingController, NavController, NavParams 
 import { ApiService } from 'src/app/services/api-service.service';
 import { AlergiaInterface } from '../../../interface/alergia-interface'
 import { Router } from '@angular/router';
+import { LocalStorageService } from 'src/app/services/localstorage.service';
 
 @Component({
   selector: 'app-detalhe-alergia',
@@ -40,13 +41,17 @@ export class DetalheAlergiaPage implements OnInit {
 
   public bVaiCriar: boolean = true
   public sIdAlergia: string = ''
+
+  public sIdUsuario: any = ''
   constructor(
     private api: ApiService,
     private alertCtrl: AlertController,
     private loadingCtrl: LoadingController,
     private navCtrl: NavController,
-    private router: Router
+    private router: Router,
+    private localStorageService: LocalStorageService
   ) {
+    this.sIdUsuario = this.localStorageService.obteIdUsuario()
   }
 
   async ngOnInit() {
@@ -209,16 +214,6 @@ export class DetalheAlergiaPage implements OnInit {
 
       }
     }
-    // console.log('Medicamento: ',this.bAlergiaMedicamento)
-    // console.log('Alimento: ',this.bAlergiaAlimento)
-    // console.log('Respiratório: ',this.bAlergiaRespiratorio)
-    // console.log('Pele: ',this.bAlergiaPele)
-    // console.log('Ocular: ',this.bAlergiaOculares)
-    // console.log('Outros: ',this.bAlergiaOutros)
-
-    // console.log('Alta: ',this.bIntensidadeAlta)
-    // console.log('Media: ',this.bIntensidadeMedia)
-    // console.log('Media: ',this.bIntensidadeMedia)
 
     console.log('Intensidade: ', this.sIntensidadeSelecionada)
     console.log('Tipo alergia: ', this.sTipoSelecionado)
@@ -257,7 +252,7 @@ export class DetalheAlergiaPage implements OnInit {
           });
       } catch (err) {
         LOADING.dismiss()
-        this.alertPadrao('Erro!', `Mensagem: ${err}`)
+        // this.alertPadrao('Erro!', `Mensagem: ${err}`)
         console.log(err)
         throw err;
       }
@@ -280,7 +275,7 @@ export class DetalheAlergiaPage implements OnInit {
           });
       } catch (err) {
         LOADING.dismiss()
-        this.alertPadrao('Erro!', `Mensagem: ${err}`)
+        // this.alertPadrao('Erro!', `Mensagem: ${err}`)
         console.log(err)
         throw err;
       }
@@ -313,7 +308,7 @@ export class DetalheAlergiaPage implements OnInit {
         tratamento: this.sTextoTratamento,
         intensidade: this.sIntensidadeSelecionada,
         tipoAlergia: this.sTipoSelecionado,
-        idPacienteDiagnosticado: 1,
+        idPacienteDiagnosticado: this.sIdUsuario,
         id: this.sIdAlergia
       }
       console.log(this.aCadastroAlergia)

@@ -38,6 +38,7 @@ export class InicioPage {
 
   public iDadosPaciente: PacienteInterface | undefined
   public iDadosMedico: MedicoInterface | undefined
+  public sIdUsuario: string | undefined
 
   public bEstaValidado: boolean = false
 
@@ -143,7 +144,7 @@ export class InicioPage {
           console.log('Senha M: ', senha);
           this.navCtrl.navigateForward('/area-medico')
           LOADING.dismiss();
-          this.localStorageService.setarIdentificadorUsuario(this.sLogin)
+          this.localStorageService.setarCpfCrmUsuario(this.sLogin)
           this.alertaConfirmacao('Médico', { login: login, senha: senha })
           
         }, error => {
@@ -165,7 +166,7 @@ export class InicioPage {
 
           console.log('Login P: ', login);
           console.log('Senha P: ', senha);
-          this.localStorageService.setarIdentificadorUsuario(this.sLogin)
+          this.localStorageService.setarCpfCrmUsuario(this.sLogin)
           this.navCtrl.navigateForward('/area-paciente')
           this.alertaConfirmacao('Paciente', { login: login, senha: senha })
           LOADING.dismiss();
@@ -198,22 +199,39 @@ export class InicioPage {
     await alert.present();
   }
 
+  async getDadosPaciente() {
+    try {
+      await this.api.req('paciente/cpf/' + this.formatador.formatarCPF(this.sLogin), [], 'get', {}, false, false, false)
+      .then(data => {
+        console.log('Retorno: ', data);
+        console.log('Retorno: ', data.id);
+        this.sIdUsuario = data.id
+        this.localStorageService.setarIdUsuario(this.sIdUsuario)
+      });
+    } catch (err) {
+      console.log(err)
+      throw err;
+    }
+  }
+
   async entrar() {
     console.log('Login: ', this.sLogin);
     console.log('Senha: ', this.sSenha);
     const LOADING = await this.loadingCtrl.create({ message: "Aguarde...", mode: 'ios' });
     LOADING.present();
-    this.usuarioRepositorioService.autenticar({ "login": this.sLogin, "senha": this.sSenha }).subscribe(data => {
+    this.usuarioRepositorioService.autenticar({ "login": this.formatador.formatarCPF(this.sLogin), "senha": this.sSenha }).subscribe(data => {
       console.log('data: ', data);
       // this.usuarioService.autenticar(data);
       this.usuarioService.autenticar(data);
       this.api.setarHeaders()
       if(this.sLogin.length>6){
         this.navCtrl.navigateForward('/area-paciente')
-        this.localStorageService.setarIdentificadorUsuario(this.sLogin)
+        this.getDadosPaciente()
+        this.localStorageService.setarCpfCrmUsuario(this.sLogin)
       } else{
         this.navCtrl.navigateForward('/area-medico')
-        this.localStorageService.setarIdentificadorUsuario(this.sLogin)
+        this.getDadosPaciente()
+        this.localStorageService.setarCpfCrmUsuario(this.sLogin)
       }
       LOADING.dismiss();
     }, error => {

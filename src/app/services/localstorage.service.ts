@@ -33,12 +33,20 @@ export class LocalStorageService {
    * 
    * @param idUsuario CPF ou CNPJ do usuario
    */
-  setarIdentificadorUsuario(idUsuario: any){
+  setarCpfCrmUsuario(idUsuario: any){
     console.log('ID: ', idUsuario);
+    localStorage.setItem("usuarioCpfCrm", idUsuario);
+  }
+
+  setarIdUsuario(idUsuario: any){
     localStorage.setItem("idUsuario", idUsuario);
   }
 
-  obterIdUsuario(){
+  obterCpfCrmUsuario(){
+    return localStorage.getItem('usuarioCpfCrm');
+  }
+
+  obteIdUsuario() : any{
     return localStorage.getItem('idUsuario');
   }
 

@@ -54,7 +54,7 @@ export class CabecalhoComponent implements OnInit {
       //     this.iDadosPaciente = data
       //     this.sTituloCabecalho = 'Olá ' + this.formatador.formatarPrimeiroNome(data.nome)
       //   });
-      await this.api.req('paciente/cpf/' + this.formatador.formatarCPF(this.localStorageService.obterIdUsuario()), [], 'get', {}, false, false, false)
+      await this.api.req('paciente/cpf/' + this.formatador.formatarCPF(this.localStorageService.obterCpfCrmUsuario()), [], 'get', {}, false, false, false)
       .then(data => {
         console.log('Retorno: ', data);
         this.sIniciaisNome = this.formatador.obterIniciais(data.nome)

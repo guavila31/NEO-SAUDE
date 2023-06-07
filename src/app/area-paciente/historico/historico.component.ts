@@ -4,6 +4,7 @@ import { ModalDetalheReceitaComponent } from 'src/app/modals/modal-detalhe-recei
 import { ModalFiltroReceitasComponent } from 'src/app/modals/modal-filtro-receitas/modal-filtro-receitas.component';
 import { ApiService } from 'src/app/services/api-service.service';
 import { FormatadorDeDadosService } from 'src/app/services/formatador-de-dados.service';
+import { LocalStorageService } from 'src/app/services/localstorage.service';
 
 @Component({
   selector: 'app-historico',
@@ -12,12 +13,14 @@ import { FormatadorDeDadosService } from 'src/app/services/formatador-de-dados.s
 })
 export class HistoricoComponent implements OnInit {
 
-  public sIdPaciente: string = '1'
+  public sIdPaciente: string | null
   public aListaHistorico: any[] = []
   constructor(
     public modalController: ModalController,
     private api: ApiService,
-    public formatadorDeData: FormatadorDeDadosService) {
+    public formatadorDeData: FormatadorDeDadosService,
+    private localStorageService: LocalStorageService) {
+    this.sIdPaciente = this.localStorageService.obteIdUsuario()
     this.getListaHistorico()
   }
 

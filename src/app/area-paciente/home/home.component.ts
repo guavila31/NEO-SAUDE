@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/services/api-service.service';
 import { AreaPacienteService } from '../area-paciente.service';
 import { FormatadorDeDadosService } from 'src/app/services/formatador-de-dados.service';
+import { LocalStorageService } from 'src/app/services/localstorage.service';
 
 @Component({
   selector: 'app-home',
@@ -19,6 +20,8 @@ export class HomeComponent implements OnInit {
 
   public sReceitasAtivas: string = ''
 
+  public sIdPaciente: string | null
+
   get bMenuReceita(): boolean {
     return this.pacieteService.bMenuReceita;
   }
@@ -26,7 +29,11 @@ export class HomeComponent implements OnInit {
   constructor(
     private api: ApiService,
     private pacieteService: AreaPacienteService,
-    public formatadorDeData: FormatadorDeDadosService) { }
+    public formatadorDeData: FormatadorDeDadosService,
+    private localStorageService: LocalStorageService
+  ) {
+    this.sIdPaciente = this.localStorageService.obteIdUsuario()
+  }
 
   ngOnInit() {
     this.sincronizar()
@@ -65,7 +72,7 @@ export class HomeComponent implements OnInit {
   async getContagemAlergia() {
     try {
       await this.api.req(
-        'alergia/contar/paciente/1', [], 'get', {}, false, false, false)
+        'alergia/contar/paciente/'+ this.localStorageService.obteIdUsuario(), [], 'get', {}, false, false, false)
         .then(data => {
           this.sContagemAlta = data.alta
           this.sContagemMedia = data.medias
@@ -84,7 +91,7 @@ export class HomeComponent implements OnInit {
   async getUltimaAlergia() {
     try {
       await this.api.req(
-        'alergia/ultimaReacao/paciente/1', [], 'get', {}, false, false, false)
+        'alergia/ultimaReacao/paciente/'+ this.localStorageService.obteIdUsuario(), [], 'get', {}, false, false, false)
         .then(data => {
           console.log(data)
           this.sDataUltimaReacao = data.dataUltimaReacao
@@ -103,7 +110,7 @@ export class HomeComponent implements OnInit {
   async getContarReceitasAtivas() {
     try {
       await this.api.req(
-        'receita/ativas/contar/1', [], 'get', {}, false, false, false)
+        'receita/ativas/contar/'+ this.sIdPaciente, [], 'get', {}, false, false, false)
         .then(data => {
           this.sReceitasAtivas = data.toString()
         })

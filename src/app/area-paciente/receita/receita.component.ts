@@ -3,6 +3,7 @@ import { ModalController } from '@ionic/angular';
 import { ListaPrescricaoInterface, ListaReceitaInterface } from 'src/app/interface/receita-interface';
 import { ModalDetalheReceitaComponent } from 'src/app/modals/modal-detalhe-receita/modal-detalhe-receita.component';
 import { ApiService } from 'src/app/services/api-service.service';
+import { LocalStorageService } from 'src/app/services/localstorage.service';
 
 @Component({
   selector: 'app-receita',
@@ -11,7 +12,7 @@ import { ApiService } from 'src/app/services/api-service.service';
 })
 export class ReceitaComponent  implements OnInit {
 
-  public sIdPaciente: string = '1'
+  public sIdPaciente: string | null
 
   public aListaPrescricao: ListaPrescricaoInterface[] = []
   public aListaReceita: ListaReceitaInterface[] = []
@@ -19,8 +20,10 @@ export class ReceitaComponent  implements OnInit {
 
   constructor(
     private modalController: ModalController,
-    private api: ApiService
+    private api: ApiService,
+    private localStorageService: LocalStorageService
   ) {
+    this.sIdPaciente = this.localStorageService.obteIdUsuario()
     this.getListaReceitas()
   }
 
