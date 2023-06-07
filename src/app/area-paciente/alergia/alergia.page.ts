@@ -27,7 +27,7 @@ export class AlergiaPage {
   }
 
 
-  formatarData(data: any): string | null {
+  formatarDataDDMMAAAA(data: any): string | null {
     // const dateObj = new Date(data);
     // let novaData = this.datePipe.transform(dateObj, 'dd/MM/yyyy');
     const partes = data.split('-');

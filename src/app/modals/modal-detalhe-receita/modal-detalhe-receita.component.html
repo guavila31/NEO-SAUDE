@@ -15,7 +15,7 @@
     <div class="conteudo">
 
       <div class="competencia" *ngIf="bTemCompetencia">
-        <p>{{aDetalheReceita?.dataExpedicao ? formatadorDeData.formatarData(aDetalheReceita?.dataExpedicao) : ''}}</p>
+        <p>{{aDetalheReceita?.dataExpedicao ? formatadorDeData.formatarDataDDMMAAAA(aDetalheReceita?.dataExpedicao) : ''}}</p>
       </div>
 
       <div class="medicacao" >

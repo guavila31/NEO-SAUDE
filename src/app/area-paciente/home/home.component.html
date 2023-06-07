@@ -49,7 +49,7 @@
     <div class="titulo-alergia">
       <p class="titulo">Última reação</p>
       <p class="nome">{{sTipoAlergia ? sTipoAlergia : "Sem alergia"}}</p>
-      <p class="hora-medicamento">{{sDataUltimaReacao ? formatadorDeData.formatarData(sDataUltimaReacao) : ""}}</p>
+      <p class="hora-medicamento">{{sDataUltimaReacao ? formatadorDeData.formatarDataDDMMAAAA(sDataUltimaReacao) : ""}}</p>
     </div>
     <div [routerLink]="'./alergia'" class="botao-lateral">
       Ver Todos

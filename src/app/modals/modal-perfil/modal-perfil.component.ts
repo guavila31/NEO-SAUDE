@@ -13,12 +13,12 @@ import { LocalStorageService } from 'src/app/services/localstorage.service';
 })
 export class ModalPerfilComponent implements OnInit {
 
-  private sIdPaciente: string = '1'
+  private sIdPaciente: string | null = ''
   public iDadosPaciente: PacienteInterface
 
   public sNome: string | undefined
   public sCpf: string | undefined
-  public sDataNasc: string | undefined
+  public sDataNasc: any
   public sCelular: string | undefined
   public sEmail: string | undefined
 
@@ -37,9 +37,11 @@ export class ModalPerfilComponent implements OnInit {
     private localStorageService: LocalStorageService
   ) {
     this.iDadosPaciente = this.navParams.get('iDadosPaciente');
+    console.log('>>>>', this.iDadosPaciente);
     this.sNome = this.iDadosPaciente.nome
     this.sCpf = this.iDadosPaciente.cpf
-    this.sDataNasc = this.iDadosPaciente.dataNascimento ? this.iDadosPaciente.dataNascimento : ''
+    this.sIdPaciente = this.localStorageService.obteIdUsuario()
+    this.sDataNasc = this.iDadosPaciente.dataNascimento ? formatador.formatarDataDDMMAAAA(this.iDadosPaciente.dataNascimento) : ''
     this.sCelular = this.iDadosPaciente.celular
     this.sEmail = this.iDadosPaciente.email ? this.iDadosPaciente.email : ''
     this.sIniciaisNome = formatador.obterIniciais(this.sNome)
@@ -49,28 +51,14 @@ export class ModalPerfilComponent implements OnInit {
   ngOnInit() {
   }
 
-  formatarData(event: any) {
-    const valor = event.target.value.toString();
-    let dataFormatada = '';
-    if (valor.length === 2) {
-      dataFormatada = valor + '/';
-      this.sDataNasc = dataFormatada;
-    } else if (valor.length === 5) {
-      dataFormatada = valor.slice(0, 3) + '' + valor.slice(3) + '/';
-      this.sDataNasc = dataFormatada;
-    } else if (valor.length > 5) {
-      dataFormatada = valor.slice(0, 10);
-      this.sDataNasc = dataFormatada;
-    }
-    console.log('Data: ', this.sDataNasc)
-  }
-
   construirBody() {
     this.iDadosPaciente = {
+      id: this.sIdPaciente,
       celular: this.sCelular,
       cpf: this.sCpf,
-      dataNascimento: this.sDataNasc,
-      nome: this.sNome
+      dataNascimento: this.formatador.formatarDataAAAAMMDD(this.sDataNasc),
+      nome: this.sNome,
+      email: this.sEmail
     }
   }
 
@@ -79,6 +67,7 @@ export class ModalPerfilComponent implements OnInit {
     const LOADING = await this.loadingCtrl.create({ message: "Aguarde...", mode: 'ios' });
     LOADING.present();
     try {
+      console.log('*******: ', this.iDadosPaciente);
       await this.api.req('paciente', [], 'put', this.iDadosPaciente, true, false, false)
         .then(data => {
           console.log('Data: ', data)
@@ -105,7 +94,7 @@ export class ModalPerfilComponent implements OnInit {
         subHeader: 'Deseja realmente sair?',
         mode: 'ios',
         buttons: [
-          { text: 'Ok', handler: () => { this.navCtrl.navigateRoot('/'), this.modalController.dismiss(), this.localStorageService.logout() } },
+          { text: 'Ok', handler: () => { this.sairDoApp() } },
           { text: 'Cancelar', role: 'cancel' },
         ]
       });
@@ -119,11 +108,38 @@ export class ModalPerfilComponent implements OnInit {
       subHeader: 'Deseja realmente excluir sua conta permanentemente?',
       mode: 'ios',
       buttons: [
-        { text: 'Ok', handler: () => { this.navCtrl.navigateRoot('/'), this.modalController.dismiss() } },
+        { text: 'Ok', handler: () => { this.deleteConta() } },
         { text: 'Cancelar', role: 'cancel' },
       ]
     });
     alert.present();
+  }
+
+  async deleteConta() {
+    const LOADING = await this.loadingCtrl.create({ message: "Aguarde...", mode: 'ios' });
+    LOADING.present();
+    try {
+      await this.api.req('paciente/' + this.sIdPaciente, [], 'delete', {}, false, false, false)
+        .then(data => {
+          console.log('>>>>>>>: ', data)
+          this.alertPadrao('Sucesso', 'Sua conta foi deletada com sucesso')
+          this.sairDoApp()
+          LOADING.dismiss()
+        });
+    } catch (err) {
+      LOADING.dismiss()
+      console.log(err)
+      throw err;
+    }
+  }
+
+  /**
+   * @param modal recebe modal para realizar o seu fechamento 
+   */
+  sairDoApp() {
+    this.navCtrl.navigateRoot('/')
+    this.localStorageService.logout()
+    this.modalController.dismiss()
   }
 
   async alertPadrao(titulo: string, mensagem: string) {

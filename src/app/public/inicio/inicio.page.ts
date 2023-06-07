@@ -142,9 +142,9 @@ export class InicioPage {
 
           console.log('Login M: ', login);
           console.log('Senha M: ', senha);
-          this.navCtrl.navigateForward('/area-medico')
+          // this.navCtrl.navigateForward('/area-medico')
           LOADING.dismiss();
-          this.localStorageService.setarCpfCrmUsuario(this.sLogin)
+          // this.localStorageService.setarCpfCrmUsuario(this.sLogin)
           this.alertaConfirmacao('Médico', { login: login, senha: senha })
           
         }, error => {
@@ -166,8 +166,8 @@ export class InicioPage {
 
           console.log('Login P: ', login);
           console.log('Senha P: ', senha);
-          this.localStorageService.setarCpfCrmUsuario(this.sLogin)
-          this.navCtrl.navigateForward('/area-paciente')
+          // this.localStorageService.setarCpfCrmUsuario(this.sLogin)
+          // this.navCtrl.navigateForward('/area-paciente')
           this.alertaConfirmacao('Paciente', { login: login, senha: senha })
           LOADING.dismiss();
         }, error => {

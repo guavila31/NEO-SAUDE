@@ -61,6 +61,8 @@ export class LocalStorageService {
   }
 
   logout() {
+    localStorage.removeItem('idUsuario');
+    localStorage.removeItem('usuarioCpfCrm');
     localStorage.removeItem('usuarioAutenticadoNeoSaude');
   }
 }
