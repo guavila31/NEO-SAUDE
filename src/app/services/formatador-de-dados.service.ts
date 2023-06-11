@@ -49,4 +49,10 @@ export class FormatadorDeDadosService {
     return primeiraLetraPrimeiroNome + primeiraLetraUltimoNome;
   }
 
+  removePontosTracos(texto: any): string {
+    // Remove pontos e traços substituindo-os por uma string vazia
+    const textoSemPontosTracos = texto.replace(/[.\-]/g, '');
+    return textoSemPontosTracos;
+  }
+
 }

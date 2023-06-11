@@ -17,7 +17,7 @@ export class CabecalhoComponent implements OnInit {
 
   private sIdPaciente: string = ''
 
-  public iDadosPaciente: PacienteInterface[]=[]
+  public iDadosPaciente: PacienteInterface[] = []
 
   public sIniciaisNome: string = ''
 
@@ -26,7 +26,7 @@ export class CabecalhoComponent implements OnInit {
     private api: ApiService,
     private formatador: FormatadorDeDadosService,
     private localStorageService: LocalStorageService,
-    ) {
+  ) {
     this.getDadosPaciente()
   }
 
@@ -49,19 +49,23 @@ export class CabecalhoComponent implements OnInit {
     if (event)
       event.target?.complete();
     try {
-      // await this.api.req('paciente/' + this.sIdPaciente, [], 'get', {}, false, false, false)
-      //   .then(data => {
-      //     this.iDadosPaciente = data
-      //     this.sTituloCabecalho = 'Olá ' + this.formatador.formatarPrimeiroNome(data.nome)
-      //   });
-      await this.api.req('paciente/cpf/' + this.formatador.formatarCPF(this.localStorageService.obterCpfCrmUsuario()), [], 'get', {}, false, false, false)
-      .then(data => {
-        console.log('Retorno: ', data);
-        this.sIniciaisNome = this.formatador.obterIniciais(data.nome)
-        this.sIdPaciente = data.id
-        this.iDadosPaciente = data
-        this.sTituloCabecalho = 'Olá ' + this.formatador.formatarPrimeiroNome(data.nome)
-      });
+      if (this.localStorageService.obterCpfCrmUsuario().length > 7) {
+        await this.api.req('paciente/cpf/' + this.formatador.formatarCPF(this.localStorageService.obterCpfCrmUsuario()), [], 'get', {}, false, false, false)
+          .then(data => {
+            console.log('Retorno: ', data);
+            this.sIniciaisNome = this.formatador.obterIniciais(data.nome)
+            this.sIdPaciente = data.id
+            this.iDadosPaciente = data
+            this.sTituloCabecalho = 'Olá ' + this.formatador.formatarPrimeiroNome(data.nome)
+          });
+        } else{
+        await this.api.req('medico/crm/' + this.formatador.formatarCPF(this.localStorageService.obterCpfCrmUsuario()), [], 'get', {}, false, false, false)
+          .then(data => {
+            console.log('Retorno: ', data);
+            this.sIniciaisNome = this.formatador.obterIniciais(data.nome)
+            this.sTituloCabecalho = 'Olá ' + this.formatador.formatarPrimeiroNome(data.nome)
+          });
+      }
     } catch (err) {
       console.log(err)
       throw err;

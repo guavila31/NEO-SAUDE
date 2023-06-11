@@ -168,7 +168,7 @@ export class InicioPage {
           console.log('Senha P: ', senha);
           // this.localStorageService.setarCpfCrmUsuario(this.sLogin)
           // this.navCtrl.navigateForward('/area-paciente')
-          this.alertaConfirmacao('Paciente', { login: login, senha: senha })
+          this.alertaConfirmacao('Paciente', { login: this.formatador.removePontosTracos(login), senha: senha })
           LOADING.dismiss();
         }, error => {
           console.log('Erro login', error);
@@ -191,6 +191,17 @@ export class InicioPage {
         text: 'Ok',
         handler: () => {
           this.usuarioRepositorioService.autenticar(dadosLogin);
+          this.usuarioService.autenticar(dadosLogin);
+          this.api.setarHeaders()
+          if(dadosLogin.login.length>6){
+            this.navCtrl.navigateForward('/area-paciente')
+            this.getDadosPaciente()
+            this.localStorageService.setarCpfCrmUsuario(this.sLogin)
+          } else{
+            this.navCtrl.navigateForward('/area-medico')
+            this.getDadosMedico(this.sLogin)
+            this.localStorageService.setarCpfCrmUsuario(this.sLogin)
+          }
         }
       }
       ]
@@ -214,24 +225,42 @@ export class InicioPage {
     }
   }
 
-  async entrar() {
-    console.log('Login: ', this.sLogin);
-    console.log('Senha: ', this.sSenha);
+  /**
+   * @param sCrm Numero do CRM 
+   */
+  async getDadosMedico(sCrm: string) {
+    try {
+      await this.api.req('medico/crm/' + sCrm, [], 'get', {}, false, false, false)
+      .then(data => {
+        console.log('Retorno: ', data);
+        console.log('Retorno: ', data.id);
+        this.sIdUsuario = data.id
+        this.localStorageService.setarIdUsuario(this.sIdUsuario)
+      });
+    } catch (err) {
+      console.log(err)
+      throw err;
+    }
+  }
+
+  async entrar(login: string, senha: string) {
+    console.log('Login: ', login);
+    console.log('Senha: ', senha);
     const LOADING = await this.loadingCtrl.create({ message: "Aguarde...", mode: 'ios' });
     LOADING.present();
-    this.usuarioRepositorioService.autenticar({ "login": this.formatador.formatarCPF(this.sLogin), "senha": this.sSenha }).subscribe(data => {
+    this.usuarioRepositorioService.autenticar({ "login": this.formatador.formatarCPF(login), "senha": senha }).subscribe(data => {
       console.log('data: ', data);
       // this.usuarioService.autenticar(data);
       this.usuarioService.autenticar(data);
       this.api.setarHeaders()
-      if(this.sLogin.length>6){
+      if(login.length>6){
         this.navCtrl.navigateForward('/area-paciente')
         this.getDadosPaciente()
-        this.localStorageService.setarCpfCrmUsuario(this.sLogin)
+        this.localStorageService.setarCpfCrmUsuario(login)
       } else{
         this.navCtrl.navigateForward('/area-medico')
-        this.getDadosPaciente()
-        this.localStorageService.setarCpfCrmUsuario(this.sLogin)
+        this.getDadosMedico(login)
+        this.localStorageService.setarCpfCrmUsuario(login)
       }
       LOADING.dismiss();
     }, error => {

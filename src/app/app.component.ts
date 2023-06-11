@@ -9,13 +9,20 @@ import { NavController } from '@ionic/angular';
 })
 export class AppComponent {
   constructor(private localStorageService: LocalStorageService, private navCtrl: NavController) {
-    if(this.localStorageService.obterDadosAutenticacao().length){
-      console.log('Esta logado!', this.localStorageService.obterDadosAutenticacao().length );
-      this.navCtrl.navigateForward('/area-paciente')
-    } else{
+
+    console.log('CRM ou CPF : ', this.localStorageService.obteIdUsuario());
+    if (this.localStorageService.obterCpfCrmUsuario() && this.localStorageService.obterCpfCrmUsuario().length) {
+      if (this.localStorageService.obterCpfCrmUsuario().length > 6)
+        this.navCtrl.navigateForward('/area-paciente')
+      else
+        this.navCtrl.navigateForward('/area-medico')
+
+      console.log('Esta logado! : ', this.localStorageService.obterCpfCrmUsuario().length);
+      console.log('CRM ou CPF : ', this.localStorageService.obteIdUsuario());
+    } else {
       console.log('Não esta logado!');
     }
   }
 
-  
+
 }

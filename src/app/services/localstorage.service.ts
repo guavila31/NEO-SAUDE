@@ -42,7 +42,7 @@ export class LocalStorageService {
     localStorage.setItem("idUsuario", idUsuario);
   }
 
-  obterCpfCrmUsuario(){
+  obterCpfCrmUsuario(): any{
     return localStorage.getItem('usuarioCpfCrm');
   }
 
