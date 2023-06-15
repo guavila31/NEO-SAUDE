@@ -55,4 +55,16 @@ export class FormatadorDeDadosService {
     return textoSemPontosTracos;
   }
 
+  /**
+   * @returns retorna a data de hoje formatada em AAAA-MM-DD
+   */
+  getDataHoje(): string {
+    const HOJE = new Date();
+    const ANO = HOJE.getFullYear();
+    const MES = (HOJE.getMonth() + 1).toString().padStart(2, '0');
+    const DIA = HOJE.getDate().toString().padStart(2, '0');
+    const dataFormatada = `${ANO}-${MES}-${DIA}`;
+    return dataFormatada
+  }
+
 }

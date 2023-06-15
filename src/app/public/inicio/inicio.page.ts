@@ -195,7 +195,7 @@ export class InicioPage {
           this.api.setarHeaders()
           if(dadosLogin.login.length>6){
             this.navCtrl.navigateForward('/area-paciente')
-            this.getDadosPaciente()
+            this.getDadosPaciente(dadosLogin.login)
             this.localStorageService.setarCpfCrmUsuario(this.sLogin)
           } else{
             this.navCtrl.navigateForward('/area-medico')
@@ -210,9 +210,9 @@ export class InicioPage {
     await alert.present();
   }
 
-  async getDadosPaciente() {
+  async getDadosPaciente(sCpf: string) {
     try {
-      await this.api.req('paciente/cpf/' + this.formatador.formatarCPF(this.sLogin), [], 'get', {}, false, false, false)
+      await this.api.req('paciente/cpf/' + this.formatador.formatarCPF(sCpf), [], 'get', {}, false, false, false)
       .then(data => {
         console.log('Retorno: ', data);
         console.log('Retorno: ', data.id);
@@ -248,14 +248,16 @@ export class InicioPage {
     console.log('Senha: ', senha);
     const LOADING = await this.loadingCtrl.create({ message: "Aguarde...", mode: 'ios' });
     LOADING.present();
-    this.usuarioRepositorioService.autenticar({ "login": this.formatador.formatarCPF(login), "senha": senha }).subscribe(data => {
+    this.usuarioRepositorioService.autenticar({ "login": this.formatador.formatarCPF(login), "senha": senha }).subscribe(async (data) => {
       console.log('data: ', data);
       // this.usuarioService.autenticar(data);
       this.usuarioService.autenticar(data);
       this.api.setarHeaders()
       if(login.length>6){
+        await this.getDadosPaciente(login)
         this.navCtrl.navigateForward('/area-paciente')
-        this.getDadosPaciente()
+        console.log('ID: >>>', this.sIdUsuario);
+        this.localStorageService.setarIdUsuario(this.sIdUsuario)
         this.localStorageService.setarCpfCrmUsuario(login)
       } else{
         this.navCtrl.navigateForward('/area-medico')

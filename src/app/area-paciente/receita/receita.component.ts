@@ -3,6 +3,7 @@ import { ModalController } from '@ionic/angular';
 import { ListaPrescricaoInterface, ListaReceitaInterface } from 'src/app/interface/receita-interface';
 import { ModalDetalheReceitaComponent } from 'src/app/modals/modal-detalhe-receita/modal-detalhe-receita.component';
 import { ApiService } from 'src/app/services/api-service.service';
+import { IdentificadorGeneroServiceService } from 'src/app/services/identificador-genero.service';
 import { LocalStorageService } from 'src/app/services/localstorage.service';
 
 @Component({
@@ -10,18 +11,21 @@ import { LocalStorageService } from 'src/app/services/localstorage.service';
   templateUrl: './receita.component.html',
   styleUrls: ['./receita.component.scss'],
 })
-export class ReceitaComponent  implements OnInit {
+export class ReceitaComponent implements OnInit {
 
   public sIdPaciente: string | null
 
   public aListaPrescricao: ListaPrescricaoInterface[] = []
-  public aListaReceita: ListaReceitaInterface[] = []
-
+  public aListaReceita: any[] = []
+  // public aListaReceita: ListaReceitaInterface[] = []
+  public aDadosMedico: any
+  public bExecutou: boolean = false
 
   constructor(
     private modalController: ModalController,
     private api: ApiService,
-    private localStorageService: LocalStorageService
+    private localStorageService: LocalStorageService,
+    private identGenero: IdentificadorGeneroServiceService,
   ) {
     this.sIdPaciente = this.localStorageService.obteIdUsuario()
     this.getListaReceitas()
@@ -37,8 +41,8 @@ export class ReceitaComponent  implements OnInit {
     }, 1000);
   }
 
-  ngOnInit() {}
-  async abrirDetalhes(idReceita: number){
+  ngOnInit() { }
+  async abrirDetalhes(idReceita: number) {
     const modal = await this.modalController.create({
       component: ModalDetalheReceitaComponent,
       cssClass: 'modal-filtro-receitas',
@@ -57,6 +61,7 @@ export class ReceitaComponent  implements OnInit {
       await this.api.req('receita/ativas/' + this.sIdPaciente, [], 'get', {}, false, false, false)
         .then(data => {
           this.aListaReceita = data
+          this.aDadosMedico = data.dadosMedico
           console.log('Receitas: ', this.aListaReceita)
         });
     } catch (err) {

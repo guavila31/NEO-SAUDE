@@ -53,3 +53,19 @@ export interface ListaPrescricaoInterface {
   dataExpedicao: string;
   ativo: boolean;
 }
+
+
+export interface InserirReceita {
+  idMedico?:    number;
+  cpfPaciente?: string;
+  prescricao?:  InserirPrescricao[];
+  observacao?:  string;
+}
+
+export interface InserirPrescricao {
+  quantidadeDeDias?: number;
+  frequencia?:       string;
+  dataExpedicao?:    string;
+  idMedicamento?:    number;
+}
+

@@ -15,6 +15,7 @@ import { HomeComponent } from '../area-paciente/home/home.component';
 import { ReceitaComponent } from '../area-paciente/receita/receita.component';
 import { ModalDetalheReceitaComponent } from '../modals/modal-detalhe-receita/modal-detalhe-receita.component';
 import { ModalFiltroReceitasComponent } from '../modals/modal-filtro-receitas/modal-filtro-receitas.component';
+import { NgxMaskModule } from 'ngx-mask';
 
 @NgModule({
   imports: [
@@ -22,6 +23,7 @@ import { ModalFiltroReceitasComponent } from '../modals/modal-filtro-receitas/mo
     FormsModule,
     IonicModule,
     AreaMedicoPageRoutingModule,
+    NgxMaskModule.forRoot()
   ],
   declarations: [
     AreaMedicoPage,

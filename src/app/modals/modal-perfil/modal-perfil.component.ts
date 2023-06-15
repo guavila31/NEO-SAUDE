@@ -57,6 +57,7 @@ export class ModalPerfilComponent implements OnInit {
       this.sIniciaisNome = formatador.obterIniciais(this.sNome)
       console.log('Paciente: ', this.iDadosPaciente)
     } else {
+
       this.sTipoUsuario = 'M'
       this.sNome = this.iDadosMedico.nome
       this.sCrm = this.iDadosMedico.crm
@@ -64,6 +65,8 @@ export class ModalPerfilComponent implements OnInit {
       this.sDataNasc = this.iDadosMedico.dataNascimento ? formatador.formatarDataDDMMAAAA(this.iDadosMedico.dataNascimento) : ''
       this.sCelular = this.iDadosMedico.celular
       this.sEmail = this.iDadosMedico.email ? this.iDadosMedico.email : ''
+      this.sClinica = this.iDadosMedico.clinica ? this.iDadosMedico.clinica : ''
+      this.sEspecialidade = this.iDadosMedico.especialidade ? this.iDadosMedico.especialidade : ''
       this.sIniciaisNome = formatador.obterIniciais(this.sNome)
       console.log('Médico', this.iDadosMedico);
     }
@@ -78,17 +81,18 @@ export class ModalPerfilComponent implements OnInit {
         id: this.sIdUsuario,
         celular: this.sCelular,
         cpf: this.sCpf,
-        dataNascimento: this.formatador.formatarDataAAAAMMDD(this.sDataNasc),
+        dataNascimento: this.sDataNasc ? this.formatador.formatarDataAAAAMMDD(this.sDataNasc) : "",
         nome: this.sNome,
         email: this.sEmail
       }
     } else {
       this.iDadosMedico = {
+        id: "18",
         celular: this.sCelular,
         crm: this.sCrm,
         clinica: this.sClinica,
-        especialidade: this.sCrm,
-        dataNascimento: this.formatador.formatarDataAAAAMMDD(this.sDataNasc),
+        especialidade: this.sEspecialidade,
+        dataNascimento: this.sDataNasc ? this.formatador.formatarDataAAAAMMDD(this.sDataNasc) : "",
         nome: this.sNome,
         email: this.sEmail
       }
@@ -117,8 +121,8 @@ export class ModalPerfilComponent implements OnInit {
     }else{
       this.construirBody('M')
       try {
-        console.log('*******: ', this.iDadosPaciente);
-        await this.api.req('paciente', [], 'put', this.iDadosPaciente, true, false, false)
+        console.log('*******: ', this.iDadosMedico);
+        await this.api.req('medico', [], 'put', this.iDadosMedico, true, false, false)
           .then(data => {
             console.log('Data: ', data)
             this.alertPadrao('Sucesso!', 'Dados atualizados com sucesso.')
@@ -211,5 +215,9 @@ export class ModalPerfilComponent implements OnInit {
       buttons: [{ text: 'Ok', handler: () => { this.desconectar('F'); } }]
     });
     alert.present();
+  }
+
+  fecharModal(){
+    this.modalController.dismiss()
   }
 }

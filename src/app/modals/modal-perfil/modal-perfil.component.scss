@@ -146,3 +146,23 @@ app-cabecalho {
   }
 }
 
+.rodape {
+  height: 70px;
+  background-color: #0a346b;
+
+  .menus {
+    display: flex;
+    justify-content: center;
+    padding: 5px 15px;
+    height: 100%;
+    align-items: center;
+
+    .icones {
+      width: 40px;
+      height: 40px;
+      font-size: 40px;
+      text-align: center;
+    }
+  }
+}
+

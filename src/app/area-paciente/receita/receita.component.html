@@ -17,14 +17,14 @@
       <p>SEM RECEITAS ATIVAS</p>
     </div>
 
-    <div class="back animate__animated animate__backInUp" (click)="abrirDetalhes(receitas.id)"
-      *ngFor="let receitas of aListaReceita">
+    <div class="back animate__animated animate__flipInY" (click)="abrirDetalhes(receitas.idReceita)"
+      *ngFor="let receitas of aListaReceita; let i = index">
       <div class="back-content">
         <div class="cartao">
           <!-- <div class="cartao animate__animated animate__backInUp" *ngFor="let lista of aDadosReceitas" (click)="verReceita(lista)"> -->
           <div class="titulo-cartao">
-            <p>Clinico Geral - {{receitas.id}}</p>
-            <p>DR. RENATO DE AVILA KFOURI</p>
+            <p>{{receitas.dadosMedico.especialidade}} - {{receitas.idReceita}}</p>
+            <p style="text-transform: uppercase;">DR(A). {{receitas.dadosMedico.nome}}</p>
           </div>
           <img src="../../../assets/img/fundo-remedio.jpg" alt="">
           <div class="rodape-cartao">

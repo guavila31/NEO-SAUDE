@@ -16,10 +16,12 @@
 
           <input type="text" name="sCpf" class="input" placeholder="CPF" disabled [(ngModel)]="sCpf" *ngIf="sTipoUsuario === 'P'">
           <input type="text" name="sCrm" class="input" placeholder="CRM" disabled [(ngModel)]="sCrm" *ngIf="sTipoUsuario === 'M'">
-
           <input type="text" name="sCelular" class="input" placeholder="CELULAR" disabled [(ngModel)]="sCelular">
           <input type="text" name="sEmail" class="input" placeholder="EMAIL" [(ngModel)]="sEmail">
           <input type="tel" class="input" name="sDataNasc" placeholder="DATA DE NASCIMENTO" [(ngModel)]="sDataNasc"  mask="00/00/0000">
+
+          <input type="text" name="sEspecialidade" class="input" placeholder="ESPECIALIDADE" [(ngModel)]="sEspecialidade" *ngIf="sTipoUsuario === 'M'">
+          <input type="text" name="sClinica" class="input" placeholder="CLINICA" [(ngModel)]="sClinica" *ngIf="sTipoUsuario === 'M'">
           <div class="botoes">
             <button class="btn salvar" (click)="salvarPerfil('P')"*ngIf="sTipoUsuario === 'P'">Salvar</button>
             <button class="btn salvar" (click)="salvarPerfil('M')"*ngIf="sTipoUsuario === 'M'">Salvar</button>
@@ -39,5 +41,10 @@
 </div>
 
 <ion-footer class="box-rodape">
-  <app-rodape [bExisteModal]="true"></app-rodape>
+  <app-rodape [bExisteModal]="true" *ngIf="sTipoUsuario === 'P'"></app-rodape>
+  <div class="rodape" *ngIf="sTipoUsuario === 'M'">
+    <div class="menus">
+      <div class="icones" (click)="fecharModal()"><ion-icon name="home"></ion-icon></div>
+    </div>
+  </div>
 </ion-footer>

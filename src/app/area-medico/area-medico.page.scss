@@ -225,11 +225,12 @@ ion-toolbar {
   margin: 25px auto;
   padding: 15px;
   width: 90%;
-  height: 720px;
+  height: 750px;
   border: 1px solid #1e1e1e73;
   border-radius: 5px;
   box-shadow: 3px 3px 5px rgba(30, 30, 30, 0.5);
   background-color: #d7f5ffa1;
+
   .fundo {
     position: absolute;
     opacity: 0.5;
@@ -238,17 +239,21 @@ ion-toolbar {
     display: flex;
     z-index: -1;
   }
+
   .detalhe-medico {
     text-align: center;
     font-size: 1.25rem;
     padding-bottom: 25px;
     border-bottom: 1px solid #1e1e1e73;
+
     .clinica {
       color: #1e1e1e;
       font-weight: 600;
       font-size: 1.5rem;
       margin-bottom: 7.5px;
+      height: 20px;
     }
+
     .medico,
     .especialidade {
       color: #1e1e1e;
@@ -257,54 +262,105 @@ ion-toolbar {
       margin-bottom: 3.5px;
       text-transform: uppercase;
     }
+
     .especialidade {
       font-weight: 400;
       margin: 0;
     }
   }
+
   .conteudo {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     height: 515px;
+
     .competencia {
       text-align: center;
       margin: 15px 0;
-      font-size: 1rem;
+      font-size: 18px;
       font-weight: 800;
       color: #fefefe;
       background-color: #1e1e1e;
-      padding: 2px;
+      padding: 6px;
       border-radius: 75px;
+      box-shadow: -2px 3px 6px 0px rgba(0, 0, 0, 0.65);
     }
+
+    .competencia:active {
+      text-align: center;
+      margin: 15px 0;
+      font-size: 18px;
+      font-weight: 800;
+      color: #1e1e1e;
+      background-color: #A0FFF6;
+      padding: 6px;
+      border-radius: 75px;
+      box-shadow: -2px 3px 6px 0px rgba(0, 0, 0, 0.65);
+    }
+
     .medicacao {
       margin-top: 30px;
-      min-height: 50%;
+      min-height: 42%;
       max-height: 100%;
       overflow: scroll;
+
       .detalhe-medicacao {
         margin: 10px 0px 15px 0;
+        border-bottom: 1px solid #1e1e1e4a;
+        min-height: 55px;
+        max-height: 100%;
+
         .box-medicacao {
+          width: 100%;
+          height: 100%;
           display: flex;
           align-items: center;
           justify-content: space-between;
           color: #1e1e1e;
+
+          .icone {
+            font-size: 38px;
+            color: #A83B3B;
+          }
+
+          .icone:active {
+            font-size: 39px;
+            color: #5c2020;
+          }
+
+          .detalhe-remedio {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 5px 5px;
+          }
+
           .nome-remedio {
             font-size: 1rem;
             text-transform: uppercase;
             font-weight: 800;
           }
+
           .tempo {
             background-color: #0a346b;
             color: #fefefe;
             text-transform: uppercase;
-            padding: 4px 20px;
-            font-size: 0.9rem;
+            padding: 4px 10px;
+            height: 28px;
+            min-width: 95px;
+            margin-right: 6px;
+            text-align: center;
+            // padding: 4px 20px;
+            font-size: 15px;
             font-weight: 800;
             border-radius: 50px;
             box-shadow: 3px 3px 5px rgba(30, 30, 30, 0.5);
           }
         }
+
         .frequencia-remedio {
           color: #1e1e1e;
           font-weight: 500;
@@ -314,6 +370,7 @@ ion-toolbar {
         }
       }
     }
+
     .observacao {
       p {
         text-transform: uppercase;
@@ -322,6 +379,7 @@ ion-toolbar {
         font-size: 1.2rem;
         margin: 10px 0 10px 0px;
       }
+
       textarea {
         width: 100%;
         min-height: 150px;
@@ -336,11 +394,13 @@ ion-toolbar {
         font-weight: 600;
       }
     }
+
     .assinatura {
       position: relative;
       top: 35px;
       border-bottom: 1px solid #1e1e1e7d;
       margin: 0 10%;
+
       p {
         font-size: 1.2rem;
         font-weight: 600;
@@ -350,3 +410,385 @@ ion-toolbar {
   }
 }
 
+.modal {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #00000070;
+  display: flex;
+  justify-content: center;
+  z-index: 1;
+
+  .box {
+    border: 1px solid #0a346b;
+    position: relative;
+    top: 220px;
+    margin: 0 auto;
+    width: 335px;
+    height: 268px;
+    background: linear-gradient(#0a346b 45px, #e9f2f5 45px, #e9f2f5 calc(100% - 45px), #0a346b calc(100% - 45px));
+    border-radius: 10px;
+    box-shadow: -12px 16px 22px 0px rgba(0, 0, 0, 0.3);
+
+    color: #fefefe;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0px;
+    font-size: 18px;
+
+    .titulo,
+    .rodape-medicamento {
+      text-transform: uppercase;
+      font-weight: 500;
+
+      .botao-add {
+        border: 1px solid #F6F6F6;
+        padding: 2px 20px;
+        border-radius: 50px;
+        color: #0a346b;
+        background: #f6f6f6;
+        box-shadow: inset -7px 7px 10px 0px rgba(0, 0, 0, 0.3);
+      }
+
+      .botao-add:active {
+        border: 1px solid #F6F6F6;
+        padding: 2px 20px;
+        border-radius: 50px;
+        color: #bfbfbf;
+        background: #0a346b;
+        box-shadow: inset -7px 7px 10px 0px rgba(0, 0, 0, 0.3);
+        font-weight: 600;
+      }
+    }
+
+    .conteudo {
+      background-color: #fff0;
+      background-image: url("../../assets/img/remedios-bg.jpg");
+      background-position: center;
+      /* Center the image */
+      background-repeat: no-repeat;
+      /* Do not repeat the image */
+      background-size: cover;
+      /* Resize the background image to cover the entire container */
+      opacity: 0.6;
+      margin: 11px 0;
+      position: relative;
+      height: 100%;
+      width: 100%;
+
+      label {
+        margin-right: 10px;
+        font-weight: 600;
+      }
+
+      .input-cpf {
+        width: 100%;
+        background: #dddddd;
+        border: 1px solid;
+        border-radius: 4px;
+        padding-left: 5px;
+      }
+
+      .paciente {
+        height: 110px;
+        display: flex;
+        flex-direction: row;
+
+        .perfil {
+          border: 1px solid #28282859;
+          background-color: #fff;
+          width: 100px;
+          height: 100px;
+          border-radius: 100px;
+          margin: auto 15px;
+        }
+
+        .quadro {
+          border: 1px solid #1e1e1e9e;
+          background-color: #fff;
+          padding: 5px;
+          width: 175px;
+          height: 100px;
+          border-radius: 10px;
+          margin: auto;
+          box-shadow: -7px 6px 10px 0px rgba(0, 0, 0, 0.4);
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+        }
+
+        .detalhesPaciente {
+          max-height: 60px;
+          height: 60px;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          overflow: scroll;
+
+          p {
+            color: #0a346b;
+            font-size: 11px;
+            font-weight: 700;
+          }
+        }
+
+        .alergias {
+          color: #0a346b;
+
+          p {
+            text-align: center;
+            font-size: 16px;
+            font-weight: 500;
+            border: 1px solid #1e1e1eb5;
+            border-radius: 15px;
+            background: #dfdfdf;
+            box-shadow: inset -5px 5px 10px 0px rgba(0, 0, 0, 0.3);
+          }
+
+          p:active {
+            text-align: center;
+            font-size: 16px;
+            font-weight: 500;
+            border: 1px solid #1e1e1eb5;
+            border-radius: 15px;
+            color: #dfdfdf;
+            background: #0a346b;
+            box-shadow: inset -5px 5px 10px 0px rgba(0, 0, 0, 0.3);
+          }
+        }
+      }
+
+      .detalhes {
+        background: #ffffffa8;
+        height: 100%;
+      }
+    }
+  }
+
+  .botao-fechar {
+    position: fixed;
+    left: 10%;
+    right: 10%;
+    bottom: 90px;
+    width: 80%;
+    height: 45px;
+    background-color: #A83B3B;
+    color: #F6F6F6;
+    font-size: 25px;
+    font-weight: 600;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    border: 1px solid #1e1e1e3d;
+    box-shadow: -9px 8px 13px 0px rgba(0, 0, 0, 0.3);
+  }
+
+  .botao-fechar:active {
+    position: fixed;
+    left: 10%;
+    right: 10%;
+    bottom: 90px;
+    width: 80%;
+    height: 45px;
+    background-color: #F6F6F6;
+    color: #A83B3B;
+    font-size: 25px;
+    font-weight: 600;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    border: 1px solid #1e1e1e3d;
+    box-shadow: -9px 8px 13px 0px rgba(0, 0, 0, 0.3);
+    z-index: 1;
+  }
+
+  .botao-voltar {
+    position: fixed;
+    left: 10%;
+    right: 10%;
+    bottom: 90px;
+    width: 80%;
+    height: 45px;
+    background-color: #0a346b;
+    color: #F6F6F6;
+    font-size: 25px;
+    font-weight: 600;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    border: 1px solid #1e1e1e3d;
+    box-shadow: -9px 8px 13px 0px rgba(0, 0, 0, 0.3);
+    z-index: 1;
+  }
+
+  .botao-voltar:active {
+    position: fixed;
+    left: 10%;
+    right: 10%;
+    bottom: 90px;
+    width: 80%;
+    height: 45px;
+    background-color: #F6F6F6;
+    color: #0a346b;
+    font-size: 25px;
+    font-weight: 600;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    border: 1px solid #1e1e1e3d;
+    box-shadow: -9px 8px 13px 0px rgba(0, 0, 0, 0.3);
+  }
+}
+
+.modal-alergias {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #00000070;
+  display: flex;
+  justify-content: center;
+  z-index: 1;
+}
+
+.tooltip-alergias {
+  position: absolute;
+  z-index: 1;
+  top: 185px;
+  width: 290px;
+  height: 350px;
+  padding: 25px 20px;
+  background: rgb(223, 225, 235);
+  border-radius: 50px;
+  box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+  overflow: scroll;
+
+  .conteudo-tooltip {
+    height: 100%;
+    overflow: scroll;
+
+    div,
+    p {
+      font-size: 14px;
+      font-weight: 500;
+
+      .conteudo-alergia {
+        color: #1e1e1e;
+        font-weight: 600;
+      }
+
+      .tipo-alergia {
+        color: #0a346b;
+        font-weight: 600;
+        text-transform: uppercase;
+      }
+
+      .conteudo-alta {
+        color: #A83B3B;
+        font-weight: 600;
+        font-size: 12px;
+        background-color: #a83b3b54;
+        border: 1px solid #1e1e1e61;
+        padding: 0px 10px;
+        border-radius: 10px;
+      }
+
+      .conteudo-media {
+        color: #8f8139;
+        font-weight: 600;
+        font-size: 12px;
+        background-color: #ebc8175c;
+        border: 1px solid #1e1e1e61;
+        padding: 0px 10px;
+        border-radius: 10px;
+      }
+
+      .conteudo-baixa {
+        color: #1e1e1e;
+        font-weight: 600;
+        font-size: 12px;
+        background-color: #1e1e1e37;
+        border: 1px solid #1e1e1e61;
+        padding: 0px 10px;
+        border-radius: 10px;
+      }
+    }
+
+    .observacao {
+      border: 1px solid #383838a3;
+      padding: 5px;
+      border-radius: 5px;
+      background: #f1f1f1;
+      font-size: 12px;
+      color: #1e1e1e;
+      margin-top: 5px;
+      min-height: 25px;
+    }
+
+    .linha {
+      border-bottom: 1px solid #383838a3;
+      margin-top: 10px;
+      margin-bottom: 20px;
+    }
+  }
+}
+
+.fundo-padrao {
+  img {
+    width: 100%;
+    height: 100%;
+    opacity: 0.7;
+  }
+
+  p {
+    text-align: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: #0a346ba6;
+  }
+}
+
+.botao-confirmar {
+  text-align: center;
+  font-size: 25px;
+  background-color: #479833;
+  border: 1px solid #1e1e1e5e;
+  border-radius: 50px;
+  padding: 3px 0px;
+  color: #f6f6f6;
+  font-weight: 400;
+  box-shadow: -4px 5px 4px 0px rgba(0, 0, 0, 0.4);
+  position: relative;
+  top: 65px;
+}
+
+.botao-confirmar:active {
+  text-align: center;
+  font-size: 25px;
+  background-color: #c0c0c0;
+  border: 1px solid #1e1e1e5e;
+  border-radius: 50px;
+  padding: 3px 0px;
+  color: #479833;
+  font-weight: 500;
+  box-shadow: -4px 5px 4px 0px rgba(0, 0, 0, 0.4);
+  position: relative;
+  top: 65px;
+}
+
+ion-item {
+  --background: #fff0
+}
