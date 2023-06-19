@@ -122,6 +122,7 @@ export class ModalPerfilComponent implements OnInit {
       this.construirBody('M')
       try {
         console.log('*******: ', this.iDadosMedico);
+        console.log('Data nascimento: ', this.iDadosMedico.dataNascimento);
         await this.api.req('medico', [], 'put', this.iDadosMedico, true, false, false)
           .then(data => {
             console.log('Data: ', data)
@@ -143,6 +144,7 @@ export class ModalPerfilComponent implements OnInit {
   async desconectar(sModo: string) {
     if (sModo === 'F') {
       this.modalController.dismiss()
+      document.location.reload();
     } else {
       const alert = await this.alertController.create({
         header: 'Atenção',

@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 export class FormatadorDeDadosService {
 
   constructor() { }
-  
+
   /**
    * @param data recebe uma data no formato aaaa-mm-dd
    * @returns retorna dd/mm/aaaa
@@ -25,11 +25,21 @@ export class FormatadorDeDadosService {
    * @returns retorna AAAA-MM-DD
    */
   formatarDataAAAAMMDD(data: any): string | null {
-    const DIA = data.substr(0, 2);
-    const MES = data.substr(2, 2);
-    const ANO = data.substr(4, 4);
-    const dataFormatada = `${ANO}-${MES}-${DIA}`;
-    return dataFormatada;
+    console.log('data recebida: ', data);
+    if (data.includes('/')) {
+      data = data.replace(/\//g, '');
+    } 
+      console.log('formatou: ', data);
+      const DIA = data.substr(0, 2);
+      console.log('dia:', DIA);
+      const MES = data.substr(2, 2);
+      console.log('mes:', MES);
+      const ANO = data.substr(4, 4);
+      console.log('ano:', ANO);
+      const dataFormatada = `${ANO}-${MES}-${DIA}`;
+      console.log('dataFormatada: ',dataFormatada);
+      return dataFormatada;
+    
   }
 
   formatarPrimeiroNome(nomeCompleto: string) {
@@ -45,7 +55,7 @@ export class FormatadorDeDadosService {
     const nomes = nomeCompleto.split(' ');
     const primeiraLetraPrimeiroNome = nomes[0].charAt(0).toUpperCase();
     const primeiraLetraUltimoNome = nomes[nomes.length - 1].charAt(0).toUpperCase();
-    
+
     return primeiraLetraPrimeiroNome + primeiraLetraUltimoNome;
   }
 
