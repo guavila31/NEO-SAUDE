@@ -281,8 +281,8 @@ ion-toolbar {
 }
 
 #wifi-loader .text {
-  position: absolute;
-  bottom: 210px;
+  position: relative;
+  top: 70px;
   display: flex;
   justify-content: center;
   align-items: center;
