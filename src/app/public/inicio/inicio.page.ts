@@ -30,7 +30,7 @@ export class InicioPage {
   public sSenhaCadastro: string = '';
 
   public password: string = '';
-  public confirmPassword: string = '';
+  public sConfirmPassword: string = '';
   public passwordStrength: string = '';
   public nivelSenhaEstilo: any;
   public main: any = { "overflow": "hidden" }
@@ -60,33 +60,54 @@ export class InicioPage {
     private consultaCrm: ConsultaCrmService
   ) { }
 
-  
+
   /**
    * @param modo "S" === "Senha" | "C"=== "Confirmar Senha" 
    */
   checkPasswordStrength(modo: string) {
-    if (modo === "S") {
+    console.log('Senha:', this.sConfirmPassword);
+    console.log('Modo:', modo);
+    if (modo == 'S') {
+      console.log('sSenhaCadastro', this.sSenhaCadastro);
       if (!this.sSenhaCadastro) {
+        console.log('[1]');
         this.passwordStrength = '';
         return;
       }
-      const strongRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*\W+).+$/;
-      const mediumRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d.]{6,}$/;
+      const strongRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$*&@#])[0-9a-zA-Z$*&@#]{6,}$/;
+      const mediumRegex = /^(?=.*\d)(?=.*[a-z])[0-9a-zA-Z$*&@#]{6,}$/;
+      // const strongRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*\W+).+$/;
+      // const mediumRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d.]{6,}$/;
 
+      // if (mediumRegex.test(this.sSenhaCadastro)) {
+      //   console.log('Entrou');
+      //   this.passwordStrength = 'Forte';
+      //   this.nivelSenhaEstilo = { 'color': '#479833', 'border-top': '3px solid #479833', 'width': '90%', '-webkit-text-stroke-width': '0px' };
+      // } else if (mediumRegex.test(this.sSenhaCadastro)) {
+      //   this.passwordStrength = 'Média';
+      //   this.nivelSenhaEstilo = { 'color': '#cec300', 'border-top': '3px solid #cec300', 'width': '40%', '-webkit-text-stroke-width': '0.3px', '-webkit-text-stroke-color': '#a5a5a5' };
+      // } else {
+      //   this.passwordStrength = 'Fraca';
+      //   this.nivelSenhaEstilo = { 'color': '#A83B3B', 'border-top': '3px solid #A83B3B', 'width': '25%', '-webkit-text-stroke-width': '0px' };
+      // }
       if (strongRegex.test(this.sSenhaCadastro)) {
+        console.log('Forte');
         this.passwordStrength = 'Forte';
         this.nivelSenhaEstilo = { 'color': '#479833', 'border-top': '3px solid #479833', 'width': '90%', '-webkit-text-stroke-width': '0px' };
-      } else if (mediumRegex.test(this.sSenhaCadastro)) {
+      }
+      else if (mediumRegex.test(this.sSenhaCadastro)) {
+        console.log('Média');
         this.passwordStrength = 'Média';
         this.nivelSenhaEstilo = { 'color': '#cec300', 'border-top': '3px solid #cec300', 'width': '40%', '-webkit-text-stroke-width': '0.3px', '-webkit-text-stroke-color': '#a5a5a5' };
-      } else {
+      }
+      else {
         this.passwordStrength = 'Fraca';
         this.nivelSenhaEstilo = { 'color': '#A83B3B', 'border-top': '3px solid #A83B3B', 'width': '25%', '-webkit-text-stroke-width': '0px' };
       }
     } else {
       console.log('Passou check');
-      if (this.sSenhaCadastro === this.confirmPassword) {
-        console.log('Entrou check');
+      if (this.sSenhaCadastro === this.sConfirmPassword) {
+        console.log('Entrou check: ', this.sConfirmPassword);
         this.estaIgual = true
       }
     }
@@ -94,7 +115,7 @@ export class InicioPage {
 
   validaSenhas() {
     console.log('Ativou: (EstaIgual?)', this.estaIgual);
-    if (this.sSenhaCadastro === this.confirmPassword) {
+    if (this.sSenhaCadastro === this.sConfirmPassword) {
       console.log('Passou if');
       this.estaIgual = true
     } else {
@@ -150,7 +171,7 @@ export class InicioPage {
           LOADING.dismiss();
           // this.localStorageService.setarCpfCrmUsuario(this.sLogin)
           this.alertaConfirmacao('Médico', { login: login, senha: senha })
-          
+
         }, error => {
           console.log('Erro login', error);
           this.alertPadrao('Erro!', 'Houve algum erro.');
@@ -163,24 +184,39 @@ export class InicioPage {
           nome: this.sNomeCompleto,
           senha: this.sSenhaCadastro
         }
-        if(this.sCpf.length>6){
+        if (this.sCpf.length > 6) {
           this.usuarioRepositorioService.cadastrarPaciente(this.iDadosPaciente).subscribe(data => {
             console.log('Data: ', data);
             let login = this.iDadosPaciente?.cpf
             let senha = this.iDadosPaciente?.senha
-  
+
             console.log('Login P: ', login);
             console.log('Senha P: ', senha);
             // this.localStorageService.setarCpfCrmUsuario(this.sLogin)
             // this.navCtrl.navigateForward('/area-paciente')
             this.alertaConfirmacao('Paciente', { login: this.formatador.removePontosTracos(login), senha: senha })
             LOADING.dismiss();
-          }, error => {
-            console.log('Erro login', error);
-            this.alertPadrao('Erro', 'Houve algum erro!');
+          }, (e: any) => {
+            switch (e.error) {
+              case 'Erro: could not execute statement; SQL [n/a]; constraint [pacientes.cpf]':
+                this.alertPadrao('Atenção!', 'Esse CPF já esta cadastrado!');
+                break;
+              case 'Erro: could not execute statement; SQL [n/a]; constraint [pacientes.celular]':
+                this.alertPadrao('Atenção!', 'Esse celular já esta cadastrado!');
+                break;
+              case 'Erro: could not execute statement; SQL [n/a]; constraint [medicos.crm]':
+                this.alertPadrao('Atenção!', 'Esse CRM já esta cadastrado!');
+                break;
+              case 'Erro: could not execute statement; SQL [n/a]; constraint [medicos.celular]':
+                this.alertPadrao('Atenção!', 'Esse celular já esta cadastrado!');
+                break;
+              default:
+                this.alertPadrao('Ops...', 'Houve algum erro!');
+                break;
+            }
             LOADING.dismiss();
           })
-        }else{
+        } else {
           this.alertPadrao('Atenção!', 'Preencha corretamente o CPF.')
           LOADING.dismiss()
         }
@@ -202,11 +238,11 @@ export class InicioPage {
           this.usuarioRepositorioService.autenticar(dadosLogin);
           this.usuarioService.autenticar(dadosLogin);
           this.api.setarHeaders()
-          if(dadosLogin.login.length>6){
+          if (dadosLogin.login.length > 6) {
             this.navCtrl.navigateForward('/area-paciente')
             this.getDadosPaciente(dadosLogin.login)
             this.localStorageService.setarCpfCrmUsuario(this.sLogin)
-          } else{
+          } else {
             this.navCtrl.navigateForward('/area-medico')
             this.getDadosMedico(this.sLogin)
             this.localStorageService.setarCpfCrmUsuario(this.sLogin)
@@ -222,12 +258,12 @@ export class InicioPage {
   async getDadosPaciente(sCpf: string) {
     try {
       await this.api.req('paciente/cpf/' + this.formatador.formatarCPF(sCpf), [], 'get', {}, false, false, false)
-      .then(data => {
-        console.log('Retorno: ', data);
-        console.log('Retorno: ', data.id);
-        this.sIdUsuario = data.id
-        this.localStorageService.setarIdUsuario(this.sIdUsuario)
-      });
+        .then(data => {
+          console.log('Retorno: ', data);
+          console.log('Retorno: ', data.id);
+          this.sIdUsuario = data.id
+          this.localStorageService.setarIdUsuario(this.sIdUsuario)
+        });
     } catch (err) {
       console.log(err)
       throw err;
@@ -240,12 +276,12 @@ export class InicioPage {
   async getDadosMedico(sCrm: string) {
     try {
       await this.api.req('medico/crm/' + sCrm, [], 'get', {}, false, false, false)
-      .then(data => {
-        console.log('Retorno: ', data);
-        console.log('Retorno: ', data.id);
-        this.sIdUsuario = data.id
-        this.localStorageService.setarIdUsuario(this.sIdUsuario)
-      });
+        .then(data => {
+          console.log('Retorno: ', data);
+          console.log('Retorno: ', data.id);
+          this.sIdUsuario = data.id
+          this.localStorageService.setarIdUsuario(this.sIdUsuario)
+        });
     } catch (err) {
       console.log(err)
       throw err;
@@ -262,13 +298,13 @@ export class InicioPage {
       // this.usuarioService.autenticar(data);
       this.usuarioService.autenticar(data);
       this.api.setarHeaders()
-      if(login.length>6){
+      if (login.length > 6) {
         await this.getDadosPaciente(login)
         this.navCtrl.navigateForward('/area-paciente')
         console.log('ID: >>>', this.sIdUsuario);
         this.localStorageService.setarIdUsuario(this.sIdUsuario)
         this.localStorageService.setarCpfCrmUsuario(login)
-      } else{
+      } else {
         this.navCtrl.navigateForward('/area-medico')
         this.getDadosMedico(login)
         this.localStorageService.setarCpfCrmUsuario(login)
@@ -283,12 +319,13 @@ export class InicioPage {
 
   alterarTipoUsuario() {
     this.bEMedico = !this.bEMedico
-
+    this.sConfirmPassword = ''
     if (this.bEMedico)
       this.sTipoUsuario = 'paciente'
     else
       this.sTipoUsuario = 'médico'
     console.log('Usuario: ', this.bEMedico);
+    console.log('Senha:', this.sConfirmPassword);
   }
 
   alterarTipoEntrada() {
@@ -299,7 +336,7 @@ export class InicioPage {
       // this.form = { "background-image": "linear-gradient(to bottom, transparent 50%, #dbdbdb 50%)"}
     } else {
       this.main = { "overflow": "visible" }
-      this.form = { "background": "#dbdbdb", "transition": "2.5s ease-in-out"}
+      this.form = { "background": "#dbdbdb", "transition": "2.5s ease-in-out" }
 
     }
 
@@ -315,9 +352,9 @@ export class InicioPage {
       });
       await loading.present();
       try {
-      this.aCrmEncontrado = this.consultaCrm.buscarCrm(sCrm)
-      console.log('CRM', this.aCrmEncontrado);
-      loading.dismiss()
+        this.aCrmEncontrado = this.consultaCrm.buscarCrm(sCrm)
+        console.log('CRM', this.aCrmEncontrado);
+        loading.dismiss()
       } catch (err: any) {
         console.log(err.error)
         // this.alertPadrao('Ops!', 'Não foi encontrado nenhum médico com esse CRM')

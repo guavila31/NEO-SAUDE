@@ -84,18 +84,18 @@
           </div>
 
           <div class="inputRegistro">
-            <input type="tel" required="" autocomplete="off" mask="(00) 00000-0000 || (00) 0000-0000" name="sCelular" [(ngModel)]="sCelular">
+            <input type="tel" required="" autocomplete="off" mask="(00) 00000-0000||(00) 0000-0000" name="sCelular" [(ngModel)]="sCelular">
             <label for="name">Celular</label> 
           </div>
           <div class="inputRegistro">
-            <input type="password" required="" autocomplete="off" (input)="checkPasswordStrength('S')" name="sSenhaCadastro" [(ngModel)]="sSenhaCadastro">
+            <input type="password" autocomplete="off" (input)="checkPasswordStrength('S')" name="sSenhaCadastro" [(ngModel)]="sSenhaCadastro">
             <label for="sSenhaCadastro">Senha</label>
-            <div *ngIf="password" [ngStyle]="nivelSenhaEstilo" class="nivel-senha">
-              <p>{{ passwordStrength}}</p>
+            <div *ngIf="sSenhaCadastro" [ngStyle]="nivelSenhaEstilo" class="nivel-senha">
+              <p>{{passwordStrength}}</p>
             </div>
           </div>
           <div class="inputRegistro">
-            <input type="password" required="" autocomplete="off" [(ngModel)]="confirmPassword" (blur)="validaSenhas()" (input)="checkPasswordStrength('C')">
+            <input type="password" autocomplete="off" (input)="checkPasswordStrength('C')" name="sConfirmPassword" [(ngModel)]="sConfirmPassword" (blur)="validaSenhas()">
             <label for="sSenhaCadastro">Confirmar Senha</label>
             <div [hidden]="estaIgual" class="confirmar-senha">
               <p>Senha de confirmação está diferente !</p>
