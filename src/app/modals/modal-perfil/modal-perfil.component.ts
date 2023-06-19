@@ -68,6 +68,7 @@ export class ModalPerfilComponent implements OnInit {
       this.sClinica = this.iDadosMedico.clinica ? this.iDadosMedico.clinica : ''
       this.sEspecialidade = this.iDadosMedico.especialidade ? this.iDadosMedico.especialidade : ''
       this.sIniciaisNome = formatador.obterIniciais(this.sNome)
+
       console.log('Médico', this.iDadosMedico);
     }
   }
@@ -87,7 +88,7 @@ export class ModalPerfilComponent implements OnInit {
       }
     } else {
       this.iDadosMedico = {
-        id: "18",
+        id: this.iDadosMedico.id,
         celular: this.sCelular,
         crm: this.sCrm,
         clinica: this.sClinica,
@@ -210,7 +211,7 @@ export class ModalPerfilComponent implements OnInit {
       spinner: 'bubbles'
     });
     await loading.present();
-    this.navCtrl.navigateRoot('/')
+    this.navCtrl.navigateRoot('/', { animationDirection: 'back' })
     this.localStorageService.logout()
     this.modalController.dismiss()
   }

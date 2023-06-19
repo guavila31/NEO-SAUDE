@@ -87,7 +87,7 @@ export class AreaMedicoPage implements OnInit {
     });
     await loading.present();
     let dados = {
-      "idMedico": 11,
+      "idMedico": this.iDadosMedico?.id,
       "cpfPaciente": this.iDadosPaciente?.cpf,
       "prescricoes": this.iDadosPreescricao,
       "observacao": this.sObservacaoReceita
