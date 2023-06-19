@@ -10,6 +10,8 @@ import { MedicamentoInterface } from '../interface/medicamento-interface';
 import { PacienteInterface } from '../interface/paciente-interface';
 import { AlergiaInterface } from '../interface/alergia-interface';
 import { InserirPrescricao, InserirReceita } from '../interface/receita-interface';
+import { NavigationEnd, Router } from '@angular/router';
+import { ConsultaCrmService } from '../repository/consulta-crm.service';
 
 @Component({
   selector: 'app-area-medico',
@@ -62,13 +64,20 @@ export class AreaMedicoPage implements OnInit {
     private modalController: ModalController,
     private localStorageService: LocalStorageService,
     private alertController: AlertController,
-    private loadingController: LoadingController
+    private loadingController: LoadingController,
+    private router: Router,
+    private consultaCrm: ConsultaCrmService
   ) {
     this.getDadosMedico()
     this.getMedicamentos()
   }
 
   ngOnInit() {
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.localStorageService.setarRota(event.url)
+      }
+    });
   }
 
   async enviarReceita() {

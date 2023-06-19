@@ -201,7 +201,13 @@ export class ModalPerfilComponent implements OnInit {
   /**
    * @param modal recebe modal para realizar o seu fechamento 
    */
-  sairDoApp() {
+  async sairDoApp() {
+    const loading = await this.loadingCtrl.create({
+      message: 'Saindo...',
+      duration: 1000,
+      spinner: 'bubbles'
+    });
+    await loading.present();
     this.navCtrl.navigateRoot('/')
     this.localStorageService.logout()
     this.modalController.dismiss()

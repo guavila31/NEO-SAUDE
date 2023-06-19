@@ -62,32 +62,41 @@
           </div>
 
         <div class="formulario-registro">
-          <div class="inputRegistro">
-            <input type="text" required="" autocomplete="off" name="sNomeCompleto" [(ngModel)]="sNomeCompleto">
-            <label for="name">Nome Completo</label>
-          </div>
+
           <div class="inputRegistro" *ngIf="!bEMedico">
             <input type="tel" required="" autocomplete="off" mask="000.000.000-00" name="sCpf" [(ngModel)]="sCpf">
             <label for="name">CPF</label>
           </div>
+
           <div class="inputRegistro" *ngIf="bEMedico">
-            <input type="tel" required="" autocomplete="off" mask="000-000" name="sCrm" [(ngModel)]="sCrm">
+            <input type="tel" required="" autocomplete="off" mask="000-000" name="sCrm" [(ngModel)]="sCrm" (input)="procurarCrm($event)">
             <label for="name">CRM</label>
           </div>
+
+          <div class="inputRegistro" *ngIf="!bEMedico">
+            <input type="text" required="" autocomplete="off" name="sNomeCompleto" [(ngModel)]="sNomeCompleto">
+            <label for="name">Nome Completo</label>
+          </div>
+
+          <div class="inputRegistro" *ngIf="bEMedico">
+            <input type="text" required="" autocomplete="off" name="sNomeCompleto" [(ngModel)]="sNomeCompleto">
+            <label for="name">Nome Completo</label>
+          </div>
+
           <div class="inputRegistro">
             <input type="tel" required="" autocomplete="off" mask="(00) 00000-0000 || (00) 0000-0000" name="sCelular" [(ngModel)]="sCelular">
             <label for="name">Celular</label> 
           </div>
           <div class="inputRegistro">
-            <input type="password" required="" autocomplete="off" [(ngModel)]="password" (input)="checkPasswordStrength('S')" name="sSenhaCadastro" [(ngModel)]="sSenhaCadastro">
-            <label for="password">Senha</label>
+            <input type="password" required="" autocomplete="off" (input)="checkPasswordStrength('S')" name="sSenhaCadastro" [(ngModel)]="sSenhaCadastro">
+            <label for="sSenhaCadastro">Senha</label>
             <div *ngIf="password" [ngStyle]="nivelSenhaEstilo" class="nivel-senha">
               <p>{{ passwordStrength}}</p>
             </div>
           </div>
           <div class="inputRegistro">
             <input type="password" required="" autocomplete="off" [(ngModel)]="confirmPassword" (blur)="validaSenhas()" (input)="checkPasswordStrength('C')">
-            <label for="password">Confirmar Senha</label>
+            <label for="sSenhaCadastro">Confirmar Senha</label>
             <div [hidden]="estaIgual" class="confirmar-senha">
               <p>Senha de confirmação está diferente !</p>
             </div>

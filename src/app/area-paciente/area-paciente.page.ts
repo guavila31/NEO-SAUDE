@@ -4,6 +4,7 @@ import { ApiService } from '../services/api-service.service';
 import { PacienteInterface } from '../interface/paciente-interface';
 import { LocalStorageService } from '../services/localstorage.service';
 import { FormatadorDeDadosService } from '../services/formatador-de-dados.service';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-area-paciente',
@@ -24,14 +25,21 @@ export class AreaPacientePage implements OnInit {
     public pacieteService: AreaPacienteService,
     private api: ApiService,
     private localStorageService: LocalStorageService,
-    private formatador: FormatadorDeDadosService
+    private formatador: FormatadorDeDadosService,
+    private router: Router
   ) {
     this.bPaginaHome = this.pacieteService.bMenuHome
     this.sIdPaciente = this.localStorageService.obteIdUsuario()
     // this.getDadosPaciente()
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.localStorageService.setarRota(event.url)
+      }
+    });
+  }
 
   // async getDadosPaciente(event?: any) {
   //   if (event)

@@ -4,53 +4,69 @@
   </ion-header>
 
   <div class="preescricao">
-    <div class="fundo">
-      <img src="assets/img/Logo-fundo-claro.svg" alt="">
+    <div class="carregando" *ngIf="!bFoiCarregado">
+      <div id="wifi-loader">
+        <svg class="circle-outer" viewBox="0 0 86 86">
+            <circle class="back" cx="43" cy="43" r="40"></circle>
+            <circle class="front" cx="43" cy="43" r="40"></circle>
+            <circle class="new" cx="43" cy="43" r="40"></circle>
+        </svg>
+        <svg class="circle-middle" viewBox="0 0 60 60">
+            <circle class="back" cx="30" cy="30" r="27"></circle>
+            <circle class="front" cx="30" cy="30" r="27"></circle>
+        </svg>
+        <svg class="circle-inner" viewBox="0 0 34 34">
+            <circle class="back" cx="17" cy="17" r="14"></circle>
+            <circle class="front" cx="17" cy="17" r="14"></circle>
+        </svg>
+        <div class="text" data-text="Carregando..."></div>
     </div>
-    <div class="detalhe-medico">
-      <p class="clinica">{{aDadosMedico?.clinica}}</p>
-      <p class="medico">{{!bGenero ? 'DR.' : 'DRA.'}} {{aDadosMedico?.nome}}</p>
-      <p class="especialidade">{{aDadosMedico?.especialidade}} | {{aDadosMedico?.crm}}</p>
     </div>
-    <div class="conteudo">
 
-      <div class="competencia" *ngIf="bTemCompetencia">
-        <p>{{aDetalheReceita?.dataExpedicao ? formatadorDeData.formatarDataDDMMAAAA(aDetalheReceita?.dataExpedicao) : ''}}</p>
+    <div class="carregado" *ngIf="bFoiCarregado">
+      <div class="fundo">
+        <img src="assets/img/Logo-fundo-claro.svg" alt="">
       </div>
-
-      <div class="medicacao" >
-        <div class="detalhe-medicacao" *ngFor="let prescricao of aDetalhePrescricao">
-          <div class="box-medicacao">
-            <p class="nome-remedio">{{prescricao?.dadosMedicamento?.nome}}</p>
-            <p class="tempo">{{prescricao?.quantidadeDias}} Dias</p>
-          </div>
-          <p class="frequencia-remedio">
-            {{prescricao?.frequencia}}
-          </p>
+      <div class="detalhe-medico">
+        <p class="clinica">{{aDadosMedico?.clinica}}</p>
+        <p class="medico">{{!bGenero ? 'DR.' : 'DRA.'}} {{aDadosMedico?.nome}}</p>
+        <p class="especialidade">{{aDadosMedico?.especialidade}} | {{aDadosMedico?.crm}}</p>
+      </div>
+      <div class="conteudo">
+  
+        <div class="competencia" *ngIf="bTemCompetencia">
+          <p>{{aDetalheReceita?.dataExpedicao ? formatadorDeData.formatarDataDDMMAAAA(aDetalheReceita?.dataExpedicao) : ''}}</p>
         </div>
-        <!-- <div class="detalhe-medicacao">
-          <div class="box-medicacao">
-            <p class="nome-remedio">Canesten</p>
-            <p class="tempo">5 DIAS</p>
+  
+        <div class="medicacao" >
+          <div class="detalhe-medicacao" *ngFor="let prescricao of aDetalhePrescricao">
+            <div class="box-medicacao">
+              <p class="nome-remedio">{{prescricao?.dadosMedicamento?.nome}}</p>
+              <p class="tempo">{{prescricao?.quantidadeDias}} Dias</p>
+            </div>
+            <p class="frequencia-remedio">
+              {{prescricao?.frequencia}}
+            </p>
           </div>
-          <p class="frequencia-remedio">
-            Tomar a cada 8 horas
-          </p>
-        </div> -->
-      </div>
-
-      <div class="observacao">
-        <p>observação</p>
-        <div class="texto">
-          <textarea [value]="aDetalheReceita?.observacao" disabled></textarea>
         </div>
+  
+        <div class="observacao">
+          <p>observação</p>
+          <div class="texto">
+            <textarea [value]="aDetalheReceita?.observacao" disabled></textarea>
+          </div>
+        </div>
+  
+        <div class="assinatura" *ngIf="!bTemCompetencia">
+          <p>Ass:</p>
+        </div>
+  
       </div>
-
-      <div class="assinatura" *ngIf="!bTemCompetencia">
-        <p>Ass:</p>
-      </div>
-
     </div>
+  </div>
+
+  <div class="finalizar" (click)="alertFinalizar()" *ngIf="!bTemCompetencia">
+    <div class="botao">FINALIZAR</div>
   </div>
   <div class="rodape">
     <div class="menus">

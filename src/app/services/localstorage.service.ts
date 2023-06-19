@@ -42,6 +42,14 @@ export class LocalStorageService {
     localStorage.setItem("idUsuario", idUsuario);
   }
 
+  setarRota(rota: any){
+    localStorage.setItem("rota", rota);
+  }
+  
+  obteRota() : any{
+    return localStorage.getItem('rota');
+  }
+
   obterCpfCrmUsuario(): any{
     return localStorage.getItem('usuarioCpfCrm');
   }

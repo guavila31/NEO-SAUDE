@@ -20,13 +20,13 @@
       <p>NÃO HÁ HISTÓRICO</p>
     </div>
 
-    <div class="back animate__animated animate__flipInY" *ngFor="let historico of aListaHistorico" (click)="abrirDetalhes(historico.id)">
+    <div class="back animate__animated animate__flipInY" *ngFor="let historico of aListaHistorico" (click)="abrirDetalhes(historico.idReceita)">
       <div class="back-content">
         <div class="cartao">
           <!-- <div class="cartao animate__animated animate__backInUp" *ngFor="let lista of aDadosReceitas" (click)="verReceita(lista)"> -->
           <div class="titulo-cartao">
-            <p>Clinico Geral - {{historico.id}}</p>
-            <p>DR. RENATO DE AVILA KFOURI</p>
+            <p>{{historico.dadosMedico.especialidade}}</p>
+            <p style="text-transform: uppercase;">DR(A). {{historico.dadosMedico.nome}}</p>
           </div>
           <img src="../../../assets/img/fundo-remedio.jpg" alt="">
           <div class="rodape-cartao">

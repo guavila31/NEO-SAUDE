@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AlertController, LoadingController, NavController } from '@ionic/angular';
 import { MedicoInterface } from 'src/app/interface/medico-interface';
 import { PacienteInterface } from 'src/app/interface/paciente-interface';
+import { ConsultaCrmService } from 'src/app/repository/consulta-crm.service';
 import { UsuarioRepositorioService } from 'src/app/repository/usuario.repositorio.service';
 import { ApiService } from 'src/app/services/api-service.service';
 import { FormatadorDeDadosService } from 'src/app/services/formatador-de-dados.service';
@@ -44,6 +45,8 @@ export class InicioPage {
 
   public estaIgual: boolean = true;
 
+  public aCrmEncontrado: any
+
   constructor(
     private api: ApiService,
     private usuarioRepositorioService: UsuarioRepositorioService,
@@ -53,26 +56,27 @@ export class InicioPage {
     private navCtrl: NavController,
     private alertController: AlertController,
     private localStorageService: LocalStorageService,
-    private formatador: FormatadorDeDadosService
+    private formatador: FormatadorDeDadosService,
+    private consultaCrm: ConsultaCrmService
   ) { }
 
-
+  
   /**
    * @param modo "S" === "Senha" | "C"=== "Confirmar Senha" 
    */
   checkPasswordStrength(modo: string) {
     if (modo === "S") {
-      if (!this.password) {
+      if (!this.sSenhaCadastro) {
         this.passwordStrength = '';
         return;
       }
       const strongRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*\W+).+$/;
       const mediumRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d.]{6,}$/;
 
-      if (strongRegex.test(this.password)) {
+      if (strongRegex.test(this.sSenhaCadastro)) {
         this.passwordStrength = 'Forte';
         this.nivelSenhaEstilo = { 'color': '#479833', 'border-top': '3px solid #479833', 'width': '90%', '-webkit-text-stroke-width': '0px' };
-      } else if (mediumRegex.test(this.password)) {
+      } else if (mediumRegex.test(this.sSenhaCadastro)) {
         this.passwordStrength = 'Média';
         this.nivelSenhaEstilo = { 'color': '#cec300', 'border-top': '3px solid #cec300', 'width': '40%', '-webkit-text-stroke-width': '0.3px', '-webkit-text-stroke-color': '#a5a5a5' };
       } else {
@@ -81,7 +85,7 @@ export class InicioPage {
       }
     } else {
       console.log('Passou check');
-      if (this.password === this.confirmPassword) {
+      if (this.sSenhaCadastro === this.confirmPassword) {
         console.log('Entrou check');
         this.estaIgual = true
       }
@@ -90,7 +94,7 @@ export class InicioPage {
 
   validaSenhas() {
     console.log('Ativou: (EstaIgual?)', this.estaIgual);
-    if (this.password === this.confirmPassword) {
+    if (this.sSenhaCadastro === this.confirmPassword) {
       console.log('Passou if');
       this.estaIgual = true
     } else {
@@ -159,22 +163,27 @@ export class InicioPage {
           nome: this.sNomeCompleto,
           senha: this.sSenhaCadastro
         }
-        this.usuarioRepositorioService.cadastrarPaciente(this.iDadosPaciente).subscribe(data => {
-          console.log('Data: ', data);
-          let login = this.iDadosPaciente?.cpf
-          let senha = this.iDadosPaciente?.senha
-
-          console.log('Login P: ', login);
-          console.log('Senha P: ', senha);
-          // this.localStorageService.setarCpfCrmUsuario(this.sLogin)
-          // this.navCtrl.navigateForward('/area-paciente')
-          this.alertaConfirmacao('Paciente', { login: this.formatador.removePontosTracos(login), senha: senha })
-          LOADING.dismiss();
-        }, error => {
-          console.log('Erro login', error);
-          this.alertPadrao('Erro', 'Houve algum erro!');
-          LOADING.dismiss();
-        })
+        if(this.sCpf.length>6){
+          this.usuarioRepositorioService.cadastrarPaciente(this.iDadosPaciente).subscribe(data => {
+            console.log('Data: ', data);
+            let login = this.iDadosPaciente?.cpf
+            let senha = this.iDadosPaciente?.senha
+  
+            console.log('Login P: ', login);
+            console.log('Senha P: ', senha);
+            // this.localStorageService.setarCpfCrmUsuario(this.sLogin)
+            // this.navCtrl.navigateForward('/area-paciente')
+            this.alertaConfirmacao('Paciente', { login: this.formatador.removePontosTracos(login), senha: senha })
+            LOADING.dismiss();
+          }, error => {
+            console.log('Erro login', error);
+            this.alertPadrao('Erro', 'Houve algum erro!');
+            LOADING.dismiss();
+          })
+        }else{
+          this.alertPadrao('Atenção!', 'Preencha corretamente o CPF.')
+          LOADING.dismiss()
+        }
       }
     } else {
       this.alertPadrao('Atenção!', 'Preencha corretamente os campos.')
@@ -295,5 +304,26 @@ export class InicioPage {
     }
 
     console.log('login: ', this.bELogin);
+  }
+
+  async procurarCrm(event: any) {
+    let sCrm = event.target.value
+    if (event.target.value.length === 7) {
+      const loading = await this.loadingCtrl.create({
+        message: 'Procurando...',
+        spinner: 'bubbles'
+      });
+      await loading.present();
+      try {
+      this.aCrmEncontrado = this.consultaCrm.buscarCrm(sCrm)
+      console.log('CRM', this.aCrmEncontrado);
+      loading.dismiss()
+      } catch (err: any) {
+        console.log(err.error)
+        // this.alertPadrao('Ops!', 'Não foi encontrado nenhum médico com esse CRM')
+        loading.dismiss()
+        throw err;
+      }
+    }
   }
 }
